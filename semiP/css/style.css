@@ -1,0 +1,226 @@
+body {
+    margin: 0 auto;
+}
+header {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    white-space: nowrap;
+    background-color: #fff;
+    margin: 0 auto;
+    text-align: center;
+}
+.header-container {
+    width: 1024px;
+    height: 80px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+.section {
+    width: 100%;
+    height: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+.no1 {
+    background-color: burlywood;
+}
+.no2 {
+    background-color: cadetblue;
+}
+.no3 {
+    background-color: chartreuse;
+}
+.no4 {
+    background-color: coral;
+}
+footer {
+    width: 100%;
+    height: 180px;
+    background-color: rgb(197, 197, 197);
+    margin: 0 auto;
+    text-align: center;
+}
+h1 {
+    margin: 25px 0 0 0;
+    font-size: 20px;
+}
+.head {
+    width: 1024px;
+    height: 80px;
+    display: inline-block;
+    text-align: center;
+}
+.header-img {
+    float: left;
+    width: 35px;
+    margin: 20px 5px 0 5px;
+}
+.main-title {
+    width: 144px;
+}
+.search {
+    width: 220px;
+}
+.menu {
+    width: 600px;
+    text-align: right;
+}
+.market {
+    width: 130px;
+}
+.graph {
+    width: 130px;
+}
+.black-list {
+    width: 130px;
+}
+#header-search {
+    width: 200px;
+    height: 26px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 12px;
+}
+.login {
+    width: 60px;
+    height: 80px;
+}
+.login input {
+    width: 60px;
+    height: 26px;
+    background-color: #fff;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 12px;
+}
+
+/* ++++++++++++++++++++++++MARKET+++++++++++++++++++++++= */
+
+.section-body {
+    width: 100%;
+    height: auto;
+    background-color: rgb(153, 226, 85);
+    padding: 120px 0 40px;
+}
+.section-title {
+    text-align: left;
+}
+.section-title h3 {
+    margin: 20px 20px 0;
+}
+.post-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 190px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    background-color: rgb(82, 167, 48);
+    box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.6);
+}
+.board {
+    width: 900px;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 80px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+[class*='box'] {
+    width: 270px;
+    height: 220px;
+    margin: 20px 10px 0;
+    display: inline-block;
+    background-color: rgb(233, 233, 233);
+    border-radius: 8px;
+    border: 1px solid #e9e9e9;
+    overflow: hidden;
+}
+.sumnail {
+    width: 270px;
+    height: 160px;
+    background-color: rgb(175, 175, 175);
+}
+.product-title {
+    float: left;
+    margin: 5px 10px;
+}
+.product-title p {
+    margin: 0;
+    font-size: 15px;
+    color: rgb(119, 119, 119);
+}
+.product-title h3 {
+    margin: 0;
+    font-size: 20px;
+}
+.more {
+    width: 870px;
+    height: 50px;
+    margin: 30px 10px 10px;
+    background-color: rgb(214, 214, 214);
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+/* ++++++++++++++++++++++++MARKET+++++++++++++++++++++++= */
+
+.mini-title {
+    margin: 0 auto;
+    margin-top: 130px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+.login-container {
+    width: 280px;
+    height: 275px;
+    padding: 30px 5px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgb(247, 247, 247);
+    border-radius: 8px;
+    box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.3);
+}
+.login-container form {
+    margin: 55px 0 45px;
+}
+.login-icon {
+    display: inline-block;
+    width: 220px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid rgb(189, 189, 189);
+    border-radius: 5px;
+    background-color: rgb(189, 189, 189);
+    overflow: hidden;
+}
+.profile-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgb(180, 180, 180);
+    border-radius: 40px;
+}
+form input {
+    float: right;
+    width: 180px;
+    height: 30px;
+    margin: 0 0 0px 0;
+    border: 0;
+}
+.btns input {
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    margin: 0 28px;
+    border: 0;
+    background-color: rgb(255, 255, 255 ,0);
+    color: grey;
+    font-size: 16px;
+    cursor: pointer;
+}
