@@ -1,8 +1,0 @@
-2021-04-10 17:37 최민순이 수정함.
-2021-04-10 18:04 choiBranch에서 작성함.
-				18:10 작성.
-				18:13 choiBranch에서 작성.
-				19:39 choiBranch에서 작성.	
-				19:42 choiBranch에서 작성.
-				19:49 choiBranch에서 작성.
-				19:55 choiBranch(local)->/tree/choiBranch로 push
