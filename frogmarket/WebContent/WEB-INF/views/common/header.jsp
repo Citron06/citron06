@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Main Page</title>
+<title>Frog Market</title>
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
@@ -22,7 +22,7 @@
 			</div>
 			<div class="head menu">
 				<div class="head market">
-					<h1>마켓 게시판</h1>
+					<h1><a href="<%= request.getContextPath() %>/market/market">마켓 게시판</a></h1>
 				</div>
 				<div class="head graph">
 					<h1>한눈 그래프</h1>
