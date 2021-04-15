@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>새 프로젝트 생성</h1>
-</body>
-</html>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+    <!-- section시작 -->
+    <section>
+        <div class="section no1"></div>
+        <div class="section no2"></div>
+        <div class="section no3"></div>
+        <div class="section no4"></div>
+    </section>
+    <!-- section끝 -->
+    
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
