@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.js" integrity="sha512-LlFvdZpYhQdASf4aZfSpmyHD6+waYVfJRwfJrBgki7/Uh+TXMLFYcKMRim65+o3lFsfk20vrK9sJDute7BUAUw==" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/graph.css" />
 <!-- section시작 -->
@@ -12,9 +13,9 @@
 		<div class="board black-board">
 		<!-- <div id="chart_div" style="width: 900px; height: 500px;"></div> -->
 		<!--  <input type="button" id="btn-order" value="주문" />-->
-		<div>
-     	 <canvas id="myChart" width="400" height="400"></canvas>
-   		</div>
+			<div>
+     			<canvas id="myChart" style="display:inline-block; width:500px; height:500px"></canvas>
+   			</div>
 		</div>
 	</div>
 </section>
@@ -29,7 +30,7 @@
     	chartPrice=[];
     	chartDate = [];
     	$.ajax({
-    	datatype: "json",
+    	
     	url : "<%=request.getContextPath() %>/graph/drawgraph",
 		
     	success:function(dat){
@@ -53,6 +54,10 @@
     		
     		console.log(typeof chartDate[0]);
     		console.log(Number(chartDate[0].substring(8, 12)));
+    		
+    		
+    	
+    		
     		const DATA_COUNT = 7;
     		const NUMBER_CFG = {count: DATA_COUNT, rmin: 1, rmax: 1, min: 0, max: 100};
 

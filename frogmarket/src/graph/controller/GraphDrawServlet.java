@@ -38,9 +38,10 @@ String keyword = request.getParameter("keyword");
 		
 		List <Graph> list = graphService.selectList(keyword);
 		
-//		for(Graph g : list) {
-//			System.out.println(g);
-//		}
+		
+		for(Graph g : list) {
+			System.out.println(g.getRegDate());
+	}
 		
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new Gson();
