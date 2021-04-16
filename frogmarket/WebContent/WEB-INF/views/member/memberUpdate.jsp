@@ -1,16 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Acount</title>
+<title>Frog Market</title>
+<link rel="stylesheet"
+	href="<%= request.getContextPath() %>/css/style.css" />
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
-
 <body>
-    <h1 class="mini-title">Acount</h1>
+<h1 class="mini-title">Update Profile</h1>
     <div class="acount-container">
         <form class="acount-form" action="">
             <label for="">아이디</label><input type="text" name="" id="">
@@ -27,5 +26,4 @@
         </div>
     </div>
 </body>
-
 </html>
