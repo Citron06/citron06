@@ -1,7 +1,10 @@
+<%@page import="market.model.vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
+<%
+	Product product = (Product)request.getAttribute("product");
+%>
  <!-- section시작 -->
     <section>
         <div class="post-container">
@@ -16,9 +19,10 @@
                 </div>
                 <div class="seller-profile">
                     <div class="seller-profile-info">
-                        <h3>폼폼푸린</h3>
+                        <h3><%=product.getId() %></h3>
                     </div>
                     <div class="seller-good-info">
+                    <!--  -->
                         <h3>좋아요 : 3</h3>
                     </div>
                 </div>

@@ -9,7 +9,8 @@
                 <div class="section-title">
                     <h3>중고거래</h3>
                 </div>
-                <div class="board-box1" onclick="location.href='<%= request.getContextPath()%>/market/marketView';">
+                <div class="board-box1" onclick="location.href='<%= request.getContextPath()%>/market/marketView';" 
+                		style="cursor:pointer;">
                     <div class="sumnail"></div>
                     <div class="product-title">
                         <p>스위치 팝니다</p>
@@ -92,7 +93,8 @@
     </section>
     <!-- section끝 -->
     <!-- 게시글 쓰기 이동 버튼 시작 -->
-    <div class="post-btn"></div>
+    <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/market/marketForm';" 
+                		style="cursor:pointer;"></div>
     <!-- 게시글 쓰기 이동 버튼 끝 -->
-    
+   
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
