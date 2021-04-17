@@ -31,8 +31,12 @@
 					<h1>신고 게시판</h1>
 				</div>
 				<div class="head login">
+<<<<<<< Updated upstream
 					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>';">
 					<!-- <input type="button" value="My Page" onclick="location.href='<%= request.getContextPath() %>';"> -->
+=======
+					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>/member/login';">
+>>>>>>> Stashed changes
 				</div>
 			</div>
 		</div>

@@ -24,6 +24,16 @@ input {
 textarea {
     outline: none;
 }
+<<<<<<< Updated upstream
+=======
+select {
+    outline: none;
+}
+a { 
+    text-decoration: none;
+    color: #000;
+} 
+>>>>>>> Stashed changes
 .header-container {
     width: 1024px;
     height: 80px;
@@ -47,6 +57,7 @@ textarea {
     padding: 320px 40px;
     margin: 0 auto;
     text-align: left;
+<<<<<<< Updated upstream
 }
 .index-banner1 span {
     font-size: 60px;
@@ -65,6 +76,26 @@ textarea {
     margin: 0 auto;
     text-align: left;
 }
+=======
+}
+.index-banner1 span {
+    font-size: 60px;
+    margin: 0;
+    padding: 0;
+}
+.index-banner2 {
+    font-size: 20px;
+    padding: 320px 40px;
+    margin: 0 auto;
+    text-align: right;
+}
+.index-banner3 {
+    font-size: 20px;
+    padding: 320px 40px;
+    margin: 0 auto;
+    text-align: left;
+}
+>>>>>>> Stashed changes
 .index-banner3 span {
     font-size: 60px;
     margin: 0;
@@ -627,7 +658,11 @@ footer {
 .add_product-top select {
     float: right;
     height: 30px;
+<<<<<<< Updated upstream
     margin: 0;
+=======
+    margin: 0 10px;
+>>>>>>> Stashed changes
     margin-top: 120px;
     font-size: 15px;
     border-radius: 10px;
