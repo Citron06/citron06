@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import graph.model.service.GraphService;
 import graph.model.vo.Graph;
@@ -18,7 +19,7 @@ import graph.model.vo.Graph;
 /**
  * Servlet implementation class GraphDrawServlet
  */
-@WebServlet("/graph/drawgraph")
+@WebServlet("/graph/drawGraph")
 public class GraphDrawServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private GraphService graphService = new GraphService();
@@ -44,7 +45,7 @@ String keyword = request.getParameter("keyword");
 	}
 		
 		response.setContentType("application/json; charset=utf-8");
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();
 		String jsonStr = gson.toJson(list);
 		
 		System.out.println(jsonStr);

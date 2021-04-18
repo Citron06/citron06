@@ -9,7 +9,7 @@
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
-<h1 class="mini-title">Update Profile</h1>
+     <h1 class="mini-title">Acount</h1>
     <div class="acount-container">
         <form class="acount-form" action="">
             <label for="">아이디</label><input type="text" name="" id="">

@@ -19,7 +19,7 @@ import graph.model.vo.Graph;
 /**
  * Servlet implementation class GraphServlet
  */
-@WebServlet("/graph/graph")
+@WebServlet("/graph/graphView")
 public class GraphServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
