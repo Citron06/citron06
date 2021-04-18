@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import market.model.vo.Product;
@@ -126,8 +128,8 @@ public class MarketDao {
 			//4-1) ResultSet -> Java객체 옮겨담기
 			while(rset.next()) {
 				product = new Product();
-				
-				product.setId(rset.getString("board_no"));
+				product.setNo(rset.getInt("board_no"));
+				product.setId(rset.getString("seller_id"));
 				product.setTitle(rset.getString("title"));
 				product.setStatus(rset.getString("status"));
 				product.setPrice(rset.getInt("sell_price"));
@@ -178,6 +180,58 @@ public class MarketDao {
 		}
 		
 		return attach;
+	}
+
+	public List<Product> selectList(Connection conn, int start, int end) {
+		PreparedStatement pstmt = null;
+//		String sql = prop.getProperty("selectList");
+		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between ? and ?";
+		ResultSet rset=null;
+		List<Product> list = new ArrayList<Product>();
+		Product product = null;
+		try {
+			//3. PreparedStatement 객체 생성(미완성쿼리)
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+
+			//4. 실행 DML(executeUpdate) -> int , DQL(executeQuery) -> REsultSet
+			rset = pstmt.executeQuery();
+			//4-1) ResultSet -> Java객체 옮겨담기
+			while(rset.next()) {
+				product = new Product();
+				product.setNo(rset.getInt("board_no"));
+				product.setTitle(rset.getString("title"));
+				product.setStatus(rset.getString("status"));
+				product.setPrice(rset.getInt("sell_price"));
+				product.setArea(rset.getString("area_info"));
+				
+//				product.setId(rset.getString("seller_id"));
+//				product.setDescription(rset.getString("description"));
+//				product.setRegDate(rset.getDate("reg_date"));
+
+				
+				//첨부파일이 있는 경우
+				if(rset.getInt("attach_no")!=0) {
+					pAttach attach = new pAttach();
+					attach.setProductNo(rset.getInt("board_no"));
+					attach.setNo(rset.getInt("no"));
+					attach.setOriginalFileName(rset.getString("original_filename"));
+					attach.setRenamedFileName(rset.getString("renamed_filename"));
+					product.setAttach(attach);
+				}
+				
+				list.add(product);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 

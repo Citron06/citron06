@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.MvcUtils;
+import market.model.service.MarketService;
+import market.model.vo.Product;
 
 /**
  * Servlet implementation class MarketListServlet
@@ -17,11 +19,12 @@ import common.MvcUtils;
 @WebServlet("/market/marketList")
 public class MarketListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MarketService marketService = new MarketService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//0. 인코딩처리는 EncodingFilter가 선처리
 		//1. 사용자 입력값
-		final int numPerPage = 5;
+		final int numPerPage = 9;
 		int cPage = 1;
 		try {
 			cPage = Integer.parseInt(request.getParameter("cPage"));
@@ -34,8 +37,8 @@ public class MarketListServlet extends HttpServlet {
 		int end = cPage * numPerPage;
 		int start = (cPage-1)*numPerPage + 1;
 		
-//		List<Board> list = boardService.selectList(start,end);
-//		System.out.println("list@servlet = "+list);
+		List<Product> list = marketService.selectList(start,end);
+		System.out.println("list@servlet = "+list);
 		
 		//댓글카운트 추가
 
@@ -53,7 +56,7 @@ public class MarketListServlet extends HttpServlet {
 		
 		//3. 응답 html처리
 //		request.setAttribute("pageBar", pageBar);
-//		request.setAttribute("list", list);
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/market/marketList.jsp")
 				.forward(request, response);
 	}

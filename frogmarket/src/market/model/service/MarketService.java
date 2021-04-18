@@ -6,6 +6,7 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import market.model.dao.MarketDao;
 import market.model.vo.Product;
@@ -65,6 +66,15 @@ public class MarketService {
 			close(conn);
 		}
 		return product;
+	}
+
+	public List<Product> selectList(int start, int end) {
+		Connection conn = getConnection();
+		//--------Dao 요청----------
+		List<Product> list = marketDao.selectList(conn,start,end);
+		close(conn);
+		
+		return list;
 	}
 
 }

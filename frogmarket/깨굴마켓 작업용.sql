@@ -58,4 +58,16 @@ values(
 insert into p_board values( seq_p_board_no.nextval ,'oneman','동전지갑','new', 5000,'그냥 동전 넣을 수 있는 주머니입니다.',default,'대전')
 ;
 select * from p_board;
-
+select * from p_board where board_no=1;
+select * from member;
+select * from member where member_id='oneman';
+select * from(
+            select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename
+            from p_board b left join p_attach a
+                                        on b.board_no = a.board_no
+            ) B 
+where rnum between 1 and 3
+;
+select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between 1 and 3
+;
+select * from p_attach;

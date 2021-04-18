@@ -13,6 +13,8 @@ import common.MvcUtils;
 import market.model.service.MarketService;
 import market.model.vo.Product;
 import market.model.vo.pAttach;
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class MarketViewServlet
@@ -21,13 +23,13 @@ import market.model.vo.pAttach;
 public class MarketViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MarketService marketService = new MarketService();
-
+	private MemberService memberService = new MemberService();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1. 사용자 입력값 : no
 		int no = 0;
 		try {
-			//no = Integer.parseInt(request.getParameter("no"));
-			no=1;
+			no = Integer.parseInt(request.getParameter("no"));
 			//2. 업무로직 : board객체 조회 (첨부파일 attach조회)
 			Product product = marketService.selectProduct(no);
 			if(product == null) {
@@ -35,7 +37,7 @@ public class MarketViewServlet extends HttpServlet {
 				System.out.println("게시글이 존재하지 않음. 임시경고.");
 			}
 			String id = product.getId();
-			
+			Member member = memberService.selectMemberId(id);
 			//xss 공격방지
 			product.setTitle(MvcUtils.escapeHtml(product.getTitle()));
 			product.setDescription(MvcUtils.escapeHtml(product.getDescription()));
@@ -51,6 +53,7 @@ public class MarketViewServlet extends HttpServlet {
 
 			//3. jsp forwarding
 			request.setAttribute("product", product);
+			request.setAttribute("member", member);
 //			request.setAttribute("commentList", commentList);
 			request.getRequestDispatcher("/WEB-INF/views/market/marketView.jsp")
 					.forward(request, response);

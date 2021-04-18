@@ -1,9 +1,11 @@
+<%@page import="member.model.vo.Member"%>
 <%@page import="market.model.vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	Product product = (Product)request.getAttribute("product");
+	Member member = (Member)request.getAttribute("member");
 %>
  <!-- section시작 -->
     <section>
@@ -19,20 +21,21 @@
                 </div>
                 <div class="seller-profile">
                     <div class="seller-profile-info">
-                        <h3><%=product.getId() %></h3>
+                        <h3><%=member.getNickId() %></h3>
+                        <!-- <h3> 글쓴이 닉네임</h3> -->
                     </div>
                     <div class="seller-good-info">
-                    <!--  -->
-                        <h3>좋아요 : 3</h3>
+                        <h3>좋아요 : <%=member.getGoodScore() %></h3>
+                        <!-- <h3>좋아요 : 숫자</h3> -->
                     </div>
                 </div>
             </div>
             <div class="commet-container">
-                <h1>스위치 팝니다</h1>
+                <h1><%=product.getTitle() %></h1>
                 <br>
-                <span>부산/대구</span>
-                <h3>270,000원</h3>
-                <span>1회 사용 했습니다.<br> 상태 매우 좋습니다.<br>원하시는 분은 010-****-****으로 문자 주세요.</span>
+                <span><%=product.getArea() %></span>
+                <h3><%=product.getPrice() %>원</h3>
+                <span><%=product.getDescription() %></span>
             </div>
             <div class="comment-reader">
                 <h3 style="margin: 10px 35px;">댓글란</h3>
