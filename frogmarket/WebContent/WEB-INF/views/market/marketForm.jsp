@@ -31,20 +31,20 @@
                 <div class="add-product-title">
                     <input placeholder="게시글 제목을 정해주세요" type="text" name="title" id="title" required>
                 </div>
+
+				<label class="input-file-button" for="input-file">업로드</label>
+				<input type="file" name="upFile" id="input-file" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>
+					
                 <div class="add-product-photo">
-                    <div class="add-product-img">
-                        <p>0/5</p>
+                    
+<!--                     <div class="add-product-img">
                     </div>
                     <div class="add-product-img">
                     </div>
                     <div class="add-product-img">
                     </div>
                     <div class="add-product-img">
-                    </div>
-                    <div class="add-product-img">
-                    </div>
-                    <div class="add-product-img">
-                    </div>
+                    </div> -->
                 </div>
                 <div class="add-product-price">
                     <input type="number" name="price" placeholder="￦ 가격 기제" required>
@@ -57,4 +57,23 @@
         </div>
     </section>
     <!-- section끝 -->
+<script>
+function setThumbnail(event){
+	for(var image of event.target.files){
+		var reader = new FileReader();
+		
+		reader.onload = function(event){
+			var img = document.createElement("img");
+			img.setAttribute("src",event.target.result);
+			img.setAttribute("width","82px");
+			img.setAttribute("height","82px");
+			document.querySelector("div.add-product-photo").appendChild(img);
+		};
+		
+		console.log(image);
+		reader.readAsDataURL(image);
+	}
+}
+
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

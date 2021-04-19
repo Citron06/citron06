@@ -77,4 +77,12 @@ public class MarketService {
 		return list;
 	}
 
+	public int selectProductCount() {
+		Connection conn = getConnection();
+		int totalContent = marketDao.selectProductCount(conn);
+		close(conn);
+		
+		return totalContent;
+	}
+
 }

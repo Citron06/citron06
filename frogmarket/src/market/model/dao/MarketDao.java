@@ -234,5 +234,27 @@ public class MarketDao {
 		return list;
 	}
 
+	public int selectProductCount(Connection conn) {
+		PreparedStatement pstmt = null;
+//		String sql = prop.getProperty("selectProductCount");
+		String sql = "select count(*) cnt from p_board";
+		int count = 0;		
+		ResultSet rset=null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				count= rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);			
+		}
+		
+		return count;
+	}
+
 
 }

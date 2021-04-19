@@ -32,7 +32,7 @@
 						}
 					}
 				%>
-                <div class="more"></div>
+                <div class="more"><%=request.getAttribute("pageBar") %></div>
             </div>
         </div>
     </section>

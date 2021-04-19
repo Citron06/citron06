@@ -45,17 +45,17 @@ public class MarketListServlet extends HttpServlet {
 		//List<BoardVer2> list = boardService.selectListVer2(start,end);
 
 		//b. pageBar영역 
-//		int totalContents = boardService.selectBoardCount();
-//		String url = request.getRequestURI(); // /mvc/board/boardList
-//		String pageBar = MvcUtils.getPageBar(
-//					cPage,
-//					numPerPage,
-//					totalContents,
-//					url
-//				);
+		int totalContents = marketService.selectProductCount();
+		String url = request.getRequestURI(); // /mvc/board/boardList
+		String pageBar = MvcUtils.getPageBar(
+					cPage,
+					numPerPage,
+					totalContents,
+					url
+				);
 		
 		//3. 응답 html처리
-//		request.setAttribute("pageBar", pageBar);
+		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/market/marketList.jsp")
 				.forward(request, response);

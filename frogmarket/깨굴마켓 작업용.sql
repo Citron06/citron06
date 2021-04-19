@@ -71,3 +71,4 @@ where rnum between 1 and 3
 select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between 1 and 3
 ;
 select * from p_attach;
+select count(*) cnt from p_board;
