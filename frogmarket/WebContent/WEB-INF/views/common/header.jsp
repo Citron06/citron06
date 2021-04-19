@@ -31,7 +31,7 @@
 					<h1>신고 게시판</h1>
 				</div>
 				<div class="head login">
-					<input type="button" value="Login">
+					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>/member/login';">
 				</div>
 			</div>
 		</div>
