@@ -38,10 +38,10 @@ public class MemberUpdateServlet extends HttpServlet {
 		//
 
 		Member member = new Member(memberId, password, memberRole, email, phone, enrollDate, nickId, goodScore);
-		System.out.println("member@servlet = " + member);
 		
 		//3.업무로직
-//		int result = memberService.updateMember(member);  
+//		int result = memberService.updateMember(member);
+		System.out.println("member@servlet = " + member);
 
 		//4. 사용자피드백 및 리다이렉트 처리
 		HttpSession session = request.getSession();
