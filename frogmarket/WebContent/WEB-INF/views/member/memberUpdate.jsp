@@ -18,12 +18,12 @@
             <label for="">별명</label><input type="text" name="" id="">
             <label for="">이메일</label><input type="email" name="" id="">
             <label for="">전화번호</label><input type="tel" name="" id="">
-        </form>
         <hr>
         <div class="btns">
             <input type="button" name="" id="" value="cancel">
             <input type="button" name="" id="" value="submit">
         </div>
+        </form>
     </div>
 </body>
 </html>
