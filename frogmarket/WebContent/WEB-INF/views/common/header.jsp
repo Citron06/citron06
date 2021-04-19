@@ -22,7 +22,7 @@
 			</div>
 			<div class="head menu">
 				<div class="head market">
-					<h1><a href="<%= request.getContextPath() %>/market/market">마켓 게시판</a></h1>
+					<h1>마켓 게시판</h1>
 				</div>
 				<div class="head graph">
 					<h1>한눈 그래프</h1>
@@ -31,7 +31,16 @@
 					<h1>신고 게시판</h1>
 				</div>
 				<div class="head login">
+<<<<<<< HEAD
 					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>/member/login';">
+=======
+<<<<<<< Updated upstream
+					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>';">
+					<!-- <input type="button" value="My Page" onclick="location.href='<%= request.getContextPath() %>';"> -->
+=======
+					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>/member/login';">
+>>>>>>> Stashed changes
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 				</div>
 			</div>
 		</div>

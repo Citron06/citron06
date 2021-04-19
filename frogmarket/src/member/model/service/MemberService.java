@@ -113,6 +113,7 @@ public class MemberService {
 		return totalContents;
 	}
 
+<<<<<<< HEAD
 	public Member selectMemberId(String id) {
 		Connection conn = getConnection();
 		Member member = memberDao.selectMemberId(conn, id);
@@ -120,6 +121,8 @@ public class MemberService {
 		return member;
 	}
 
+=======
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 	
 
 

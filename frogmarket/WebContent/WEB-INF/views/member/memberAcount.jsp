@@ -13,6 +13,7 @@
     <div class="acount-container">
     
         <form id="accountFrm" class="acount-form" action="<%= request.getContextPath() %>/member/account" method="post">
+<<<<<<< HEAD
             <label for="">아이디</label><input type="text" name="member_id" id="member_id" onKeypress="if(event.keyCode == 13) accountFunction()">
             <label for="">별명</label><input type="text" name="nick_id" id="nick_id" onKeypress="if(event.keyCode == 13) accountFunction()">
             <label for="">비밀번호</label><input type="password" name="password" id="password" onKeypress="if(event.keyCode == 13) accountFunction()">
@@ -23,6 +24,18 @@
         <div class="btns">
         	<input type="button" name="submit" id="accountSubmit" value="submit" onclick="accountFunction();">
             <input type="button" name="cancle" id="cancelButton" value="cancel" onclick="cancelFunction()">
+=======
+            <label for="">이름</label><input type="text" name="member_id" id="member_id">
+            <label for="">별명</label><input type="text" name="nick_id" id="nick_id">
+            <label for="">비밀번호</label><input type="password" name="password" id="password">
+            <label for="">비밀번호 확인</label><input type="password" name="password" id="password_check">
+            <label for="">이메일</label><input type="email" name="email" id="email">
+            <label for="">전화번호</label><input type="tel" name="phone" id="phone">
+        <hr>
+        <div class="btns">
+            <input type="button" name="" id="" value="cancel">
+            <input type="button" name="" id="accountSubmit" value="submit" onclick="accountFunction();">
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
         </div>
         </form>
     </div>
@@ -31,6 +44,7 @@
 <script>
 	function accountFunction() {
 		
+<<<<<<< HEAD
 		let frm = document.getElementById('accountForm');
 		let member_id = document.getElementById('member_id').value;
 		let nick_id = document.getElementById("nick_id").value;
@@ -87,5 +101,22 @@
 	function cancelFunction() {
         location.href="/frog/member/login";
     }
+=======
+		let frm = document.getElementById('accountFrm');
+		let password = document.getElementById('password').value;
+		let password_check = document.getElementById('password_check').value;
+
+		/* 유효성 검사 */
+		if (password !== password_check) 
+		{
+			alert("패스워드가 다릅니다.");
+			return;
+		}
+
+		
+		frm.submit();
+				
+	}
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 </script>
 </html>

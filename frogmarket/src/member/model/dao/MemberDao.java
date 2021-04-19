@@ -367,6 +367,7 @@ public class MemberDao {
 		
 		return query;
 	}
+<<<<<<< HEAD
 
 	public Member selectMemberId(Connection conn, String id) {
 		Member member = null;
@@ -403,6 +404,8 @@ public class MemberDao {
 		return member;
 
 	}
+=======
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 	
 
 }

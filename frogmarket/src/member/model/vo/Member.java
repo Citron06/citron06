@@ -20,7 +20,10 @@ public class Member {
 	private String phone;
 	private Date enrollDate;
 	private String nickId;
+<<<<<<< HEAD
 	private double goodScore;
+=======
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 	
 	public Member() {
 		super();
@@ -28,7 +31,11 @@ public class Member {
 	}
 
 	public Member(String memberId, String password, String memberRole, String email, String phone, Date enrollDate,
+<<<<<<< HEAD
 			String nickId, double goodScore) {
+=======
+			String nickId) {
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 		super();
 		this.memberId = memberId;
 		this.password = password;
@@ -37,7 +44,10 @@ public class Member {
 		this.phone = phone;
 		this.enrollDate = enrollDate;
 		this.nickId = nickId;
+<<<<<<< HEAD
 		this.goodScore = goodScore;
+=======
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 	}
 
 	public String getMemberId() {
@@ -96,6 +106,7 @@ public class Member {
 		this.nickId = nickId;
 	}
 
+<<<<<<< HEAD
 	public double getGoodScore() {
 		return goodScore;
 	}
@@ -111,3 +122,13 @@ public class Member {
 				+ goodScore + "]";
 	}
 }
+=======
+	@Override
+	public String toString() {
+		return "Member [memberId=" + memberId + ", password=" + password + ", memberRole=" + memberRole + ", email="
+				+ email + ", phone=" + phone + ", enrollDate=" + enrollDate + ", nickId=" + nickId + "]";
+	}
+	
+	
+}
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4

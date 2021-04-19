@@ -24,6 +24,11 @@ input {
 textarea {
     outline: none;
 }
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 select {
     outline: none;
 }
@@ -31,6 +36,10 @@ a {
     text-decoration: none;
     color: #000;
 } 
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 .header-container {
     width: 1024px;
     height: 80px;
@@ -48,6 +57,7 @@ a {
     width: 1024px;
     height: 600px;
     margin: 0 auto;
+<<<<<<< HEAD
 }
 .index-banner1 {
     font-size: 20px;
@@ -66,12 +76,56 @@ a {
     margin: 0 auto;
     text-align: right;
 }
+=======
+}
+.index-banner1 {
+    font-size: 20px;
+    padding: 320px 40px;
+    margin: 0 auto;
+    text-align: left;
+<<<<<<< Updated upstream
+}
+.index-banner1 span {
+    font-size: 60px;
+    margin: 0;
+    padding: 0;
+}
+.index-banner2 {
+    font-size: 20px;
+    padding: 320px 40px;
+    margin: 0 auto;
+    text-align: right;
+}
 .index-banner3 {
     font-size: 20px;
     padding: 320px 40px;
     margin: 0 auto;
     text-align: left;
 }
+=======
+}
+.index-banner1 span {
+    font-size: 60px;
+    margin: 0;
+    padding: 0;
+}
+.index-banner2 {
+    font-size: 20px;
+    padding: 320px 40px;
+    margin: 0 auto;
+    text-align: right;
+}
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
+.index-banner3 {
+    font-size: 20px;
+    padding: 320px 40px;
+    margin: 0 auto;
+    text-align: left;
+}
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
 .index-banner3 span {
     font-size: 60px;
     margin: 0;
@@ -634,7 +688,15 @@ footer {
 .add_product-top select {
     float: right;
     height: 30px;
+<<<<<<< HEAD
     margin: 0 10px;
+=======
+<<<<<<< Updated upstream
+    margin: 0;
+=======
+    margin: 0 10px;
+>>>>>>> Stashed changes
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
     margin-top: 120px;
     font-size: 15px;
     border-radius: 10px;

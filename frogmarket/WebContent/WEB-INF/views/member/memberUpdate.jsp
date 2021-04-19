@@ -12,10 +12,23 @@
 <h1 class="mini-title">Update Profile</h1>
     <div class="acount-container">
         <form class="acount-form" action="">
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+            <label for="">아이디</label><input type="text" name="" id="">
+            <label for="">비밀번호</label><input type="password" name="" id="">
+            <label for="">비밀번호 확인</label><input type="password" name="" id="">
+            <label for="">별명</label><input type="text" name="" id="">
+=======
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
             <label for="">이름</label><input type="text" name="" id="">
             <label for="">별명</label><input type="text" name="" id="">
             <label for="">비밀번호</label><input type="password" name="" id="">
             <label for="">비밀번호 확인</label><input type="password" name="" id="">
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 8b396b6ab3b271e398e56ae6b6a1ba61dd76c2d4
             <label for="">이메일</label><input type="email" name="" id="">
             <label for="">전화번호</label><input type="tel" name="" id="">
         </form>
