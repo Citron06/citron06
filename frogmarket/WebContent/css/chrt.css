@@ -8,69 +8,12 @@ body {
     margin: 0 auto;
     text-align: center;
 }
-.no1 {
-    background-color: burlywood;
-}
-.no2 {
-    background-color: cadetblue;
-}
-.no3 {
-    background-color: chartreuse;
-}
-.no4 {
-    background-color: coral;
-}
+
 h1 {
     margin: 25px 0 0 0;
     font-size: 20px;
 }
-.head {
-    width: 1024px;
-    height: 80px;
-    display: inline-block;
-    text-align: center;
-}
-.header-img {
-    float: left;
-    width: 35px;
-    margin: 20px 5px 0 5px;
-}
-.main-title {
-    width: 144px;
-}
-.search {
-    width: 220px;
-}
-.menu {
-    width: 600px;
-    text-align: right;
-}
-.market {
-    width: 130px;
-}
-.graph {
-    width: 130px;
-}
-.black-list {
-    width: 130px;
-}
-#header-search {
-    width: 200px;
-    height: 26px;
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 12px;
-}
-.login {
-    width: 60px;
-    height: 80px;
-}
-.login input {
-    width: 60px;
-    height: 26px;
-    background-color: #fff;
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 12px;
-}
+
 
 /* ++++++++++++++++++++++++그래프+++++++++++++++++++++++= */
 

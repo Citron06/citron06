@@ -6,8 +6,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/chrt.css" />
+<!--  <link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/chrt.css" />-->
 <!-- section시작 -->
 <section>
 	<div class="section-body black-section">
@@ -181,10 +181,10 @@
     		        var label = chartData.labels[idx];
     		        var value = chartData.datasets[0].data[idx];
     		        var boardNo = label.split(" ")[0];
-					
-    		        var url = "http://google.com/search?q=노트북";
+					var url = location.origin + "<%=request.getContextPath()%>" + "/market/marketView?no=" + boardNo;
+	
     		        console.log(url);
-    		        alert(url);
+    		       // alert(url);
     		       location.href=url;
     		      }
     		    };

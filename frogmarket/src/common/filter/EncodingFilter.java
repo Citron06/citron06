@@ -10,42 +10,22 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Servlet Filter implementation class EncodingFilter
- * 필터는 web.xml에 등록된 순서대로 처리됨
- * web.xml이 @WebFilter보다 먼저 처리
+ * web.xml에 등록된 순서대로 처리됨.
+ * web.xml이 @WebFilter 보다 우선 처리.
  */
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
-
-    /**
-     * Default constructor. 
-     */
-    public EncodingFilter() {
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see Filter#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		//인코딩처리, post, get 분리해서 판단하지 않음
+		//인코딩처리
 		request.setCharacterEncoding("utf-8");
-		System.out.println("[utf-8] encoding 처리함");
-		chain.doFilter(request, response);
-	}
+		System.out.println("[utf-8] encoding 처리함.");
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
 	}
 
 }

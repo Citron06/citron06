@@ -20,6 +20,7 @@ public class Member {
 	private String phone;
 	private Date enrollDate;
 	private String nickId;
+	private double goodScore;
 	
 	public Member() {
 		super();
@@ -27,7 +28,7 @@ public class Member {
 	}
 
 	public Member(String memberId, String password, String memberRole, String email, String phone, Date enrollDate,
-			String nickId) {
+			String nickId, double goodScore) {
 		super();
 		this.memberId = memberId;
 		this.password = password;
@@ -36,6 +37,7 @@ public class Member {
 		this.phone = phone;
 		this.enrollDate = enrollDate;
 		this.nickId = nickId;
+		this.goodScore = goodScore;
 	}
 
 	public String getMemberId() {
@@ -94,11 +96,18 @@ public class Member {
 		this.nickId = nickId;
 	}
 
+	public double getGoodScore() {
+		return goodScore;
+	}
+
+	public void setGoodScore(double goodScore) {
+		this.goodScore = goodScore;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", password=" + password + ", memberRole=" + memberRole + ", email="
-				+ email + ", phone=" + phone + ", enrollDate=" + enrollDate + ", nickId=" + nickId + "]";
+				+ email + ", phone=" + phone + ", enrollDate=" + enrollDate + ", nickId=" + nickId + ", goodScore="
+				+ goodScore + "]";
 	}
-	
-	
 }
