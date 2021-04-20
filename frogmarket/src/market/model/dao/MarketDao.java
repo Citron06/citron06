@@ -212,14 +212,14 @@ public class MarketDao {
 
 				
 				//첨부파일이 있는 경우
-				if(rset.getInt("attach_no")!=0) {
-					pAttach attach = new pAttach();
-					attach.setProductNo(rset.getInt("board_no"));
-					attach.setNo(rset.getInt("no"));
-					attach.setOriginalFileName(rset.getString("original_filename"));
-					attach.setRenamedFileName(rset.getString("renamed_filename"));
-					product.setAttach(attach);
-				}
+//				if(rset.getInt("attach_no")!=0) {
+//					pAttach attach = new pAttach();
+//					attach.setProductNo(rset.getInt("board_no"));
+//					attach.setNo(rset.getInt("no"));
+//					attach.setOriginalFileName(rset.getString("original_filename"));
+//					attach.setRenamedFileName(rset.getString("renamed_filename"));
+//					product.setAttach(attach);
+//				}
 				
 				list.add(product);
 			}
@@ -254,6 +254,43 @@ public class MarketDao {
 		}
 		
 		return count;
+	}
+
+	public List<pAttach> selectAttachList(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		List<pAttach> list = new ArrayList<>();
+//		String sql = prop.getProperty("selectAttach");
+		String sql = "select * from p_attach where board_no=?";
+		ResultSet rset=null;
+		pAttach attach = null;
+		try {
+			//3. PreparedStatement 객체 생성(미완성쿼리)
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+
+			//4. 실행 DML(executeUpdate) -> int , DQL(executeQuery) -> REsultSet
+			rset = pstmt.executeQuery();
+			//4-1) ResultSet -> Java객체 옮겨담기
+			while(rset.next()) {
+				attach = new pAttach();
+				
+				attach.setNo(rset.getInt("no"));
+				attach.setProductNo(rset.getInt("board_no"));
+				attach.setOriginalFileName(rset.getString("original_filename"));
+				attach.setRenamedFileName(rset.getString("renamed_filename"));
+				
+				list.add(attach);
+			}
+			
+		} catch (Exception e) {
+//			throw new BoardException("첨부파일 조회 오류",e);
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 

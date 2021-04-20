@@ -11,8 +11,7 @@ import javax.servlet.annotation.WebFilter;
 
 /**
  * web.xml에 등록된 순서대로 처리됨.
- * web.xml이 @WebFilter보다 우선처리됨.
- * @WebFilter 순서를 정할 수 없기 때문에 순서가 중요한 filter는 web.xml에 써야한다. 
+ * web.xml이 @WebFilter 보다 우선 처리.
  */
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
@@ -28,6 +27,5 @@ public class EncodingFilter implements Filter {
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
-
 
 }

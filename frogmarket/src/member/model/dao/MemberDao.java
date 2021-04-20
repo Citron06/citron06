@@ -53,6 +53,7 @@ public class MemberDao {
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				member.setNickId(rset.getString("NICK_ID"));
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +80,7 @@ public class MemberDao {
 			pstmt.setString(4, member.getEmail());
 			pstmt.setString(5, member.getPhone());
 			pstmt.setString(6, member.getNickId());
+			pstmt.setDouble(7, member.getGoodScore());
 
 			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML은 executeUpdate()
@@ -106,6 +108,8 @@ public class MemberDao {
 			pstmt.setString(4, member.getEmail());
 			pstmt.setString(5, member.getPhone());
 			pstmt.setString(6, member.getNickId());
+			pstmt.setDouble(7, member.getGoodScore());
+			pstmt.setString(8, member.getMemberId());
 
 			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML은 executeUpdate()
@@ -191,6 +195,7 @@ public class MemberDao {
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				member.setNickId(rset.getString("NICK_ID"));
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
 				
 				list.add(member);
 			}
@@ -226,6 +231,7 @@ public class MemberDao {
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				member.setNickId(rset.getString("NICK_ID"));
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
 				
 				list.add(member);
 			}
@@ -293,6 +299,7 @@ public class MemberDao {
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				member.setNickId(rset.getString("NICK_ID"));
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
 				
 				list.add(member);
 			}

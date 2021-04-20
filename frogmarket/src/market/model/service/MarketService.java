@@ -15,7 +15,7 @@ import market.model.vo.pAttach;
 public class MarketService {
 	private MarketDao marketDao = new MarketDao();
 
-	public int insertProduct(Product product) {
+	public int insertProduct(Product product, pAttach[] attArr) {
 		Connection conn = getConnection();
 		int result = 0;
 		
@@ -26,10 +26,16 @@ public class MarketService {
 			int productNo =  marketDao.selectLastProductNo(conn);
 			product.setNo(productNo);
 			
-			if(product.getAttach()!=null) {
-				//참조할 marketNo 세팅
-				product.getAttach().setProductNo(productNo);
-				result = marketDao.insertAttachment(conn,product.getAttach());
+//			if(product.getAttach()!=null) {
+//				//참조할 marketNo 세팅
+//				product.getAttach().setProductNo(productNo);
+//				result = marketDao.insertAttachment(conn,product.getAttach());
+//			}
+			int i=0;
+			while(attArr[i]!=null) {
+				attArr[i].setProductNo(productNo);
+				result = marketDao.insertAttachment(conn,attArr[i]);
+				i++;
 			}
 			commit(conn);
 
@@ -56,9 +62,9 @@ public class MarketService {
 		try {
 			product = marketDao.selectProduct(conn,no);
 			
-			if(product.getAttach()!=null) {
-				attach = marketDao.selectAttach(conn,no);
-			}
+//			if(product.getAttach()!=null) {
+//				attach = marketDao.selectAttach(conn,no);
+//			}
 			commit(conn);
 		} catch (Exception e) {
 			rollback(conn);
@@ -83,6 +89,16 @@ public class MarketService {
 		close(conn);
 		
 		return totalContent;
+	}
+
+	public List<pAttach> selectAttachList(int no) {
+		Connection conn = getConnection();
+		//--------Dao 요청----------
+		List<pAttach> list = marketDao.selectAttachList(conn,no);
+
+		close(conn);
+		
+		return list;
 	}
 
 }

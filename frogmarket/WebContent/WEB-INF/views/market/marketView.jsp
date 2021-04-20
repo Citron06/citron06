@@ -1,3 +1,5 @@
+<%@page import="market.model.vo.pAttach"%>
+<%@page import="java.util.List"%>
 <%@page import="member.model.vo.Member"%>
 <%@page import="market.model.vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,6 +8,7 @@
 <%
 	Product product = (Product)request.getAttribute("product");
 	Member member = (Member)request.getAttribute("member");
+	List<pAttach> attachList = (List<pAttach>)request.getAttribute("attachList");
 %>
  <!-- section시작 -->
     <section>
@@ -13,7 +16,18 @@
             <div class="market-img-container">
                 <div class="photo-left-btn"></div>
                 <div class="photo-rigth-btn"></div>
-                <div class="market-img"></div>
+                <!-- <div class="market-img" style="width:150px; height:150px;"></div> -->
+                <% if(attachList==null){ %>
+                <div class="market-img" style="width:150px; height:150px;">첨부된 사진이 없습니다</div>
+                <% }else{ %>
+	                <% for(pAttach attach : attachList){ %>
+		                <div class="market-img" style="width:150px; height:150px;">
+		                <img src="<%=request.getContextPath() %>/upload/market/<%=attach.getRenamedFileName() %>"
+		                		width="150px"  height="150px">
+		                	
+		                </div>
+	       	        <% } %>
+                <% } %>
             </div>
             <div class="seller-title">
                 <div class="seller-icon">
