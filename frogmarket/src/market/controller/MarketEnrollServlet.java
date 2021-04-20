@@ -107,7 +107,7 @@ public class MarketEnrollServlet extends HttpServlet {
 //				product.setAttach(attach);
 //			}
 			
-			pAttach[] attArr = new pAttach[5];
+			pAttach[] attArr = new pAttach[6];
 			i=1;
 			while(originalFileArr[i]!=null) {
 				pAttach attach = new pAttach();

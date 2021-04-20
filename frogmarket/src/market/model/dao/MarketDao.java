@@ -185,7 +185,8 @@ public class MarketDao {
 	public List<Product> selectList(Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 //		String sql = prop.getProperty("selectList");
-		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between ? and ?";
+//		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between ? and ?";
+		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no) B where rnum between ? and ?";
 		ResultSet rset=null;
 		List<Product> list = new ArrayList<Product>();
 		Product product = null;
@@ -220,6 +221,13 @@ public class MarketDao {
 //					attach.setRenamedFileName(rset.getString("renamed_filename"));
 //					product.setAttach(attach);
 //				}
+				//첨부파일이 있는 경우
+				if(rset.getString("filename")!=null) {
+					pAttach attach = new pAttach();
+					attach.setRenamedFileName(rset.getString("filename"));
+//					System.out.println("selectList@marketDao : "+attach.getRenamedFileName());
+					product.setAttach(attach);
+				}
 				
 				list.add(product);
 			}

@@ -72,3 +72,35 @@ select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.n
 ;
 select * from p_attach;
 select count(*) cnt from p_board;
+select * from p_board;
+select * from p_attach where board_no=47;
+select * from(
+                select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename 
+                from p_board b left join p_attach a 
+                                        on b.board_no = a.board_no
+                ) B 
+where rnum between 1 and 9
+;
+select * from p_board;
+select * from p_attach;
+
+select B.board_no, min(no), min(a.renamed_filename) filename
+from p_board B
+        left join p_attach A
+                on B.board_no = A.board_no
+group by B.board_no
+;
+--selectList ver2.0
+select * from(
+                select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename 
+                from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename
+                                                    from p_board B
+                                                            left join p_attach A
+                                                                    on B.board_no = A.board_no
+                                                    group by B.board_no) a 
+                                        on b.board_no = a.board_no
+                ) B 
+where rnum between 1 and 9
+;
+select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no) B where rnum between 1 and 9
+;

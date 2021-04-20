@@ -22,7 +22,12 @@
 				%>
 							<div class="board-box1" style="cursor:pointer;"
 							onclick="location.href='<%= request.getContextPath()%>/market/marketView?no=<%=p.getNo() %>';">
-			                    <div class="sumnail"></div>
+			                    <div class="thumbnail">
+			                    <%if(p.getAttach()!=null){ %>
+			                    	<img src="<%=request.getContextPath() %>/upload/market/<%=p.getAttach().getRenamedFileName() %>"
+		                			width="270px"  height="160px">
+			                    <% } %>
+			                    </div>
 			                    <div class="product-title">
 			                        <p><%=p.getTitle() %>, 글번호:<%=p.getNo() %></p>
 			                        <h3><%=p.getPrice() %>￦</h3>

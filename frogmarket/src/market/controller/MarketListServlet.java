@@ -38,7 +38,8 @@ public class MarketListServlet extends HttpServlet {
 		int start = (cPage-1)*numPerPage + 1;
 		
 		List<Product> list = marketService.selectList(start,end);
-		System.out.println("list@servlet = "+list);
+		//System.out.println("marketListServlet : "+list.get(0).getAttach().getRenamedFileName()); 
+		//System.out.println("list@servlet = "+list);
 		
 		//댓글카운트 추가
 
