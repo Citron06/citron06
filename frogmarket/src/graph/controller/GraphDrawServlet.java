@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,14 +36,24 @@ public class GraphDrawServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-String keyword = request.getParameter("keyword");
 		
+		try {
+		HttpSession session = request.getSession();
+		String keyword  = (String) session.getAttribute("searchKeyword");
+		//String keyword = null;
+			
+		System.out.println("그래프 서블릿 " + keyword);
 		List <Graph> list = graphService.selectList(keyword);
 		
+		System.out.println(request.getRequestURI());
+		String referer = request.getHeader("Referer");
+		System.out.println(referer);
 		
-		for(Graph g : list) {
-			System.out.println(g.getRegDate());
-	}
+		
+		
+		//for(Graph g : list) {
+			//System.out.println(g.getRegDate());
+		//}
 		
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();
@@ -51,7 +62,10 @@ String keyword = request.getParameter("keyword");
 		System.out.println(jsonStr);
 		PrintWriter out = response.getWriter();
 		out.print(jsonStr);
-		
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	/**

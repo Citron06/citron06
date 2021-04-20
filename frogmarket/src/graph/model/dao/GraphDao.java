@@ -39,14 +39,20 @@ public class GraphDao {
 		List<Graph> list = null;
 		
 		String sql = prop.getProperty("graphSelectList");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	
 		
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, "%" + keyword+"%");
+			
 			rset = pstmt.executeQuery();
+					
+			
 			list = new ArrayList<Graph>();
+			
+		
 			while(rset.next()) {
 								
 				Graph graph = new Graph();

@@ -215,7 +215,7 @@ public class MarketDao {
 				if(rset.getInt("attach_no")!=0) {
 					pAttach attach = new pAttach();
 					attach.setProductNo(rset.getInt("board_no"));
-					attach.setNo(rset.getInt("no"));
+					attach.setNo(rset.getInt("attach_no"));
 					attach.setOriginalFileName(rset.getString("original_filename"));
 					attach.setRenamedFileName(rset.getString("renamed_filename"));
 					product.setAttach(attach);

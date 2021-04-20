@@ -12,10 +12,7 @@
 <section>
 	<div class="section-body black-section">
 		<div class="board black-board">
-			<div>
-     			<canvas id="myChart" style="display:inline-block; width:600px; height:600px"></canvas>
-   			</div>
-   			   			
+     		<canvas id="myChart" style="display:inline-block; width:800px; height:600px"></canvas>
 		</div>
 	</div>
 </section>
@@ -37,6 +34,7 @@
 		
     	success:function(dat){
     		
+    		if(dat!=null){
     		//json 값 분리하여 저장	
     		$.each(dat, function(key, value){
     			//게시물의 번호와 제목 같이 전달
@@ -87,8 +85,9 @@
     		    //라벨은 표시 안됨
     		      label: [chartLabels[0]],
     		      data: chartData,
-    		      borderColor: 'rgb(255, 99, 132)',
-    		      backgroundColor: 'rgb(255, 99, 132)',
+    		      borderColor: 'rgb(153, 217, 140)',
+    		      backgroundColor: 'rgb(153, 217, 140)',
+    		      pointRadius: 5,
     		    }
     		    
     		  ]
@@ -109,6 +108,7 @@
     					tooltips: {
             				  displayColors:false,
             				  mode: 'index',
+            				  bodySpacing : 10,
             				  callbacks: {
             				        title: function(tooltipItem, object) {
             				          return object.labels[tooltipItem[0].index];
@@ -132,16 +132,18 @@
     				    	  
     				           display: true,
     				           text: '시세',
-    				           fontSize : 16
+    				           fontSize : 20,
+    				           fontStyle : 'bold',
+    				           fontColor : "#000",
     				    },
     				    scales: {
-    				          xAxes: [{
-    				        	     				        	
+    				          xAxes: [{		        	
     				            scaleLabel: {
     				              display: true,
     				              labelString: "날짜"
     				            },
     				            ticks: {
+    				            
       				              callback: function(value, index, values) {
       				                 const m = moment(value).format('M월 DD일');
       				            	 return m;
@@ -151,7 +153,7 @@
     				          }],
     				          yAxes: [{
       				            scaleLabel: {
-      				              display: true,
+      				              display: false,
       				              labelString: "가격"
       				            },
       				         	ticks: {
@@ -188,7 +190,9 @@
     		       location.href=url;
     		      }
     		    };
-    		
+    		} else {
+    			alert("검색어를 입력해주세요");
+    		}
     		
     	},
     	error:function(xhr, status, err){
