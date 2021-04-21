@@ -97,7 +97,8 @@ select * from(
                                                     from p_board B
                                                             left join p_attach A
                                                                     on B.board_no = A.board_no
-                                                    group by B.board_no) a 
+                                                    group by B.board_no
+                                                    ) a 
                                         on b.board_no = a.board_no
                 ) B 
 where rnum between 1 and 9
@@ -108,16 +109,29 @@ select * from p_board;
 select * from (
                 select row_number() over(order by board_no desc) rnum, B.* 
                 from p_board B 
-                where title like '%팝니다%' or title like '%test%'
+                where title like '%팝니다%' and title like '%시계%'
                 ) B
 where rnum between 1 and 9
 ;
+--title like '%팝니다%' and title like '%시계%'
+select * from (select row_number() over(order by board_no desc) rnum, B.* from p_board B where # ) B where rnum between 1 and 9
+;
+select count(*) from p_board where title like '%팝니다%'
+;
+
+
+--searchProduct에 첨부파일 컬럼 추가
 select * from (
-                select * from p_board where title like '%팝니다%'
-                union
-                select * from p_board where title like '%test%'
-                union
-                select * from p_board where title like '%시계%'
-                 )
-order by board_no desc
+                select row_number() over(order by B.board_no desc) rnum, B.*,filename
+                from p_board B left join (select B.board_no, min(no), min(a.renamed_filename) filename
+                                                    from p_board B
+                                                            left join p_attach A
+                                                                    on B.board_no = A.board_no
+                                                    group by B.board_no
+                                                    ) a 
+                                        on b.board_no = a.board_no 
+                where title like '%test%' --and title like '%시계%'
+                ) B
+where rnum between 1 and 9;
+select * from ( select row_number() over(order by B.board_no desc) rnum, B.*,filename from p_board B left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no where # ) B where rnum between ? and ?
 ;

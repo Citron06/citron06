@@ -307,7 +307,7 @@ public class MarketDao {
 		PreparedStatement pstmt = null;
 
 		//String sql = prop.getProperty("searchProductList");
-		String sql = "select * from (select row_number() over(order by board_no desc) rnum, B.* from p_board B where # ) B where rnum between ? and ?";
+		String sql = "select * from ( select row_number() over(order by B.board_no desc) rnum, B.*,filename from p_board B left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no where # ) B where rnum between ? and ?";
 
 		sql = setQuery(sql, keywordArr);
 		System.out.println("searchProductList : "+sql);
@@ -333,6 +333,13 @@ public class MarketDao {
 				product.setRegDate(rset.getDate("reg_date"));
 				product.setArea(rset.getString("area_info"));
 				
+				//첨부파일이 있는 경우
+				if(rset.getString("filename")!=null) {
+					pAttach attach = new pAttach();
+					attach.setRenamedFileName(rset.getString("filename"));
+//					System.out.println("selectList@marketDao : "+attach.getRenamedFileName());
+					product.setAttach(attach);
+				}
 				list.add(product);
 			}
 			
