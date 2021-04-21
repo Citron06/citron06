@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.Properties;
 
 import market.model.vo.Product;
 import market.model.vo.pAttach;
+import member.model.vo.Member;
 
 public class MarketDao {
 	private Properties prop = new Properties();
@@ -301,5 +303,81 @@ public class MarketDao {
 		return list;
 	}
 
+	public List<Product> searchProductList(Connection conn, String[] keywordArr, int start, int end) {
+		PreparedStatement pstmt = null;
 
+		//String sql = prop.getProperty("searchProductList");
+		String sql = "select * from (select row_number() over(order by board_no desc) rnum, B.* from p_board B where # ) B where rnum between ? and ?";
+
+		sql = setQuery(sql, keywordArr);
+		System.out.println("searchProductList : "+sql);
+		
+		ResultSet rset=null;
+		List<Product> list = new ArrayList<>();
+		Product product = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				product = new Product();
+				product.setNo(rset.getInt("board_no"));
+				product.setId(rset.getString("seller_id"));
+				product.setTitle(rset.getString("title"));
+				product.setStatus(rset.getString("status"));
+				product.setPrice(rset.getInt("sell_price"));
+				product.setDescription(rset.getString("description"));
+				product.setRegDate(rset.getDate("reg_date"));
+				product.setArea(rset.getString("area_info"));
+				
+				list.add(product);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//5. 자원반납(생성역순 rset - pstmt)
+		close(rset);
+		close(pstmt);
+		
+		return list;
+	}
+
+	public String setQuery(String sql, String[] keywordArr) {
+		String sharp = "";
+		for(String str : keywordArr) {
+			if(sharp!="")
+				sharp+="and ";
+			sharp+="title like '%" + str + "%'";
+		}
+		sql = sql.replace("#", sharp);
+		return sql;
+	}
+
+	public int searchProductCount(Connection conn, String[] keywordArr) {
+		PreparedStatement pstmt = null;
+//		String sql = prop.getProperty("searchProductCount");
+		String sql = "select count(*) from p_board where #";
+
+		sql=setQuery(sql, keywordArr);
+				
+		int count = 0;		
+		ResultSet rset=null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				count= rset.getInt("count(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(rset);
+		close(pstmt);
+		
+		return count;
+	}
 }

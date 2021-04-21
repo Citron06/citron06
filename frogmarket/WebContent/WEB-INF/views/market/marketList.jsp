@@ -46,5 +46,27 @@
     <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/market/marketForm';" 
                 		style="cursor:pointer;"></div>
     <!-- 게시글 쓰기 이동 버튼 끝 -->
-   
+
+<script>
+$("#header-search").keyup(function(e){
+	if(e.keyCode == 13){
+		console.log(this.value);
+		
+		var newForm = $('<form></form>'); 
+		//set attribute (form) 
+		newForm.attr("name","marketFinderFrm"); 
+		newForm.attr("method","post"); 
+		newForm.attr("action","<%=request.getContextPath() %>/market/marketFinder"); 
+		// create element & set attribute (input) 
+		newForm.append($('<input/>', {type: 'hidden', name: 'searchKeyword', value:this.value })); 
+		// append form (to body) 
+		newForm.appendTo('body'); 
+		// submit form 
+		newForm.submit();
+
+		
+	}
+});
+
+</script>   
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

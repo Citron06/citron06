@@ -11,6 +11,7 @@ import java.util.List;
 import market.model.dao.MarketDao;
 import market.model.vo.Product;
 import market.model.vo.pAttach;
+import member.model.vo.Member;
 
 public class MarketService {
 	private MarketDao marketDao = new MarketDao();
@@ -99,6 +100,25 @@ public class MarketService {
 		close(conn);
 		
 		return list;
+	}
+
+	public List<Product> searchProductList(String searchKeyword, int start, int end) {
+		Connection conn = getConnection();
+		//검색어를 나눠서 배열로 넘김
+		String[] keywordArr = searchKeyword.split(",|\\s+");		
+		List<Product> list = marketDao.searchProductList(conn,keywordArr,start,end);
+
+		close(conn);
+		return list;
+	}
+
+	public int searchProductCount(String searchKeyword) {
+		Connection conn = getConnection();
+		//검색어를 나눠서 배열로 넘김
+		String[] keywordArr = searchKeyword.split(",|\\s+");	
+		int totalContent = marketDao.searchProductCount(conn,keywordArr);
+		close(conn);
+		return totalContent;
 	}
 
 }
