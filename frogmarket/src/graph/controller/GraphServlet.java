@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -36,8 +37,16 @@ public class GraphServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String graphKeyword = request.getParameter("header-search");
+		System.out.println("그래프 뷰 파라미터 " + graphKeyword);
+		HttpSession session = request.getSession();
+		String beforeKeyword = (String) session.getAttribute("searchKeyword");
+		
+		System.out.println("비포 키워드 " +beforeKeyword);
 		
 		
+		
+		session.setAttribute("graphKeyword", graphKeyword);
 		request.getRequestDispatcher("/WEB-INF/views/graph/graph.jsp").forward(request, response);
 	}
 

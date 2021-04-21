@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<% String graphKeyword = (String)request.getAttribute("graphKeyword"); %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script> -->
@@ -12,13 +13,22 @@
 <section>
 	<div class="section-body black-section">
 		<div class="board black-board">
+		<%if(keyword ==null && gKeyword == null){ %>
+		<h1>검색어를 입력하세요</h1>
+		<%}else { %>
      		<canvas id="myChart" style="display:inline-block; width:800px; height:600px"></canvas>
+     	<%} %>
 		</div>
+	</div>
+	<div>
+	<form name="graphForm" id="graphForm" action="<%=request.getContextPath() %>/graph/drawGraph" method="get"></form>
+		<input type="hidden" name="graphKeyword"/>
 	</div>
 </section>
 <!-- section끝 -->
   <script>
- 
+
+
     var chartLabels = [];
     var chartPrice=[];
     var chartDate = [];
@@ -36,6 +46,8 @@
     		
     		if(dat!=null){
     		//json 값 분리하여 저장	
+    		
+    		
     		$.each(dat, function(key, value){
     			//게시물의 번호와 제목 같이 전달
     			chartLabels.push(value.boardNo + " : " +  value.title);
@@ -45,7 +57,7 @@
     			chartPrice.push(value.price);
     			chartDate.push(value.regDate);
     			
-    			
+    			console.log(".each에서 확인 "+"<%=graphKeyword%> ");
     			//데이터확인용
     			//console.log("레그 데이트 : " + value.regDate);
     		     //console.log(value);
@@ -201,7 +213,6 @@
     	});
     });
     
- 
-</script>
+  </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

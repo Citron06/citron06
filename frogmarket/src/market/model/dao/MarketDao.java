@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.Properties;
 
 import market.model.vo.Product;
 import market.model.vo.pAttach;
+import member.model.vo.Member;
 
 public class MarketDao {
 	private Properties prop = new Properties();
@@ -185,7 +187,8 @@ public class MarketDao {
 	public List<Product> selectList(Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 //		String sql = prop.getProperty("selectList");
-		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between ? and ?";
+//		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between ? and ?";
+		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no) B where rnum between ? and ?";
 		ResultSet rset=null;
 		List<Product> list = new ArrayList<Product>();
 		Product product = null;
@@ -212,12 +215,19 @@ public class MarketDao {
 
 				
 				//첨부파일이 있는 경우
-				if(rset.getInt("attach_no")!=0) {
+//				if(rset.getInt("attach_no")!=0) {
+//					pAttach attach = new pAttach();
+//					attach.setProductNo(rset.getInt("board_no"));
+//					attach.setNo(rset.getInt("no"));
+//					attach.setOriginalFileName(rset.getString("original_filename"));
+//					attach.setRenamedFileName(rset.getString("renamed_filename"));
+//					product.setAttach(attach);
+//				}
+				//첨부파일이 있는 경우
+				if(rset.getString("filename")!=null) {
 					pAttach attach = new pAttach();
-					attach.setProductNo(rset.getInt("board_no"));
-					attach.setNo(rset.getInt("attach_no"));
-					attach.setOriginalFileName(rset.getString("original_filename"));
-					attach.setRenamedFileName(rset.getString("renamed_filename"));
+					attach.setRenamedFileName(rset.getString("filename"));
+//					System.out.println("selectList@marketDao : "+attach.getRenamedFileName());
 					product.setAttach(attach);
 				}
 				
@@ -256,5 +266,118 @@ public class MarketDao {
 		return count;
 	}
 
+	public List<pAttach> selectAttachList(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		List<pAttach> list = new ArrayList<>();
+//		String sql = prop.getProperty("selectAttach");
+		String sql = "select * from p_attach where board_no=?";
+		ResultSet rset=null;
+		pAttach attach = null;
+		try {
+			//3. PreparedStatement 객체 생성(미완성쿼리)
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
 
+			//4. 실행 DML(executeUpdate) -> int , DQL(executeQuery) -> REsultSet
+			rset = pstmt.executeQuery();
+			//4-1) ResultSet -> Java객체 옮겨담기
+			while(rset.next()) {
+				attach = new pAttach();
+				
+				attach.setNo(rset.getInt("no"));
+				attach.setProductNo(rset.getInt("board_no"));
+				attach.setOriginalFileName(rset.getString("original_filename"));
+				attach.setRenamedFileName(rset.getString("renamed_filename"));
+				
+				list.add(attach);
+			}
+			
+		} catch (Exception e) {
+//			throw new BoardException("첨부파일 조회 오류",e);
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public List<Product> searchProductList(Connection conn, String[] keywordArr, int start, int end) {
+		PreparedStatement pstmt = null;
+
+		//String sql = prop.getProperty("searchProductList");
+		String sql = "select * from (select row_number() over(order by board_no desc) rnum, B.* from p_board B where # ) B where rnum between ? and ?";
+
+		sql = setQuery(sql, keywordArr);
+		System.out.println("searchProductList : "+sql);
+		
+		ResultSet rset=null;
+		List<Product> list = new ArrayList<>();
+		Product product = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				product = new Product();
+				product.setNo(rset.getInt("board_no"));
+				product.setId(rset.getString("seller_id"));
+				product.setTitle(rset.getString("title"));
+				product.setStatus(rset.getString("status"));
+				product.setPrice(rset.getInt("sell_price"));
+				product.setDescription(rset.getString("description"));
+				product.setRegDate(rset.getDate("reg_date"));
+				product.setArea(rset.getString("area_info"));
+				
+				list.add(product);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//5. 자원반납(생성역순 rset - pstmt)
+		close(rset);
+		close(pstmt);
+		
+		return list;
+	}
+
+	public String setQuery(String sql, String[] keywordArr) {
+		String sharp = "";
+		for(String str : keywordArr) {
+			if(sharp!="")
+				sharp+="and ";
+			sharp+="title like '%" + str + "%'";
+		}
+		sql = sql.replace("#", sharp);
+		return sql;
+	}
+
+	public int searchProductCount(Connection conn, String[] keywordArr) {
+		PreparedStatement pstmt = null;
+//		String sql = prop.getProperty("searchProductCount");
+		String sql = "select count(*) from p_board where #";
+
+		sql=setQuery(sql, keywordArr);
+				
+		int count = 0;		
+		ResultSet rset=null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				count= rset.getInt("count(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(rset);
+		close(pstmt);
+		
+		return count;
+	}
 }

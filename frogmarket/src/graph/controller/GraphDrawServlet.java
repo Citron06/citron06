@@ -40,20 +40,22 @@ public class GraphDrawServlet extends HttpServlet {
 		try {
 		HttpSession session = request.getSession();
 		String keyword  = (String) session.getAttribute("searchKeyword");
-		//String keyword = null;
-			
-		System.out.println("그래프 서블릿 " + keyword);
-		List <Graph> list = graphService.selectList(keyword);
+		
+		String graphKeyword = (String) session.getAttribute("graphKeyword");
 		
 		System.out.println(request.getRequestURI());
-		String referer = request.getHeader("Referer");
-		System.out.println(referer);
-		
-		
+		System.out.println("유알엘 드로우" + request.getRequestURL());
+		if(graphKeyword!=null) {
+			keyword = (String) session.getAttribute("graphKeyword");
+		}
+				
+		//List <Graph> list = graphService.selectList(keyword);
+		List<Graph> list = graphService.searchProductList(keyword);
 		
 		//for(Graph g : list) {
 			//System.out.println(g.getRegDate());
 		//}
+		
 		
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<% String keyword = (String)session.getAttribute("searchKeyword"); %>
+	<% String keyword = (String)session.getAttribute("searchKeyword"); 
+	
+	String gKeyword = (String) session.getAttribute("graphKeyword");%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +23,13 @@
 				<h1>깨꿀마켓</h1>
 			</div>
 			<div class="head search">
+			<%if(request.getRequestURI().equals("/frog/WEB-INF/views/graph/graph.jsp")) {%>
+				<form action="<%=request.getContextPath()%>/graph/graphView" method="get">
+				<input type="text" name="header-search" id="header-search" value="<%=gKeyword != null ? gKeyword : ""%>">
+			<%} else { %>
 				<form action="<%=request.getContextPath()%>/market/marketList" method="get">
-					<input type="text" name="header-search" id="header-search" value="<%=keyword!=null?keyword:""%>">
+				<input type="text" name="header-search" id="header-search" value="<%=keyword != null ? keyword : ""%>">
+				<%} %>
 					<button id="search">검색</button>
 				</form>
 			</div>
@@ -30,10 +38,7 @@
 					<a href="<%= request.getContextPath() %>/market/marketList"><h1>마켓 게시판</h1></a>
 				</div>
 				<div class="head graph">
-				<%if(keyword!=null){ %>
 					<a href="<%= request.getContextPath() %>/graph/graphView"><h1>한눈 그래프</h1></a>
-					<%} else { %>
-					
 				</div>
 				<div class="head black-list">
 					<a href="<%= request.getContextPath() %>/report/reportList"><h1>신고 게시판</h1></a>
@@ -46,4 +51,8 @@
 		</div>
 	</header>
 	<!-- header끝 -->
+	<script>
+	console.log("<%=request.getRequestURI() %>");
+	
+	</script>
 	

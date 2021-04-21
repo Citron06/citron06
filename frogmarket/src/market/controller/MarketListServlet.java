@@ -41,7 +41,7 @@ public class MarketListServlet extends HttpServlet {
 		List<Product> list = marketService.selectList(start,end);
 		System.out.println("list@servlet = "+list);
 		
-		String searchKeyword = request.getParameter("header-search");
+		
 	
 		
 		//댓글카운트 추가
@@ -59,9 +59,11 @@ public class MarketListServlet extends HttpServlet {
 				);
 		
 		//3. 응답 html처리
+		System.out.println(url);
+		String searchKeyword = request.getParameter("header-search");
 		HttpSession session = request.getSession();
 		session.setAttribute("searchKeyword", searchKeyword);
-		
+		//System.out.println(searchKeyword);
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/market/marketList.jsp")
