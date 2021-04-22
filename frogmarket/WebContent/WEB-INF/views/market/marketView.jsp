@@ -1,3 +1,5 @@
+<%@page import="market.model.vo.pAttach"%>
+<%@page import="java.util.List"%>
 <%@page import="member.model.vo.Member"%>
 <%@page import="market.model.vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,6 +8,18 @@
 <%
 	Product product = (Product)request.getAttribute("product");
 	Member member = (Member)request.getAttribute("member");
+	List<pAttach> attachList = (List<pAttach>)request.getAttribute("attachList");
+	
+	/* boolean editable = 
+			loginMember != null &&
+			(
+				loginMember.getMemberId().equals(member.getMemberId())
+				|| MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
+				
+			); */
+	boolean editable = "oneman".equals(member.getMemberId());//oneman이 로그인했다고 가정.
+	//List<BoardComment> commentList = (List<BoardComment>)request.getAttribute("commentList");
+	
 %>
  <!-- section시작 -->
     <section>
@@ -13,7 +27,18 @@
             <div class="market-img-container">
                 <div class="photo-left-btn"></div>
                 <div class="photo-rigth-btn"></div>
-                <div class="market-img"></div>
+                <!-- <div class="market-img" style="width:150px; height:150px;"></div> -->
+                <% if(attachList==null){ %>
+                <div class="market-img" style="width:150px; height:150px;">첨부된 사진이 없습니다</div>
+                <% }else{ %>
+	                <% for(pAttach attach : attachList){ %>
+		                <div class="market-img" style="width:150px; height:150px;">
+		                <img src="<%=request.getContextPath() %>/upload/market/<%=attach.getRenamedFileName() %>"
+		                		width="150px"  height="150px">
+		                	
+		                </div>
+	       	        <% } %>
+                <% } %>
             </div>
             <div class="seller-title">
                 <div class="seller-icon">
@@ -37,6 +62,14 @@
                 <h3><%=product.getPrice() %>원</h3>
                 <span><%=product.getDescription() %></span>
             </div>
+            <!-- 수정권한 있는 사람만 보이게 -->
+            <%if(editable){ %>
+            <div class="market-up-del-container">
+                <input type="button" value="수정" onclick="updateProduct()">
+                <input type="button" value="삭제" onclick="deleteProduct()">
+            </div>
+            <%} %>
+            
             <div class="comment-reader">
                 <h3 style="margin: 10px 35px;">댓글란</h3>
                 <div class="reader-inbox">
@@ -66,5 +99,25 @@
         </div>
     </section>
     <!-- section끝 -->
+    
+<%if(editable){ %>
+	<form 
+		action="<%=request.getContextPath()%>/market/marketDelete" 
+		method="post"
+		name="productDelFrm">
+		<input type="hidden" name="no" value="<%=product.getNo()%>"/>
+	</form>
+	<script>
+	function updateProduct(){
+		location.href = "<%= request.getContextPath( )%>/market/marketUpdate?no=<%= product.getNo() %>";
+	}
+	
+	function deleteProduct(){
+		if(confirm("게시글을 정말 삭제하시겠습니까?")){
+			$(document.productDelFrm).submit();
+		}
+	}
+	</script>
+<%} %>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

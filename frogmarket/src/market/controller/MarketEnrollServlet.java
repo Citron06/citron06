@@ -68,8 +68,19 @@ public class MarketEnrollServlet extends HttpServlet {
 			String area = multipartRequest.getParameter("local");
 
 			//업로드한 파일명
-			String originalFileName = multipartRequest.getOriginalFileName("upFile");
-			String renamedFileName =  multipartRequest.getFilesystemName("upFile");
+//			String originalFileName = multipartRequest.getOriginalFileName("upFile");
+//			String renamedFileName =  multipartRequest.getFilesystemName("upFile");
+			String[] originalFileArr=new String[5];
+			String[] renamedFileArr=new String[5];
+			int i=0;
+			while(multipartRequest.getOriginalFileName("upFile"+i)!=null) {
+				originalFileArr[i]=multipartRequest.getOriginalFileName("upFile"+i);
+				renamedFileArr[i] =  multipartRequest.getFilesystemName("upFile"+i);
+				
+				System.out.println("upFile"+i+" : "+originalFileArr[i]);
+				i++;
+			}
+			
 			
 			System.out.println("id@servlet = "+id);
 			System.out.println("title@servlet = "+title);
@@ -89,15 +100,26 @@ public class MarketEnrollServlet extends HttpServlet {
 			
 			//첨부파일이 있는 경우
 			//multipartRequest.getFile("upFile"):File !=null 이것은 또다른 방법
-			if(originalFileName!=null) {
+//			if(originalFileName!=null) {
+//				pAttach attach = new pAttach();
+//				attach.setOriginalFileName(originalFileName);
+//				attach.setRenamedFileName(renamedFileName);
+//				product.setAttach(attach);
+//			}
+			
+			pAttach[] attArr = new pAttach[5];
+			i=0;
+			while(originalFileArr[i]!=null) {
 				pAttach attach = new pAttach();
-				attach.setOriginalFileName(originalFileName);
-				attach.setRenamedFileName(renamedFileName);
-				product.setAttach(attach);
+				attach.setOriginalFileName(originalFileArr[i]);
+				attach.setRenamedFileName(renamedFileArr[i]);
+//				product.setAttach(attach);
+				attArr[i]=attach;
+				i++;
 			}
 			
 			//2. 업무로직 : db에 insert		
-			int result = marketService.insertProduct(product);
+			int result = marketService.insertProduct(product,attArr);
 			System.out.println("처리결과 = "+result);
 			
 			//가입 성공/실패여부 판단

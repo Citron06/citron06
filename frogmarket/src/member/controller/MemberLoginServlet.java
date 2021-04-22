@@ -40,6 +40,7 @@ public class MemberLoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		Member loginMember = new Member();
 		
 		loginMember.setMemberId(request.getParameter("loginId"));
@@ -47,13 +48,20 @@ public class MemberLoginServlet extends HttpServlet {
 		
 		loginMember = service.selectOne(loginMember);
 		
-		System.out.println(loginMember.toString());
+		//System.out.println(loginMember.toString());
 		
 		HttpSession session = request.getSession(true);
 		session.setAttribute("loginUser", loginMember);
-		
-		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp")
-		.forward(request, response);
+		if (loginMember != null) 
+		{	System.out.println(loginMember.toString());
+			request.getRequestDispatcher("/index.jsp")
+			.forward(request, response);
+		}
+		else
+		{
+			request.getRequestDispatcher("/WEB-INF/views/member/memberLoginError.jsp")
+			.forward(request, response);
+		}
 		
 	}
 

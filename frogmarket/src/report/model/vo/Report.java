@@ -8,6 +8,7 @@ public class Report {
 	private String memberReportId;
 	private Date regDate;
 	private String content;
+	private RAttach attach;
 	
 	public Report() {
 		super();
@@ -21,6 +22,16 @@ public class Report {
 		this.memberReportId = memberReportId;
 		this.regDate = regDate;
 		this.content = content;
+	}
+	
+	public Report(int reportNo, String memberId, String memberReportId, Date regDate, String content, RAttach attach) {
+		super();
+		this.reportNo = reportNo;
+		this.memberId = memberId;
+		this.memberReportId = memberReportId;
+		this.regDate = regDate;
+		this.content = content;
+		this.attach = attach;
 	}
 
 	public int getReportNo() {
@@ -63,10 +74,18 @@ public class Report {
 		this.content = content;
 	}
 
+	public RAttach getAttach() {
+		return attach;
+	}
+
+	public void setAttach(RAttach attach) {
+		this.attach = attach;
+	}
+
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", memberId=" + memberId + ", memberReportId=" + memberReportId
-				+ ", regDate=" + regDate + ", content=" + content + "]";
+				+ ", regDate=" + regDate + ", content=" + content + ", attach=" + attach + "]";
 	}
-	
+
 }

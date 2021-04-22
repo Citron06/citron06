@@ -13,15 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet({ "/memberView", "/member/memberView" })
 public class MemberViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberViewServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

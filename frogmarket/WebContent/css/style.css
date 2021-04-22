@@ -20,6 +20,7 @@ footer {
 }
 input {
     outline: none;
+    padding: 0 10px;
 }
 textarea {
     outline: none;
@@ -202,7 +203,7 @@ h1 {
     border: 1px solid #e9e9e9;
     overflow: hidden;
 }
-.sumnail {
+.thumbnail {
     width: 270px;
     height: 160px;
     background-color: rgb(175, 175, 175);
@@ -290,7 +291,7 @@ h1 {
     font-size: 16px;
     cursor: pointer;
 }
-.go-acount {
+.go-account {
     margin: 0 auto;
     margin-top: 30px;
     text-align: center;
@@ -406,11 +407,29 @@ footer {
 }
 .black-board {
     width: 1024px;
+    margin: 0 auto;
+    padding: 0 0 60px;
     border-radius: 0;
     box-shadow: none;
 }
 .black-title {
+    width: 900px;
     margin: 36px 0 20px 50px;
+}
+.black-title h3 {
+    display: inline-block;
+}
+#targetFrm {
+    float: right;
+    width: 120px;
+    margin: 15px 90px 0;
+    display: inline;
+}
+#targetFrm input {
+    width: 160px;
+    height: 24px;
+    border: 1px solid #a3a3a3;
+    border-radius: 40px;
 }
 .list-none {
     padding: 40px;
@@ -516,6 +535,23 @@ footer {
 .seller-good-info {
     float: right;
 }
+.market-up-del-container {
+    width: 840px;
+    height: 40px;
+    margin: 0 auto;
+    padding: 0 30px;
+    border-bottom: 1px solid #e9ecef;
+}
+.market-up-del-container input {
+    float: right;
+    width: 60px;
+    height: 30px;
+    margin: 0 5px;
+    background-color: #fff;
+    border: 1px solid #d4d4d4;
+    border-radius: 80px;
+    cursor: pointer;
+}
 .commet-container {
     width: 820px;
     height: auto;
@@ -541,7 +577,19 @@ footer {
     margin: 10px 0 0 0;
 }
 .reader-inbox p {
+    display: inline-block;
+    width: 690px;
+    margin: 0;
     font-size: 12px;
+}
+.reader-inbox input {
+    width: 60px;
+    height: 30px;
+    margin: 0;
+    background-color: #fff;
+    border: 1px solid #d4d4d4;
+    border-radius: 80px;
+    cursor: pointer;
 }
 .comment-reader-icon {
     float: left;
@@ -586,7 +634,7 @@ footer {
 
 /* ++++++++++++++++++++++++Account+++++++++++++++++++++++= */
 
-.acount-container {
+.account-container {
     width: 280px;
     height: 420px;
     padding: 30px 5px;
@@ -596,16 +644,16 @@ footer {
     border-radius: 8px;
     box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.3);
 }
-.acount-form {
+.account-form {
     padding: 0 20px;
     text-align: left;
 }
-.acount-form label {
+.account-form label {
     display: inline-block;
     font-size: 12px;
     color: rgb(148, 148, 148);
 }
-.acount-form input {
+.account-form input {
     margin: 5px 0 15px;
     width: 220px;
     height: 20px;
@@ -669,7 +717,7 @@ footer {
     height: 120px;
     border-bottom: 1px solid rgb(194, 194, 194);
 }
-.add-product-img {
+[class^=add-product-img] {
     float: left;
     width: 80px;
     height: 80px;
@@ -677,7 +725,7 @@ footer {
     border: 1px solid rgb(194, 194, 194);
     text-align: center;
 }
-.add-product-img p {
+[class^=add-product-img] p {
     padding: 22px 0;
 }
 .add-product-price {
@@ -794,4 +842,81 @@ footer {
     border-radius: 20px;
     border: 1px solid rgb(194, 194, 194);
     background-color: #fff;
+}
+
+/* ++++++++++++++++++++++++Report View+++++++++++++++++++++++= */
+
+.post-container {
+    width: 1024px;
+    height: auto;
+    margin: 0 auto;
+}
+.report-img-container {
+    width: 1024px;
+    height: 560px;
+}
+.photo-left-btn {
+    float: left;
+    position: relative;
+    top: 300px;
+    left: 60px;
+    width: 40px;
+    height: 60px;
+    margin: 0;
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+}
+.photo-rigth-btn {
+    float: right;
+    position: relative;
+    top: 300px;
+    right: 60px;
+    width: 40px;
+    height: 60px;
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+}
+.report-img {
+    position: relative;
+    top: 90px;
+    width: 820px;
+    height: 460px;
+    margin: 0 auto;
+    background-color: rgb(170, 170, 170);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.reporter-title {
+    width: 900px;
+    height: 100px;
+    margin: 0 auto;
+}
+.reporter-icon {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 20px 0 0 40px;
+    background-color: rgb(255, 208, 0);
+    border-radius: 80px;
+}
+.reporter-profile {
+    float: left;
+    width: 720px;
+    padding: 20px 10px;
+}
+.reporter-profile-info {
+    float: left;
+}
+.target-profile-info {
+    float: right;
+}
+.commet-container {
+    width: 800px;
+    height: auto;
+    padding: 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
 }
