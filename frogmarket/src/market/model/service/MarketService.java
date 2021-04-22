@@ -10,6 +10,7 @@ import java.util.List;
 
 import market.model.dao.MarketDao;
 import market.model.vo.Product;
+import market.model.vo.ProductComment;
 import market.model.vo.pAttach;
 import member.model.vo.Member;
 
@@ -101,7 +102,7 @@ public class MarketService {
 		
 		return list;
 	}
-
+	
 	public List<Product> searchProductList(String searchKeyword, int start, int end) {
 		Connection conn = getConnection();
 		//검색어를 나눠서 배열로 넘김
@@ -119,6 +120,67 @@ public class MarketService {
 		int totalContent = marketDao.searchProductCount(conn,keywordArr);
 		close(conn);
 		return totalContent;
+	}
+	
+	/**
+	 * 
+	 * 댓글리스트
+	 */
+	public List<ProductComment> selectCommentList(int no) {
+		
+		Connection conn = getConnection();
+		
+		List<ProductComment> list = marketDao.selectCommentList(conn, no);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * 
+	 * 댓글 추가
+	 */
+	public int insertMarketComment(ProductComment pc) {
+		
+		Connection conn = getConnection();
+		
+		int result = 0;
+		try {
+			result = marketDao.insertMarketComment(conn, pc);
+			commit(conn);
+		}catch (Exception e){
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+			
+		
+		}
+		return result;
+	}
+	
+	/**
+	 *  
+	 * 댓글 삭제
+	 */
+	public int deleteMarketComment(int no, int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+		result = marketDao.deleteMarketComment(conn, no, boardNo);
+		
+		
+			commit(conn);
+		} catch(Exception e) {
+
+			rollback(conn);
+			throw e; //controller가 예외처리를 결정할 수 있도록 넘김
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 
 }

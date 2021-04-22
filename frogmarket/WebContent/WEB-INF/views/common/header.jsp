@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<% String keyword = (String)session.getAttribute("searchKeyword"); 
-	
-	String gKeyword = (String) session.getAttribute("graphKeyword");%>
+	<% 
+	String keyword = (String)session.getAttribute("searchKeyword"); 
+	String gKeyword = (String) session.getAttribute("graphKeyword");
+	%>
 
 <!DOCTYPE html>
 <html>
@@ -51,8 +52,4 @@
 		</div>
 	</header>
 	<!-- header끝 -->
-	<script>
-	console.log("<%=request.getRequestURI() %>");
-	
-	</script>
 	

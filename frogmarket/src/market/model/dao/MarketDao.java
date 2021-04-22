@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Properties;
 
 import market.model.vo.Product;
+import market.model.vo.ProductComment;
 import market.model.vo.pAttach;
 import member.model.vo.Member;
 
@@ -357,6 +358,7 @@ public class MarketDao {
 		return sql;
 	}
 
+	
 	public int searchProductCount(Connection conn, String[] keywordArr) {
 		PreparedStatement pstmt = null;
 //		String sql = prop.getProperty("searchProductCount");
@@ -379,5 +381,116 @@ public class MarketDao {
 		close(pstmt);
 		
 		return count;
+	}
+
+	/**
+	 * 
+	 * 댓글출력
+	 */
+	public List<ProductComment> selectCommentList(Connection conn, int no) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select * from reply where board_no = ?";
+		List <ProductComment> commentList = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			commentList = new ArrayList<>();
+			
+			while(rset.next()) {
+				ProductComment pc = new ProductComment();
+				
+				pc.setNo(rset.getInt("no"));
+				pc.setBoardNo(rset.getInt("board_no"));
+				pc.setWriter(rset.getString("member_id"));
+				pc.setContent(rset.getString("content"));
+				pc.setRegDate(rset.getDate("reg_date"));
+				
+				commentList.add(pc);
+			}
+			
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		
+		return commentList;
+	}
+	
+	
+	/**
+	 * 
+	 * 댓글추가
+	 */
+	public int insertMarketComment(Connection conn, ProductComment pc) {
+		
+		PreparedStatement pstmt = null;
+		String sql = "insert into reply(no, board_no, member_id, content, reg_date) values(seq_reply_no.nextval, ?, ?, ?, default)";
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pc.getBoardNo());
+			pstmt.setString(2, pc.getWriter());
+			pstmt.setString(3, pc.getContent());
+			
+			result = pstmt.executeUpdate();
+			
+						
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	/**
+	 * 
+	 * 댓글 삭제
+	 */
+	public int deleteMarketComment(Connection conn, int no, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = "delete from reply where no = ? and board_no = ?"; 
+				
+				//prop.getProperty("deleteBoardComment");
+		int result = 0;
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, no); //where no = '2' 자동형변환
+			pstmt.setInt(2, boardNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

@@ -14,6 +14,7 @@ import common.MvcUtils;
 import market.model.service.MarketService;
 import market.model.vo.Product;
 
+
 /**
  * Servlet implementation class MarketListServlet
  */
@@ -41,8 +42,8 @@ public class MarketListServlet extends HttpServlet {
 		List<Product> list = marketService.selectList(start,end);
 		System.out.println("list@servlet = "+list);
 		
-		
 	
+		
 		
 		//댓글카운트 추가
 
@@ -64,6 +65,8 @@ public class MarketListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("searchKeyword", searchKeyword);
 		//System.out.println(searchKeyword);
+		
+		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/market/marketList.jsp")

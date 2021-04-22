@@ -83,6 +83,9 @@ public class GraphDao {
 		return list;
 	}
 	
+	/**
+	 * 문자열 자르기 메소드
+	 */
 	public String setQuery(String sql, String[] keywordArr) {
 		String sharp = "";
 		for(String str : keywordArr) {
@@ -95,7 +98,9 @@ public class GraphDao {
 	}
 	
 	
-	
+	/**
+	 * 검색 리스트 출력 
+	 */
 	public List<Graph> searchProductList(Connection conn, String[] keywordArr) {
 		PreparedStatement pstmt = null;
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.MvcUtils;
 import market.model.service.MarketService;
 import market.model.vo.Product;
+import market.model.vo.ProductComment;
 import market.model.vo.pAttach;
 import member.model.service.MemberService;
 import member.model.vo.Member;
@@ -46,12 +47,12 @@ public class MarketViewServlet extends HttpServlet {
 			// \n 개행문자를 <br/>태그로 변경해주기
 			product.setDescription(MvcUtils.convertLineFeedToBr(product.getDescription()));
 			
-			
 			//이 게시글의 댓글 가져오기
-//			List<BoardComment> commentList = boardService.selectBoardCommentList(no); 
-//			System.out.println("commentList@servlet = "+commentList);
+			List<ProductComment> commentList = marketService.selectCommentList(no);
+			System.out.println("commentList@servlet = " + commentList);
 
 			//3. jsp forwarding
+			request.setAttribute("commentList", commentList);	
 			request.setAttribute("product", product);
 			request.setAttribute("member", member);
 //			request.setAttribute("commentList", commentList);
