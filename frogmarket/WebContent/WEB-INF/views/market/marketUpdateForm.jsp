@@ -42,21 +42,19 @@
                 </div>
                 
                 <div class="add-product-photo">
-                	<!-- 원래 있던 이미지 -->
-                	<div class="previous-added-img">
-						<%for(pAttach attach : attachList){ %>
-						<label class="input-file-button" for="prev-<%=attach.getNo() %>">
-							<span class="add-product-img<%=attach.getNo() %>">
-								<img id="<%=attach.getNo() %>" src="<%=request.getContextPath() %>/upload/market/<%=attach.getRenamedFileName() %>"
-								 width="82px" height="82px">
-			                </span>
-						</label>
-						<!-- 원래 이미지들은 name 값을 upFile로 주지 않아서 "upFile"+num으로 제출받지 못하게 함 -->
-						<input type="file" name="<%=attach.getNo() %>" id="prev-<%=attach.getNo() %>" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>
-
-						<% } %>
-					</div>
-					<!-- 새로 추가한 이미지 -->
+					<%for(pAttach attach : attachList){ %>
+					<label class="input-file-button" for="prev-<%=attach.getNo() %>">
+						<span class="add-product-img<%=attach.getNo() %>">
+							<img id="<%=attach.getNo() %>" src="<%=request.getContextPath() %>/upload/market/<%=attach.getRenamedFileName() %>"
+							 width="82px" height="82px">
+							 <button type="button" onclick="deleteFile(<%=attach.getNo() %>)">삭제</button>
+		                </span>
+					</label>
+					<input type="file" name="prev-<%=attach.getNo() %>" id="prev-<%=attach.getNo() %>" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>
+					<% } %>
+					
+                    <label class="input-file-button" for="newBox0"><span class="add-product-img-new0">클릭하면 사진추가 [+]</span></label>
+					<input type="file" name="newBox0" id="newBox0" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>
 					<!-- <div class="newly-added-img">
 	                    <label class="input-file-button" for="input-file0"><span class="add-product-img0">클릭하면 사진추가 [+]</span></label>
 						<input type="file" name="upFile0" id="input-file0" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>
@@ -76,7 +74,19 @@
     <!-- section끝 -->
 <script>
 
-
+function deleteFile(prevAttNo){
+	console.log(prevAttNo);
+	//삭제하는 파일 번호를 제출
+	var $delFile = $('<input type="hidden" name="delFile" value="'+prevAttNo +'" >');
+	$frm = $(document.marketUpdateFrm);
+	$frm.append($delFile);
+	//label이하와 input을 삭제
+	$label = $('label[for="prev-'+prevAttNo+'"]');
+	$input = $('#prev-'+prevAttNo);
+	$input.remove();
+	$label.remove();
+	
+}
 
 //제출시 유효성 검사
 $(document.marketUpdateFrm).submit(function(){
@@ -107,44 +117,88 @@ $(document.marketUpdateFrm).submit(function(){
 	});
 });
 
-var newNum=0;
+var upFileNum=0;
+var apiNum=0;
 function setThumbnail(e){
 
 	var num = $('div.add-product-photo img').length;
 	console.log("childnum : "+num);
-	
-	if(num>=5){
-		alert("사진은 5개까지 첨부할 수 있습니다.")
-	}
-	else {
-		var reader = new FileReader(); 
-		reader.onload = function(event) { 
-			var img = document.createElement("img"); 
-			img.setAttribute("src", event.target.result); 
-			img.setAttribute("width","82px");
-			img.setAttribute("height","82px");
-			//e.target is input:file
-			
-			document.querySelector("span.add-product-img"+e.target.name).innerText="";
-			document.querySelector("span.add-product-img"+e.target.name).appendChild(img);
-			e.target.name="upFile"+newNum;
-			console.log("e.target.name : "+e.target.name);
 
-			$("#input-file"+num).attr('disabled', true);
-		};
-		reader.readAsDataURL(event.target.files[0]);
-		if(!(e.target.id).includes("prev"))
-			createNewBox();
-	}
-	
+	var reader = new FileReader(); 
+	reader.onload = function(event) { 
+		var img = document.createElement("img"); 
+		img.setAttribute("src", event.target.result); 
+		img.setAttribute("width","82px");
+		img.setAttribute("height","82px");
+		//e.target is input:file
+		var imgNo = (e.target.id).substring(5);
+		console.log("e.target.name : "+(e.target.name));
+		console.log("imgNo : "+imgNo);
+		
+		//기존 파일 삭제 후 새로운 파일로 대체하는 경우
+		if((e.target.name).includes("prev")){
+			console.log("1번case");
+			//삭제하는 파일 번호를 제출
+			var $delFile = $('<input type="hidden" name="delFile" value="'+imgNo +'" >');
+			$frm = $(document.marketUpdateFrm);
+			$frm.append($delFile);
+			
+			$prevImg = $("span.add-product-img"+imgNo).children('img');
+			$prevImg.remove(); //기존 이미지 삭제
+			
+			document.querySelector("span.add-product-img"+imgNo).appendChild(img); 
+			
+			e.target.name="upFile"+upFileNum;	//name을 제출용 upFile로 변경
+			upFileNum++;
+		}
+		//새 파일로 대체한 박스를 다시 누른 경우 : name에 upFile에 포함된 경우
+		else if((e.target.name).includes("upFile")){
+			console.log("2번case");
+			//기존박스를 다시 누른 경우
+			if((e.target.id).includes("prev")){
+
+				$prevImg = $("span.add-product-img"+imgNo).children('img');
+				$prevImg.remove();
+				document.querySelector("span.add-product-img"+imgNo).appendChild(img);
+			}
+			//새 박스를 다시 누른 경우
+			else if((e.target.id).includes("new")){
+				$prevImg = $("span.add-product-img-new"+(e.target.id).substring(6)).children('img');
+				$prevImg.remove();
+				document.querySelector("span.add-product-img-new"+(e.target.id).substring(6)).appendChild(img);
+				
+			}
+			
+		}
+		//사진추가 박스를 누른 경우
+		else if(num>=5){
+			alert("사진은 5개까지 첨부할 수 있습니다.")
+		}
+		else{
+			//새로운 파일을 업로드하는 경우
+			console.log("새로운 파일을 업로드하는 경우");
+				document.querySelector("span.add-product-img-new"+apiNum).innerText="";
+			document.querySelector("span.add-product-img-new"+apiNum).appendChild(img);
+			apiNum++;
+			
+			e.target.name="upFile"+upFileNum;
+			upFileNum++;
+			console.log("e.target.name : "+e.target.name); 
+			
+			if(num<5)
+				createNewBox();
+		}
+	};
+
+	reader.readAsDataURL(event.target.files[0]);
 }
 
 function createNewBox(){
 	var num = $('div.add-product-photo img').length+1;
 	
-	var $label = $('<label class="input-file-button" for="input-file'+num+'"></label>');
-	var $span = $('<span class="add-product-img'+num+'">클릭하면 사진추가 [+]</span>');
-	var $input = $('<input type="file" name="upFile'+num+'" id="input-file'+num+'" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>');
+	var $label = $('<label class="input-file-button" for="newBox'+apiNum+'"></label>');
+	var $span = $('<span class="add-product-img-new'+apiNum+'">클릭하면 사진추가 [+]</span>');
+	var $input = $('<input type="file" name="newBox'+apiNum+'" id="newBox'+apiNum+'" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>');
 	$label.append($span);
 	
 	$('div.add-product-photo').append($label);

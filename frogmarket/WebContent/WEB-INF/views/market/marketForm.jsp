@@ -100,8 +100,8 @@ function setThumbnail(event){
 			$("#input-file"+num).attr('disabled', true);
 		};
 		reader.readAsDataURL(event.target.files[0]);
-
-		createNewBox();
+		if(num<4)
+			createNewBox();
 	}
 	
 }

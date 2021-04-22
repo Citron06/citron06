@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% 
+	String keyword = (String)session.getAttribute("searchKeyword"); 
+	String gKeyword = (String) session.getAttribute("graphKeyword");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +18,19 @@
 	<header>
 		<div class="header-container">
 			<div class="head main-title">
-				<img src="<%= request.getContextPath() %>/img/frog (1).png"
-					class="header-img" alt="">
-				<h1>깨꿀마켓</h1>
+				<a href="<%= request.getContextPath() %>/member/memberView"><img src="<%= request.getContextPath() %>/img/frog (1).png"
+					class="header-img" alt=""></a>
+				<a href="<%= request.getContextPath() %>"><h1>깨꿀마켓</h1></a>
 			</div>
 			<div class="head search">
-				<input type="text" name="header-search" id="header-search">
+			<%if(request.getRequestURI().equals("/frog/WEB-INF/views/graph/graph.jsp")) {%>
+				<form action="<%=request.getContextPath()%>/graph/graphView" method="get">
+				<input type="text" placeholder="검색어를 입력" name="header-search" id="header-search" value="<%=gKeyword != null ? gKeyword : ""%>">
+			<%} else { %>
+				<form action="<%=request.getContextPath()%>/market/marketList" method="get">
+				<input type="text" placeholder="검색어를 입력" name="header-search" id="header-search" value="<%=keyword != null ? keyword : ""%>">
+				<%} %>
+				</form>
 			</div>
 			<div class="head menu">
 				<div class="head market">

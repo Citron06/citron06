@@ -146,3 +146,6 @@ where board_no=56
 select * from p_board;
 update p_board set title='테스트14' ,status='soldout' ,sell_price=4321 ,description='재수정한 내용' ,area_info='대전' where board_no=56
 ;
+select * from reply;
+select * from p_attach;
+delete from p_board where board_no=57;
