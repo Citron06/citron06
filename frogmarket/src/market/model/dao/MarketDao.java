@@ -387,4 +387,34 @@ public class MarketDao {
 		
 		return count;
 	}
+
+	public int updateProduct(Connection conn, Product product) {
+		PreparedStatement pstmt = null;
+		//String sql = prop.getProperty("insertBoard");
+		String sql = "update p_board set title=? ,status=? ,sell_price=? ,description=? ,area_info=? where board_no=?";
+		int result = 0;
+
+		try {
+			//3. PreparedStatement 객체 생성(미완성쿼리)
+			pstmt = conn.prepareStatement(sql);
+			//3-1) 미완성쿼리의 '?'에 값 대입
+			pstmt.setString(1, product.getTitle());
+			pstmt.setString(2, product.getStatus());
+			pstmt.setInt(3, product.getPrice());
+			pstmt.setString(4, product.getDescription());
+			pstmt.setString(5, product.getArea());
+			pstmt.setInt(6, product.getNo());
+			//4. 실행 DML(executeUpdate) -> int , DQL(executeQuery) -> REsultSet
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+//			throw new BoardException("게시물 첨부파일 등록 오류",e);
+			e.printStackTrace();
+		}finally {
+			//5. 자원반납(pstmt)
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

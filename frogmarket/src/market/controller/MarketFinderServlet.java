@@ -62,6 +62,7 @@ public class MarketFinderServlet extends HttpServlet {
 				//4. jsp에 html응답메세지 작성 위임
 				request.setAttribute("pageBar", pageBar);
 				request.setAttribute("list", list);
+				request.setAttribute("searchKeyword", searchKeyword);
 				request.getRequestDispatcher("/WEB-INF/views/market/marketList.jsp")
 						.forward(request, response);
 	}

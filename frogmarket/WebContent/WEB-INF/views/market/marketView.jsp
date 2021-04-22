@@ -9,6 +9,17 @@
 	Product product = (Product)request.getAttribute("product");
 	Member member = (Member)request.getAttribute("member");
 	List<pAttach> attachList = (List<pAttach>)request.getAttribute("attachList");
+	
+	/* boolean editable = 
+			loginMember != null &&
+			(
+				loginMember.getMemberId().equals(member.getMemberId())
+				|| MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
+				
+			); */
+	boolean editable = "oneman".equals(member.getMemberId());//oneman이 로그인했다고 가정.
+	//List<BoardComment> commentList = (List<BoardComment>)request.getAttribute("commentList");
+	
 %>
  <!-- section시작 -->
     <section>
@@ -51,6 +62,14 @@
                 <h3><%=product.getPrice() %>원</h3>
                 <span><%=product.getDescription() %></span>
             </div>
+            <!-- 수정권한 있는 사람만 보이게 -->
+            <%if(editable){ %>
+            <div class="market-up-del-container">
+                <input type="button" value="수정" onclick="updateProduct()">
+                <input type="button" value="삭제" onclick="deleteProduct()">
+            </div>
+            <%} %>
+            
             <div class="comment-reader">
                 <h3 style="margin: 10px 35px;">댓글란</h3>
                 <div class="reader-inbox">
@@ -80,5 +99,25 @@
         </div>
     </section>
     <!-- section끝 -->
+    
+<%if(editable){ %>
+	<form 
+		action="<%=request.getContextPath()%>/market/marketDelete" 
+		method="post"
+		name="productDelFrm">
+		<input type="hidden" name="no" value="<%=product.getNo()%>"/>
+	</form>
+	<script>
+	function updateProduct(){
+		location.href = "<%= request.getContextPath( )%>/market/marketUpdate?no=<%= product.getNo() %>";
+	}
+	
+	function deleteProduct(){
+		if(confirm("게시글을 정말 삭제하시겠습니까?")){
+			$(document.productDelFrm).submit();
+		}
+	}
+	</script>
+<%} %>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

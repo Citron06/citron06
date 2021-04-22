@@ -118,8 +118,6 @@ select * from (select row_number() over(order by board_no desc) rnum, B.* from p
 ;
 select count(*) from p_board where title like '%팝니다%'
 ;
-
-
 --searchProduct에 첨부파일 컬럼 추가
 select * from (
                 select row_number() over(order by B.board_no desc) rnum, B.*,filename
@@ -134,4 +132,17 @@ select * from (
                 ) B
 where rnum between 1 and 9;
 select * from ( select row_number() over(order by B.board_no desc) rnum, B.*,filename from p_board B left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no where # ) B where rnum between ? and ?
+;
+
+select * from p_board;
+update p_board
+set title='테스트14'
+    ,status='soldout'
+    ,sell_price=4321
+    ,description='재수정한 내용'
+    ,area_info='대전'
+where board_no=56
+;
+select * from p_board;
+update p_board set title='테스트14' ,status='soldout' ,sell_price=4321 ,description='재수정한 내용' ,area_info='대전' where board_no=56
 ;

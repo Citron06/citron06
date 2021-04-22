@@ -406,6 +406,8 @@ footer {
 }
 .black-board {
     width: 1024px;
+    margin: 0 auto;
+    padding: 0 0 60px;
     border-radius: 0;
     box-shadow: none;
 }
@@ -515,6 +517,23 @@ footer {
 }
 .seller-good-info {
     float: right;
+}
+.market-up-del-container {
+    width: 840px;
+    height: 40px;
+    margin: 0 auto;
+    padding: 0 30px;
+    border-bottom: 1px solid #e9ecef;
+}
+.market-up-del-container input {
+    float: right;
+    width: 60px;
+    height: 30px;
+    margin: 0 5px;
+    background-color: #fff;
+    border: 1px solid #d4d4d4;
+    border-radius: 80px;
+    cursor: pointer;
 }
 .commet-container {
     width: 820px;
@@ -669,8 +688,7 @@ footer {
     height: 120px;
     border-bottom: 1px solid rgb(194, 194, 194);
 }
-/* .add-product-img1 { */
-[class^=add-product-img]{
+[class^=add-product-img] {
     float: left;
     width: 80px;
     height: 80px;
@@ -678,7 +696,7 @@ footer {
     border: 1px solid rgb(194, 194, 194);
     text-align: center;
 }
-.add-product-img p {
+[class^=add-product-img] p {
     padding: 22px 0;
 }
 .add-product-price {
@@ -795,4 +813,81 @@ footer {
     border-radius: 20px;
     border: 1px solid rgb(194, 194, 194);
     background-color: #fff;
+}
+
+/* ++++++++++++++++++++++++Report View+++++++++++++++++++++++= */
+
+.post-container {
+    width: 1024px;
+    height: auto;
+    margin: 0 auto;
+}
+.report-img-container {
+    width: 1024px;
+    height: 560px;
+}
+.photo-left-btn {
+    float: left;
+    position: relative;
+    top: 300px;
+    left: 60px;
+    width: 40px;
+    height: 60px;
+    margin: 0;
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+}
+.photo-rigth-btn {
+    float: right;
+    position: relative;
+    top: 300px;
+    right: 60px;
+    width: 40px;
+    height: 60px;
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+}
+.report-img {
+    position: relative;
+    top: 90px;
+    width: 820px;
+    height: 460px;
+    margin: 0 auto;
+    background-color: rgb(170, 170, 170);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.reporter-title {
+    width: 900px;
+    height: 100px;
+    margin: 0 auto;
+}
+.reporter-icon {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 20px 0 0 40px;
+    background-color: rgb(255, 208, 0);
+    border-radius: 80px;
+}
+.reporter-profile {
+    float: left;
+    width: 720px;
+    padding: 20px 10px;
+}
+.reporter-profile-info {
+    float: left;
+}
+.target-profile-info {
+    float: left;
+}
+.commet-container {
+    width: 820px;
+    height: auto;
+    padding: 0 40px 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
 }

@@ -5,6 +5,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<Product> list = (List<Product>)request.getAttribute("list");
+	String searchKeyword = (String)request.getAttribute("searchKeyword");
 %>
 <!-- section시작 -->
     <section>
@@ -48,8 +49,12 @@
     <!-- 게시글 쓰기 이동 버튼 끝 -->
 
 <script>
+<% if(searchKeyword!=null){ %>
+	$("#header-search").val("<%=searchKeyword%>");
+<% } %>
+
 $("#header-search").keyup(function(e){
-	if(e.keyCode == 13){
+	if(e.keyCode == 13){	//입력이 엔터라면
 		console.log(this.value);
 		
 		var newForm = $('<form></form>'); 

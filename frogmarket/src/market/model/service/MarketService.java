@@ -121,4 +121,31 @@ public class MarketService {
 		return totalContent;
 	}
 
+	public int updateProduct(Product product, pAttach[] attArr) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = marketDao.updateProduct(conn,product);
+
+//			int i=0;
+//			while(attArr[i]!=null) {
+//				attArr[i].setProductNo(productNo);
+//				result = marketDao.insertAttachment(conn,attArr[i]);
+//				i++;
+//			}
+			commit(conn);
+
+		} catch (Exception e) {
+//			e.printStackTrace();
+			rollback(conn);
+			result=0;
+			throw e;
+		} finally {
+			close(conn);			
+		}
+		
+		return result;
+	}
+
 }
