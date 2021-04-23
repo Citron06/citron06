@@ -1,6 +1,12 @@
+
+<%@page import="graph.model.vo.Graph"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<% String graphKeyword = (String)request.getAttribute("graphKeyword"); %>
+	<% String graphKeyword = (String)request.getAttribute("graphKeyword"); 
+		List<Graph> list = (List<Graph>)request.getAttribute("list");
+	
+	%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script> -->
@@ -13,7 +19,7 @@
 <section>
 	<div class="section-body black-section">
 		<div class="board black-board">
-		<%if(keyword == null && gKeyword == null){ %>
+		<%if(keyword == null && gKeyword == null ){ %>
 			<div class="board">
 				<h1>조회된 결과가 없습니다</h1>
 			</div>

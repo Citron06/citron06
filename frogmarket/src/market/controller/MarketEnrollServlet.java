@@ -72,7 +72,7 @@ public class MarketEnrollServlet extends HttpServlet {
 //			String renamedFileName =  multipartRequest.getFilesystemName("upFile");
 			String[] originalFileArr=new String[5];
 			String[] renamedFileArr=new String[5];
-			int i=1;
+			int i=0;
 			while(multipartRequest.getOriginalFileName("upFile"+i)!=null) {
 				originalFileArr[i]=multipartRequest.getOriginalFileName("upFile"+i);
 				renamedFileArr[i] =  multipartRequest.getFilesystemName("upFile"+i);
@@ -107,14 +107,14 @@ public class MarketEnrollServlet extends HttpServlet {
 //				product.setAttach(attach);
 //			}
 			
-			pAttach[] attArr = new pAttach[6];
-			i=1;
+			pAttach[] attArr = new pAttach[5];
+			i=0;
 			while(originalFileArr[i]!=null) {
 				pAttach attach = new pAttach();
 				attach.setOriginalFileName(originalFileArr[i]);
 				attach.setRenamedFileName(renamedFileArr[i]);
 //				product.setAttach(attach);
-				attArr[i-1]=attach;
+				attArr[i]=attach;
 				i++;
 			}
 			

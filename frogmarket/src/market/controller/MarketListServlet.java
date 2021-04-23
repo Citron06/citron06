@@ -14,7 +14,6 @@ import common.MvcUtils;
 import market.model.service.MarketService;
 import market.model.vo.Product;
 
-
 /**
  * Servlet implementation class MarketListServlet
  */
@@ -40,10 +39,8 @@ public class MarketListServlet extends HttpServlet {
 		int start = (cPage-1)*numPerPage + 1;
 		
 		List<Product> list = marketService.selectList(start,end);
-		System.out.println("list@servlet = "+list);
-		
-	
-		
+		//System.out.println("marketListServlet : "+list.get(0).getAttach().getRenamedFileName()); 
+		//System.out.println("list@servlet = "+list);
 		
 		//댓글카운트 추가
 
@@ -60,12 +57,10 @@ public class MarketListServlet extends HttpServlet {
 				);
 		
 		//3. 응답 html처리
-		System.out.println(url);
-		String searchKeyword = request.getParameter("header-search");
-		HttpSession session = request.getSession();
-		session.setAttribute("searchKeyword", searchKeyword);
-		//System.out.println(searchKeyword);
 		
+		String searchKeyword = request.getParameter("header-search");
+//		HttpSession session = request.getSession();
+//		session.setAttribute("searchKeyword", searchKeyword);
 		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);

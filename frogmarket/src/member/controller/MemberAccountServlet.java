@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberAccountServlet
@@ -13,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/member/account")
 public class MemberAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final String MEMBER_ROLE = "U";
+	
+	private MemberService memberService = new MemberService();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,8 +41,24 @@ public class MemberAccountServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		Member member = new Member();
+		
+		member.setMemberId(request.getParameter("memberId"));
+		member.setPassword(request.getParameter("password"));
+		member.setMemberRole(request.getParameter("memberRole"));
+		member.setEmail(request.getParameter("email"));
+		member.setPhone(request.getParameter("phone"));
+		member.setNickId(request.getParameter("nickId"));
+		member.setMemberRole(MEMBER_ROLE);
+		
+		int result = memberService.insertMember(member);
+		
+		HttpSession session = request.getSession(true);
+		session.setAttribute("AccountUser", member);
+		
+		System.out.println(member.toString());
+		request.getRequestDispatcher("/WEB-INF/views/member/accountResult.jsp").forward(request, response);
 	}
 
 }

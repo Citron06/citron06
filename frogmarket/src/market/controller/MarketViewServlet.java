@@ -39,6 +39,10 @@ public class MarketViewServlet extends HttpServlet {
 			}
 			String id = product.getId();
 			Member member = memberService.selectMemberId(id);
+			
+			List<pAttach> attachList = marketService.selectAttachList(no);
+			
+			
 			//xss 공격방지
 			product.setTitle(MvcUtils.escapeHtml(product.getTitle()));
 			product.setDescription(MvcUtils.escapeHtml(product.getDescription()));
@@ -47,14 +51,16 @@ public class MarketViewServlet extends HttpServlet {
 			// \n 개행문자를 <br/>태그로 변경해주기
 			product.setDescription(MvcUtils.convertLineFeedToBr(product.getDescription()));
 			
+			
 			//이 게시글의 댓글 가져오기
 			List<ProductComment> commentList = marketService.selectCommentList(no);
 			System.out.println("commentList@servlet = " + commentList);
 
 			//3. jsp forwarding
-			request.setAttribute("commentList", commentList);	
+			request.setAttribute("commentList", commentList);
 			request.setAttribute("product", product);
 			request.setAttribute("member", member);
+			request.setAttribute("attachList", attachList);
 //			request.setAttribute("commentList", commentList);
 			request.getRequestDispatcher("/WEB-INF/views/market/marketView.jsp")
 					.forward(request, response);

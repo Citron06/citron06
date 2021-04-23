@@ -28,7 +28,15 @@ public class xmlReportList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Report> list = reportService.selectList();
+		String searchTarget = request.getParameter("searchTarget");
+		List<Report> list = null;
+
+		if (searchTarget == null || searchTarget.isEmpty()) {
+			list = reportService.selectList();
+		} else {
+			list = reportService.searchMember(searchTarget);
+		}
+
 		System.out.println("list@servlet = " + list);
 
 		request.setAttribute("reportList", list);

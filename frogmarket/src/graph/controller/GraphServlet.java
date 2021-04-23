@@ -39,12 +39,18 @@ public class GraphServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			String graphKeyword = request.getParameter("header-search");
-			
-			HttpSession session = request.getSession();
-			String beforeKeyword = (String) session.getAttribute("searchKeyword");
 
-			session.setAttribute("graphKeyword", graphKeyword);
+			String graphKeyword = request.getParameter("header-search");
+
+			HttpSession session = request.getSession();
+			//String beforeKeyword = (String) session.getAttribute("searchKeyword");
+			//System.out.println("graphKeyword " + graphKeyword);
+			//System.out.println("beforeKeyword " + beforeKeyword);
+
+			if (graphKeyword != null) {
+				session.setAttribute("searchKeyword", graphKeyword);
+			}
+			
 			request.getRequestDispatcher("/WEB-INF/views/graph/graph.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

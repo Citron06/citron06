@@ -8,11 +8,11 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-import market.model.dao.MarketDao;
 import market.model.vo.Product;
 import market.model.vo.ProductComment;
+import market.model.dao.MarketDao;
+import market.model.vo.Product;
 import market.model.vo.pAttach;
-import member.model.vo.Member;
 
 public class MarketService {
 	private MarketDao marketDao = new MarketDao();
@@ -102,7 +102,7 @@ public class MarketService {
 		
 		return list;
 	}
-	
+
 	public List<Product> searchProductList(String searchKeyword, int start, int end) {
 		Connection conn = getConnection();
 		//검색어를 나눠서 배열로 넘김
@@ -121,7 +121,34 @@ public class MarketService {
 		close(conn);
 		return totalContent;
 	}
-	
+
+	public int updateProduct(Product product, pAttach[] attArr) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = marketDao.updateProduct(conn,product);
+
+//			int i=0;
+//			while(attArr[i]!=null) {
+//				attArr[i].setProductNo(productNo);
+//				result = marketDao.insertAttachment(conn,attArr[i]);
+//				i++;
+//			}
+			commit(conn);
+
+		} catch (Exception e) {
+//			e.printStackTrace();
+			rollback(conn);
+			result=0;
+			throw e;
+		} finally {
+			close(conn);			
+		}
+		
+		return result;
+	}
+
 	/**
 	 * 
 	 * 댓글리스트
