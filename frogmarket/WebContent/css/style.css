@@ -714,7 +714,7 @@ footer {
 }
 .add-product-photo {
     width: 800px;
-    height: 120px;
+    height: 140px;
     border-bottom: 1px solid rgb(194, 194, 194);
 }
 [class^=add-product-img] {

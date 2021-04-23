@@ -37,8 +37,8 @@ public class MarketDao {
 
 	public int insertProduct(Connection conn, Product product) {
 		PreparedStatement pstmt = null;
-		// String sql = prop.getProperty("insertBoard");
-		String sql = "insert into p_board values( seq_p_board_no.nextval ,?,?,?,?,?,default,?)";
+		String sql = prop.getProperty("insertProduct");
+		//String sql = "insert into p_board values( seq_p_board_no.nextval ,?,?,?,?,?,default,?)";
 		int result = 0;
 
 		try {
@@ -69,8 +69,8 @@ public class MarketDao {
 		int boardNo = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-//		String sql = prop.getProperty("selectLastBoardNo");
-		String sql = "select seq_p_board_no.currval board_no from dual";
+		String sql = prop.getProperty("selectLastBoardNo");
+		//String sql = "select seq_p_board_no.currval board_no from dual";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
@@ -90,8 +90,8 @@ public class MarketDao {
 	public int insertAttachment(Connection conn, pAttach attach) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-//		String sql = prop.getProperty("insertPattach");
-		String sql = "insert into p_attach(no, board_no, original_filename, renamed_filename) values(seq_p_attach_no.nextval,?,?,?)";
+		String sql = prop.getProperty("insertAttachment");
+//		String sql = "insert into p_attach(no, board_no, original_filename, renamed_filename) values(seq_p_attach_no.nextval,?,?,?)";
 		try {
 			// 3. PreparedStatement 객체 생성(미완성쿼리)
 			pstmt = conn.prepareStatement(sql);
@@ -114,8 +114,8 @@ public class MarketDao {
 
 	public Product selectProduct(Connection conn, int no) {
 		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("selectProduct");
-		String sql = "select * from p_board where board_no=?";
+		String sql = prop.getProperty("selectProduct");
+//		String sql = "select * from p_board where board_no=?";
 		ResultSet rset = null;
 		Product product = null;
 		try {
@@ -150,8 +150,8 @@ public class MarketDao {
 
 	public pAttach selectAttach(Connection conn, int no) {
 		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("selectAttach");
-		String sql = "select * from p_attach where board_no=?";
+		String sql = prop.getProperty("selectAttach");
+//		String sql = "select * from p_attach where board_no=?";
 		ResultSet rset = null;
 		pAttach attach = null;
 		try {
@@ -184,9 +184,8 @@ public class MarketDao {
 
 	public List<Product> selectList(Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("selectList");
-//		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between ? and ?";
-		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no) B where rnum between ? and ?";
+		String sql = prop.getProperty("selectList");
+//		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no) B where rnum between ? and ?";
 		ResultSet rset = null;
 		List<Product> list = new ArrayList<Product>();
 		Product product = null;
@@ -243,8 +242,8 @@ public class MarketDao {
 
 	public int selectProductCount(Connection conn) {
 		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("selectProductCount");
-		String sql = "select count(*) cnt from p_board";
+		String sql = prop.getProperty("selectProductCount");
+//		String sql = "select count(*) cnt from p_board";
 		int count = 0;
 		ResultSet rset = null;
 		try {
@@ -266,8 +265,8 @@ public class MarketDao {
 	public List<pAttach> selectAttachList(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		List<pAttach> list = new ArrayList<>();
-//		String sql = prop.getProperty("selectAttach");
-		String sql = "select * from p_attach where board_no=?";
+		String sql = prop.getProperty("selectAttachList");
+//		String sql = "select * from p_attach where board_no=?";
 		ResultSet rset = null;
 		pAttach attach = null;
 		try {
@@ -303,8 +302,8 @@ public class MarketDao {
 	public List<Product> searchProductList(Connection conn, String[] keywordArr, int start, int end) {
 		PreparedStatement pstmt = null;
 
-		// String sql = prop.getProperty("searchProductList");
-		String sql = "select * from ( select row_number() over(order by B.board_no desc) rnum, B.*,filename from p_board B left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no where # ) B where rnum between ? and ?";
+		String sql = prop.getProperty("searchProductList");
+//		String sql = "select * from ( select row_number() over(order by B.board_no desc) rnum, B.*,filename from p_board B left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no where # ) B where rnum between ? and ?";
 
 		sql = setQuery(sql, keywordArr);
 		System.out.println("searchProductList : " + sql);
@@ -363,8 +362,8 @@ public class MarketDao {
 
 	public int searchProductCount(Connection conn, String[] keywordArr) {
 		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("searchProductCount");
-		String sql = "select count(*) from p_board where #";
+		String sql = prop.getProperty("searchProductCount");
+//		String sql = "select count(*) from p_board where #";
 
 		sql = setQuery(sql, keywordArr);
 
@@ -387,8 +386,8 @@ public class MarketDao {
 
 	public int updateProduct(Connection conn, Product product) {
 		PreparedStatement pstmt = null;
-		// String sql = prop.getProperty("insertBoard");
-		String sql = "update p_board set title=? ,status=? ,sell_price=? ,description=? ,area_info=? where board_no=?";
+		String sql = prop.getProperty("updateProduct");
+//		String sql = "update p_board set title=? ,status=? ,sell_price=? ,description=? ,area_info=? where board_no=?";
 		int result = 0;
 
 		try {
@@ -423,7 +422,8 @@ public class MarketDao {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select * from reply where board_no = ?";
+		String sql = prop.getProperty("selectCommentList");
+		//String sql = "select * from reply where board_no = ?";
 		List<ProductComment> commentList = null;
 
 		try {
@@ -465,7 +465,8 @@ public class MarketDao {
 	public int insertMarketComment(Connection conn, ProductComment pc) {
 
 		PreparedStatement pstmt = null;
-		String sql = "insert into reply(no, board_no, member_id, content, reg_date) values(seq_reply_no.nextval, ?, ?, ?, default)";
+		String sql = prop.getProperty("insertMarketComment");
+		//String sql = "insert into reply(no, board_no, member_id, content, reg_date) values(seq_reply_no.nextval, ?, ?, ?, default)";
 		int result = 0;
 
 		try {
@@ -495,7 +496,8 @@ public class MarketDao {
 	 */
 	public int deleteMarketComment(Connection conn, int no, int boardNo) {
 		PreparedStatement pstmt = null;
-		String sql = "delete from reply where no = ? and board_no = ?";
+		String sql = prop.getProperty("deleteMarketComment");
+		//String sql = "delete from reply where no = ? and board_no = ?";
 
 		// prop.getProperty("deleteBoardComment");
 		int result = 0;
@@ -523,8 +525,8 @@ public class MarketDao {
 	public int deleteAttachment(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-//		String sql = prop.getProperty("deleteAttachment");
-		String sql = "delete from p_attach where no=?";
+		String sql = prop.getProperty("deleteAttachment");
+//		String sql = "delete from p_attach where no=?";
 		try {
 			// 3. PreparedStatement 객체 생성(미완성쿼리)
 			pstmt = conn.prepareStatement(sql);
@@ -545,8 +547,8 @@ public class MarketDao {
 
 	public int deleteProduct(Connection conn, int no) {
 		PreparedStatement pstmt = null;
-		//String sql = prop.getProperty("deleteProduct");
-		String sql = "delete from p_board where board_no=?";
+		String sql = prop.getProperty("deleteProduct");
+//		String sql = "delete from p_board where board_no=?";
 		int result = 0;
 
 		try {

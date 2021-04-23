@@ -148,4 +148,29 @@ update p_board set title='테스트14' ,status='soldout' ,sell_price=4321 ,descr
 ;
 select * from reply;
 select * from p_attach;
-delete from p_board where board_no=57;
+--delete from p_board where board_no=57;
+
+--on delete cascade 조건울 추가하기 위해서는 기존 조건을 삭제하고 추가할 내용 넣어서 다시 만들어야 한다.
+SELECT * FROM ALL_CONSTRAINTS
+WHERE TABLE_NAME = 'P_ATTACH';
+--삭제부터 하고
+ALTER TABLE p_attach DROP constraint FK_P_BOARD_TO_P_ATTACH_1;
+--새로운 constraint에 cascade 붙여서 추가
+ALTER TABLE p_attach 
+ADD CONSTRAINT FK_P_BOARD_TO_P_ATTACH_1 
+FOREIGN KEY (board_no)
+REFERENCES p_board(board_no) 
+ON DELETE CASCADE;
+
+SELECT * FROM ALL_CONSTRAINTS 
+WHERE TABLE_NAME = 'R_ATTACH';
+--삭제부터 하고
+ALTER TABLE r_attach DROP constraint FK_R_BOARD_TO_R_ATTACH_1;
+--새로운 constraint에 cascade 붙여서 추가
+ALTER TABLE r_attach 
+ADD CONSTRAINT FK_R_BOARD_TO_R_ATTACH_1 
+FOREIGN KEY (report_no)
+REFERENCES r_board(report_no) 
+ON DELETE CASCADE;
+
+select * from notifications;
