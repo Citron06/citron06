@@ -84,7 +84,7 @@ function setThumbnail(event){
 	var num = $('div.add-product-photo img').length;
 	console.log("childnum : "+num);
 	
-	if(num>=5){
+/* 	if(num>=5){
 		alert("사진은 5개까지 첨부할 수 있습니다.")
 	}
 	else {
@@ -102,7 +102,23 @@ function setThumbnail(event){
 		reader.readAsDataURL(event.target.files[0]);
 		if(num<4)
 			createNewBox();
-	}
+	} */
+
+	var reader = new FileReader(); 
+	reader.onload = function(event) { 
+		var img = document.createElement("img"); 
+		img.setAttribute("src", event.target.result); 
+		img.setAttribute("width","82px");
+		img.setAttribute("height","82px");
+		document.querySelector("span.add-product-img"+num).innerText="";
+		document.querySelector("span.add-product-img"+num).appendChild(img);
+
+		$("#input-file"+num).attr('disabled', true);
+	};
+	reader.readAsDataURL(event.target.files[0]);
+	if(num<4)
+		createNewBox();
+
 	
 }
 

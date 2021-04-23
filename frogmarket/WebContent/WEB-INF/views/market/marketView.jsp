@@ -32,7 +32,13 @@
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: none}
-img {vertical-align: middle;}
+.mySlides img {
+    width: 1000px;
+    height: 480px;
+    vertical-align: middle;
+    object-fit: cover;
+    margin-top:80px;
+}
 
 /* Slideshow container */
 .slideshow-container {
@@ -156,7 +162,7 @@ img {vertical-align: middle;}
                 	%>
 						<% for(pAttach attach : attachList){ %>
 		                <div class="mySlides fade">
-		                	<img src="<%=request.getContextPath() %>/upload/market/<%=attach.getRenamedFileName() %>" width="100%">
+		                	<img src="<%=request.getContextPath() %>/upload/market/<%=attach.getRenamedFileName() %>">
 		                </div>
 						<% } %>
 		                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
