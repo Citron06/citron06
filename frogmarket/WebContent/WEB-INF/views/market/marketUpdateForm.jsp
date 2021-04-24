@@ -73,7 +73,6 @@
     </section>
     <!-- section끝 -->
 <script>
-
 function deleteFile(prevAttNo){
 	console.log(prevAttNo);
 	//삭제하는 파일 번호를 제출
@@ -87,7 +86,6 @@ function deleteFile(prevAttNo){
 	$label.remove();
 	
 }
-
 //제출시 유효성 검사
 $(document.marketUpdateFrm).submit(function(){
 	if(!(confirm("정말 등록하시겠습니까?")))
@@ -98,7 +96,6 @@ $(document.marketUpdateFrm).submit(function(){
 		alert("지역을 입력하십시오.");
 		return false;
 	}
-
 	$title = $('[name=title]');
 	if($title.val()==""){
 		alert("제목을 입력하십시오.");
@@ -116,14 +113,11 @@ $(document.marketUpdateFrm).submit(function(){
 		$(elem).attr('disabled', false);
 	});
 });
-
 var upFileNum=0;
 var apiNum=0;
 function setThumbnail(e){
-
 	var num = $('div.add-product-photo img').length;
 	console.log("childnum : "+num);
-
 	var reader = new FileReader(); 
 	reader.onload = function(event) { 
 		var img = document.createElement("img"); 
@@ -143,11 +137,10 @@ function setThumbnail(e){
 			$frm = $(document.marketUpdateFrm);
 			$frm.append($delFile);
 			
-			$prevImg = $("span.add-product-img"+imgNo).children('img');
-			$prevImg.remove(); //기존 이미지 삭제
-			
-			document.querySelector("span.add-product-img"+imgNo).appendChild(img); 
-			
+			$span = $("span.add-product-img"+imgNo);
+			$span.children('img').remove();
+			$span.prepend($(img));
+						
 			e.target.name="upFile"+upFileNum;	//name을 제출용 upFile로 변경
 			upFileNum++;
 		}
@@ -156,16 +149,15 @@ function setThumbnail(e){
 			console.log("2번case");
 			//기존박스를 다시 누른 경우
 			if((e.target.id).includes("prev")){
-
-				$prevImg = $("span.add-product-img"+imgNo).children('img');
-				$prevImg.remove();
-				document.querySelector("span.add-product-img"+imgNo).appendChild(img);
+				$span = $("span.add-product-img"+imgNo);
+				$span.children('img').remove();
+				$span.prepend($(img));
 			}
 			//새 박스를 다시 누른 경우
 			else if((e.target.id).includes("new")){
-				$prevImg = $("span.add-product-img-new"+(e.target.id).substring(6)).children('img');
-				$prevImg.remove();
-				document.querySelector("span.add-product-img-new"+(e.target.id).substring(6)).appendChild(img);
+				$span = $("span.add-product-img-new"+(e.target.id).substring(6));
+				$span.children('img').remove();
+				$span.prepend($(img));
 				
 			}
 			
@@ -189,10 +181,8 @@ function setThumbnail(e){
 				createNewBox();
 		}
 	};
-
 	reader.readAsDataURL(event.target.files[0]);
 }
-
 function createNewBox(){
 	var num = $('div.add-product-photo img').length+1;
 	
@@ -204,9 +194,5 @@ function createNewBox(){
 	$('div.add-product-photo').append($label);
 	$('div.add-product-photo').append($input);
 }
-
-
-
-
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

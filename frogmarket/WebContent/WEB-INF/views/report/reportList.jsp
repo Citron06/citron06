@@ -32,7 +32,9 @@
 			%>
 			<div class="black-board-box<%= (i + 1) %>">
 				<a href="<%= location + report.getReportNo() %>">
-				<div class="black-img<%= (i + 1) %>"></div>
+				<div class="black-img">
+					<img src="<%= request.getContextPath() %>/img/no.png">
+				</div>
 				<div class="black-comment">
 					<h4>@<%=report.getMemberReportId()%>를 신고합니다.</h4>
 					<p>@<%=report.getMemberId()%></p>
@@ -78,6 +80,7 @@
 								var $root = $(data).find(":root");
 								var $reports = $root.find("report");
 								var $location = "<%= request.getContextPath() %>/report/reportView?no=";
+								var $no = "<%= request.getContextPath() %>/img/no.png";
 								
 								$(".black-container").html('');
 								$reports.each(function(index, report){
@@ -95,7 +98,7 @@
 									$comment.append($aTag);
 									
 									var $box = $("<div class='black-board-box"+ (index + 1) +"'></div>");
-									$box.append("<div class='black-img"+ (index + 1) +"'></div>")
+									$box.append("<div class='black-img'><img src='"+ $no +"'></div>")
 									   <%-- .append("<td><img src='<%= request.getContextPath() %>/images/" + profile + "'/></td>") --%>
 									   .append($comment)
 									   .appendTo(".black-container");
@@ -121,7 +124,7 @@
 <!-- section끝 -->
 <!-- 게시글 쓰기 이동 버튼 시작 -->
 <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/report/reportForm';" 
-                		style="cursor:pointer;"></div>
+                		style="cursor:pointer;"><img src="<%= request.getContextPath() %>/img/add.png"></div>
 <!-- 게시글 쓰기 이동 버튼 끝 -->
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

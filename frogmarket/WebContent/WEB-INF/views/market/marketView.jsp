@@ -12,11 +12,6 @@
 	Member member = (Member)request.getAttribute("member");
 	List<pAttach> attachList = (List<pAttach>)request.getAttribute("attachList");
 	List<ProductComment> commentList = (List<ProductComment>)request.getAttribute("commentList");
-	
-	//임시로 생성한 loginMember. 나중에 헤더의 loginMember로 쓸거임.
-	Member loginMember = new Member();
-	loginMember.setMemberId("oneman");
-	loginMember.setNickId("임시닉네임");
 
 	 boolean editable = 
 				loginMember != null &&
@@ -24,8 +19,7 @@
 					loginMember.getMemberId().equals(member.getMemberId())
 					|| MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
 					
-				); 
-	//boolean editable = "oneman".equals(member.getMemberId());//oneman이 로그인했다고 가정.
+				);
 %>
 <!-- slide를 위한 style : style.css로 옮길것 -->
 <style>
@@ -236,7 +230,7 @@ body {font-family: Verdana, sans-serif; margin:0}
             <div class="comment-writer">
                    <form action="<%= request.getContextPath() %>/market/marketCommentInsert" method="post" name="marketCommentFrm">
                 <div class="comment_inbox">
-                    <h3 class="comment_inbox_name"><%=loginMember.getMemberId() %></h3>
+                    <h3 class="comment_inbox_name"><%=loginMember.getNickId() %></h3>
                     <input type="hidden" name="boardNo" value="<%=product.getNo()%>" />
                		<input type="hidden" name="writer" value="<%=loginMember!=null? loginMember.getMemberId():"" %>" />
                     <textarea placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" name="content"></textarea>
@@ -246,8 +240,6 @@ body {font-family: Verdana, sans-serif; margin:0}
                 </div>
                 </form>
             </div>
-        </div>
-        </div>
         </div>
     </section>
     <!-- section끝 -->

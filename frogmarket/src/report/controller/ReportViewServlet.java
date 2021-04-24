@@ -43,7 +43,7 @@ public class ReportViewServlet extends HttpServlet {
 			}
 
 			Report report = reportService.selectReport(no);
-			System.out.println("나오는가요:" + report);
+			
 			if (report == null) {
 				System.out.println("게시글이 존재하지 않음. 임시경고.");
 			}

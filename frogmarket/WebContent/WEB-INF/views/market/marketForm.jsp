@@ -11,9 +11,9 @@
                 <div class="add_product-top">
                     <h1>상품등록</h1>
                     <!-- writer의 value는 loginMember의 getId를 해야 함. -->
-                    <input type="hidden" name="writer" value="oneman"/>
+                    <input type="hidden" name="writer" value="<%= loginMember.getMemberId() %>"/>
                     
-                    <select name="status">
+                    <select name="status" style="display:none">
                         <option value="new" selected="selected">판매중</option>
                         <option value="reserved">예약중</option>
                         <option value="soldout">판메 완료</option>
@@ -78,9 +78,8 @@ $(document.marketEnrollFrm).submit(function(){
 		$(elem).attr('disabled', false);
 	});
 });
-
 function setThumbnail(e){
-		
+	
 	var total = $('div.add-product-photo img').length;
 	var num = (e.target.name).substring(6);
 	console.log("total : "+total);
@@ -115,8 +114,6 @@ function createNewBox(){
 	$('div.add-product-photo').append($label);
 	$('div.add-product-photo').append($input);
 }
-
-
 
 
 </script>

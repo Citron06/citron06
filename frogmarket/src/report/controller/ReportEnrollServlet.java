@@ -54,11 +54,7 @@ public class ReportEnrollServlet extends HttpServlet {
 			report.setMemberId(id);
 			report.setMemberReportId(target);
 			report.setContent(comment);
-			
-			String originalFileName = multipartRequest.getOriginalFileName("upFile0");
-			System.out.println("파일0 : "+originalFileName);
-			System.out.println("three : "+id+target+comment);
-			
+
 			String[] originalFileArr = new String[5];
 			String[] renamedFileArr = new String[5];
 
@@ -85,8 +81,8 @@ public class ReportEnrollServlet extends HttpServlet {
 			}
 
 			// 2. 업무로직 : db에 insert
-			//int result = reportService.insertReport(report, attArr);
-			int result=1;
+			int result = reportService.insertReport(report, attArr);
+
 			HttpSession session = request.getSession();
 
 			String msg = (result > 0) ? "신고가 접수되었습니다." : "신고 등록에 실패하였습니다.";

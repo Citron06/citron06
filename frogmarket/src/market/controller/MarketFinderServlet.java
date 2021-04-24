@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.MvcUtils;
 import market.model.service.MarketService;
@@ -26,7 +27,7 @@ public class MarketFinderServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1. 사용자입력값 : 현재페이지 cPage
 				final int numPerPage = 10;
 				int cPage = 1;
@@ -38,9 +39,14 @@ public class MarketFinderServlet extends HttpServlet {
 				int end = cPage * numPerPage;
 				int start = (cPage-1)*numPerPage + 1;
 				//1. 사용자 입력값 처리
-				String searchKeyword = request.getParameter("searchKeyword");
+				String searchKeyword = request.getParameter("header-search");
 				System.out.println("searchKeyword@servlet = "+searchKeyword);
+						
+				//헤더의 검색값가져오기
+//				String searchKeyword = request.getParameter("header-search");
+//				request.getSession().setAttribute("searchKeyword", searchKeyword);
 				//2. 업무로직
+				
 				List<Product> list = marketService.searchProductList(searchKeyword, start, end);
 				System.out.println("list@servlet = "+list);
 				
@@ -51,7 +57,7 @@ public class MarketFinderServlet extends HttpServlet {
 				int totalContents = marketService.searchProductCount(searchKeyword);
 				System.out.println("list 카운트값 : "+totalContents);		
 				///mvc/admin/memberFinder?searchType=memberId&searchKeyword=a
-				String url = request.getRequestURI()+"?searchKeyword="+searchKeyword;
+				String url = request.getRequestURI()+"?header-search="+searchKeyword;
 				String pageBar = MvcUtils.getPageBar(
 							cPage,
 							numPerPage,
@@ -60,6 +66,7 @@ public class MarketFinderServlet extends HttpServlet {
 						);
 				
 				//4. jsp에 html응답메세지 작성 위임
+				//request.getSession().setAttribute("sList", sList);
 				request.setAttribute("pageBar", pageBar);
 				request.setAttribute("list", list);
 				request.setAttribute("searchKeyword", searchKeyword);

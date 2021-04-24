@@ -24,7 +24,7 @@ public class ReportService {
 		return list;
 	}
 
-	public int insertReport(Report report) {
+	public int insertReport(Report report, RAttach[] attArr) {
 		Connection conn = getConnection();
 		int result = 0;
 
@@ -35,10 +35,11 @@ public class ReportService {
 			int reportNo = reportDao.selectLastReportNo(conn);
 			report.setReportNo(reportNo);
 
-			if (report.getAttach() != null) {
-				// 참조할 marketNo 세팅
-				report.getAttach().setReportNo(reportNo);
-				result = reportDao.insertAttachment(conn, report.getAttach());
+			int i=0;
+			while(attArr[i]!=null) {
+				attArr[i].setReportNo(reportNo);
+				result = reportDao.insertAttachment(conn,attArr[i]);
+				i++;
 			}
 			commit(conn);
 
