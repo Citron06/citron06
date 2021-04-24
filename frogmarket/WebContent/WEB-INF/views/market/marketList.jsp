@@ -45,7 +45,7 @@
     <!-- section끝 -->
     <!-- 게시글 쓰기 이동 버튼 시작 -->
     <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/market/marketForm';" 
-                		style="cursor:pointer;"></div>
+                		style="cursor:pointer;"><img src="<%= request.getContextPath() %>/img/add.png"></div>
     <!-- 게시글 쓰기 이동 버튼 끝 -->
 
 <script>
@@ -65,7 +65,7 @@ $("#header-search").keyup(function(e){
 		// create element & set attribute (input) 
 		newForm.append($('<input/>', {type: 'hidden', name: 'searchKeyword', value:this.value })); 
 		// append form (to body) 
-		newForm.appendTo('body'); 
+		newForm.appendTo('body');
 		// submit form 
 		newForm.submit();
 

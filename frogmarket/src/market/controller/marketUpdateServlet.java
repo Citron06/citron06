@@ -86,21 +86,34 @@ public class marketUpdateServlet extends HttpServlet {
 			int price = Integer.parseInt(multipartRequest.getParameter("price"));
 			String description = multipartRequest.getParameter("description");
 			String area = multipartRequest.getParameter("local");
+			//대체된 이전 파일번호
+			String[] delFile = multipartRequest.getParameterValues("delFile");
+			
+			int [] prevAttachNo=null;
+			if(delFile!=null) {
+				int size = delFile.length;
+				prevAttachNo = new int [size];
+				for(int i=0; i<size; i++) {
+					prevAttachNo[i] = Integer.parseInt(delFile[i]);
+				}		
+				for(int num : prevAttachNo)
+					System.out.println("prevAttachNo : "+ num);
+			}
 
 			//업로드한 파일명
 //			String originalFileName = multipartRequest.getOriginalFileName("upFile");
 //			String renamedFileName =  multipartRequest.getFilesystemName("upFile");
 			
-//			String[] originalFileArr=new String[5];
-//			String[] renamedFileArr=new String[5];
-//			int i=0;
-//			while(multipartRequest.getOriginalFileName("upFile"+i)!=null) {
-//				originalFileArr[i]=multipartRequest.getOriginalFileName("upFile"+i);
-//				renamedFileArr[i] =  multipartRequest.getFilesystemName("upFile"+i);
-//				
-//				System.out.println("upFile"+i+" : "+originalFileArr[i]);
-//				i++;
-//			}
+			String[] originalFileArr=new String[5];
+			String[] renamedFileArr=new String[5];
+			int i=0;
+			while(multipartRequest.getOriginalFileName("upFile"+i)!=null) {
+				originalFileArr[i]=multipartRequest.getOriginalFileName("upFile"+i);
+				renamedFileArr[i] =  multipartRequest.getFilesystemName("upFile"+i);
+				
+				System.out.println("upFile"+i+" : "+originalFileArr[i]);
+				i++;
+			}
 
 			System.out.println("no@servlet = "+no);
 			System.out.println("id@servlet = "+id);
@@ -122,18 +135,19 @@ public class marketUpdateServlet extends HttpServlet {
 			//첨부파일이 있는 경우
 			
 			pAttach[] attArr = new pAttach[5];
-//			i=0;
-//			while(originalFileArr[i]!=null) {
-//				pAttach attach = new pAttach();
-//				attach.setOriginalFileName(originalFileArr[i]);
-//				attach.setRenamedFileName(renamedFileArr[i]);
-////				product.setAttach(attach);
-//				attArr[i]=attach;
-//				i++;
-//			}
+			i=0;
+			while(originalFileArr[i]!=null) {
+				pAttach attach = new pAttach();
+				attach.setOriginalFileName(originalFileArr[i]);
+				attach.setRenamedFileName(renamedFileArr[i]);
+//				product.setAttach(attach);
+				attArr[i]=attach;
+				i++;
+			}
 			
 			//2. 업무로직 : db에 insert		
-			int result = marketService.updateProduct(product,attArr);
+			//3가지기능 : product수정, file제거, file추가
+			int result = marketService.updateProduct(product,prevAttachNo,attArr);
 			System.out.println("처리결과 = "+result);
 			
 			//가입 성공/실패여부 판단

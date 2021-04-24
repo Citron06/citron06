@@ -23,49 +23,38 @@ public class MemberUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//업데이크 jsp에서 입력값을 받아왔다고 치고 그 입력값을 일담 임의로 지정해 둡니다
-//		String memberId = request.getParameter("memberId");
-//		String password = "karrot";
-//		String memberRole = "U";
-//		String email = "danggun@karrotmarket.com";
-//		String phone = "01078945611";
-//		Date enrollDate = null;
-//		String nickId = "중고장인";
-//		Double goodScore = 2.1;
-		
 		String memberId = request.getParameter("memberId");
-		String password = request.getParameter("password");
-		String memberRole = "U";
+		String password = request.getParameter("newPassword");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
-		Date enrollDate = null;
 		String nickId = request.getParameter("nickId");
-		Double goodScore = 2.1;
 		
-	
-		
-		Member member = new Member(memberId, password, memberRole, email, phone, enrollDate, nickId, goodScore);
-		
-		//3.업무로직
-//		int result = memberService.updateMember(member);
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setPassword(password);
+		member.setEmail(email);
+		member.setPhone(phone);
+		member.setNickId(nickId);
 		System.out.println("member@servlet = " + member);
-
+		//3.업무로직
+		int result = memberService.updateMember(member);
+		System.out.println(result);
 		//4. 사용자피드백 및 리다이렉트 처리
 		HttpSession session = request.getSession();
 		String msg = "";
 
-//		if(result > 0){
-//			msg = "성공적으로 회원정보를 수정했습니다.";
-//			//세션의 정보도 갱신
-//			session.setAttribute("loginMember", memberService.selectOne(member));
-//		}
-//		else 
-//			msg = "회원정보수정에 실패했습니다.";	
+		if(result > 0){
+			msg = "성공적으로 회원정보를 수정했습니다.";
+			//세션의 정보도 갱신
+			session.setAttribute("loginMember", memberService.selectOne(member));
+		}
+		else {
+			msg = "회원정보수정에 실패했습니다.";
+		}	
 		
 		session.setAttribute("msg", msg);
-//		response.sendRedirect(request.getContextPath() + "/member/memberView");
-		
-		request.getRequestDispatcher("/WEB-INF/views/member/memberUpdate.jsp").forward(request, response);
+//		response.sendRedirect(request.getContextPath() + "/member/memberView.jsp");
+		request.getRequestDispatcher("/WEB-INF/views/member/memberView.jsp").forward(request, response);
 		
 	}
 
