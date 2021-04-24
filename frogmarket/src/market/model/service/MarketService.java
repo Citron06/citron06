@@ -5,6 +5,7 @@ import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
+import java.io.Console;
 import java.sql.Connection;
 import java.util.List;
 
@@ -27,18 +28,16 @@ public class MarketService {
 			//생성된 product_no를 가져오기
 			int productNo =  marketDao.selectLastProductNo(conn);
 			product.setNo(productNo);
+			System.out.println("productNo : "+productNo);
 			
-//			if(product.getAttach()!=null) {
-//				//참조할 marketNo 세팅
-//				product.getAttach().setProductNo(productNo);
-//				result = marketDao.insertAttachment(conn,product.getAttach());
-//			}
 			int i=0;
-			while(attArr[i]!=null) {
+			while(i<5 && attArr[i]!=null) {
 				attArr[i].setProductNo(productNo);
 				result = marketDao.insertAttachment(conn,attArr[i]);
 				i++;
 			}
+
+			
 			commit(conn);
 
 		} catch (Exception e) {

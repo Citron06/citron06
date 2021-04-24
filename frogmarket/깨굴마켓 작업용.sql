@@ -174,3 +174,4 @@ REFERENCES r_board(report_no)
 ON DELETE CASCADE;
 
 select * from notifications;
+select * from r_attach;

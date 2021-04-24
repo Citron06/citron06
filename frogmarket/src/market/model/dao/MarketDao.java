@@ -69,7 +69,7 @@ public class MarketDao {
 		int boardNo = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectLastBoardNo");
+		String sql = prop.getProperty("selectLastProductNo");
 		//String sql = "select seq_p_board_no.currval board_no from dual";
 		try {
 			pstmt = conn.prepareStatement(sql);

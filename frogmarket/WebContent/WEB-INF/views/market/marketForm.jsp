@@ -79,30 +79,12 @@ $(document.marketEnrollFrm).submit(function(){
 	});
 });
 
-function setThumbnail(event){
-
-	var num = $('div.add-product-photo img').length;
-	console.log("childnum : "+num);
-	
-/* 	if(num>=5){
-		alert("사진은 5개까지 첨부할 수 있습니다.")
-	}
-	else {
-		var reader = new FileReader(); 
-		reader.onload = function(event) { 
-			var img = document.createElement("img"); 
-			img.setAttribute("src", event.target.result); 
-			img.setAttribute("width","82px");
-			img.setAttribute("height","82px");
-			document.querySelector("span.add-product-img"+num).innerText="";
-			document.querySelector("span.add-product-img"+num).appendChild(img);
-
-			$("#input-file"+num).attr('disabled', true);
-		};
-		reader.readAsDataURL(event.target.files[0]);
-		if(num<4)
-			createNewBox();
-	} */
+function setThumbnail(e){
+		
+	var total = $('div.add-product-photo img').length;
+	var num = (e.target.name).substring(6);
+	console.log("total : "+total);
+	console.log("thisNum : "+num);
 
 	var reader = new FileReader(); 
 	reader.onload = function(event) { 
@@ -110,16 +92,16 @@ function setThumbnail(event){
 		img.setAttribute("src", event.target.result); 
 		img.setAttribute("width","82px");
 		img.setAttribute("height","82px");
-		document.querySelector("span.add-product-img"+num).innerText="";
-		document.querySelector("span.add-product-img"+num).appendChild(img);
-
-		$("#input-file"+num).attr('disabled', true);
+		
+		var newImg = document.querySelector("span.add-product-img"+num);
+		//새박스를 만드는 경우
+		if(newImg.firstChild.tagName!='IMG' && total<4)
+			createNewBox();		
+		
+		newImg.innerText="";	//이전 내용물 삭제
+		newImg.appendChild(img);	//세 썸네일 추가
 	};
-	reader.readAsDataURL(event.target.files[0]);
-	if(num<4)
-		createNewBox();
-
-	
+	reader.readAsDataURL(e.target.files[0]);	
 }
 
 function createNewBox(){

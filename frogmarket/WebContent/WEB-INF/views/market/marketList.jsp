@@ -52,7 +52,7 @@
 <% if(searchKeyword!=null){ %>
 	$("#header-search").val("<%=searchKeyword%>");
 <% } %>
-
+ksemf
 $("#header-search").keyup(function(e){
 	if(e.keyCode == 13){	//입력이 엔터라면
 		console.log(this.value);
