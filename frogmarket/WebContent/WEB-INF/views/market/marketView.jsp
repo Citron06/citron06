@@ -230,7 +230,7 @@ body {font-family: Verdana, sans-serif; margin:0}
             <div class="comment-writer">
                    <form action="<%= request.getContextPath() %>/market/marketCommentInsert" method="post" name="marketCommentFrm">
                 <div class="comment_inbox">
-                    <h3 class="comment_inbox_name"><%=loginMember.getNickId() %></h3>
+                    <h3 class="comment_inbox_name"><%= loginMember!=null ? loginMember.getNickId() : ""%></h3>
                     <input type="hidden" name="boardNo" value="<%=product.getNo()%>" />
                		<input type="hidden" name="writer" value="<%=loginMember!=null? loginMember.getMemberId():"" %>" />
                     <textarea placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" name="content"></textarea>
@@ -280,7 +280,7 @@ body {font-family: Verdana, sans-serif; margin:0}
 //유효성 검사
 //$(document.boardCommentFrm).submit(function(){
 	//이벤트 버블링을 위해 전체 문서로 변화
-	$(document).on('submit', '[name=boardCommentfrm]', function(e){
+	$(document).on('submit', '[name=marketCommentFrm]', function(e){
 	<%if(loginMember == null){ %>
 		loginAlert();
 		return false;
