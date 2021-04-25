@@ -33,7 +33,7 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 			                    </div>
 			                </div>
 			                <form action="<%= request.getContextPath()%>/member/deleteCart" method="post" name="deleteCartFrm" >
-								<input type="hidden" name=memberId value="honggd"/>
+								<input type="hidden" name=memberId value="<%=loginMember.memberId()"/>
 								<input type="hidden" name=boardNo value="<%=p.getNo() %>" />
 								<button type=submit>삭제</button>
 							</form>
