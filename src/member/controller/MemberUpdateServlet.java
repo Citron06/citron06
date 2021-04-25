@@ -34,10 +34,17 @@ public class MemberUpdateServlet extends HttpServlet {
 		Date enrollDate = null;
 		String nickId = "중고장인";
 		Double goodScore = 2.1;
+<<<<<<< Updated upstream
 		
 		//
 
 		Member member = new Member(memberId, password, memberRole, email, phone, enrollDate, nickId, goodScore);
+=======
+		String icon = "";
+		//
+
+		Member member = new Member(memberId, password, memberRole, email, phone, enrollDate, nickId, goodScore, icon);
+>>>>>>> Stashed changes
 		
 		//3.업무로직
 		int result = memberService.updateMember(member);

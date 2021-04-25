@@ -53,7 +53,11 @@ public class MemberDao {
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				member.setNickId(rset.getString("NICK_ID"));
+<<<<<<< Updated upstream
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+=======
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));;
+>>>>>>> Stashed changes
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,8 +83,13 @@ public class MemberDao {
 			pstmt.setString(3, member.getMemberRole());
 			pstmt.setString(4, member.getEmail());
 			pstmt.setString(5, member.getPhone());
+<<<<<<< Updated upstream
 			pstmt.setString(6, member.getNickId());
 			pstmt.setDouble(7, member.getGoodScore());
+=======
+			pstmt.setDouble(6, member.getGoodScore());
+			pstmt.setString(7, member.getNickId());
+>>>>>>> Stashed changes
 
 			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML은 executeUpdate()
@@ -107,9 +116,14 @@ public class MemberDao {
 			pstmt.setString(3, member.getMemberRole());
 			pstmt.setString(4, member.getEmail());
 			pstmt.setString(5, member.getPhone());
+<<<<<<< Updated upstream
 			pstmt.setString(6, member.getNickId());
 			pstmt.setDouble(7, member.getGoodScore());
 			pstmt.setString(8, member.getMemberId());
+=======
+			pstmt.setDouble(6, member.getGoodScore());
+			pstmt.setString(7, member.getNickId());
+>>>>>>> Stashed changes
 
 			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML은 executeUpdate()
@@ -124,6 +138,7 @@ public class MemberDao {
 		return result;
 	}
 
+<<<<<<< Updated upstream
 	public int deleteMember(Connection conn, String membmerId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -135,16 +150,37 @@ public class MemberDao {
 			// 쿼리문미완성
 			pstmt.setString(1, membmerId);
 
+=======
+	public int deleteMember(Connection conn, Member member) {
+		int result = 0;
+        PreparedStatement pstmt = null;
+        String query = prop.getProperty("deleteMember");
+ 
+        try {
+        	// 미완성쿼리문을 가지고 객체생성.
+            pstmt = conn.prepareStatement(query);
+            // 쿼리문미완성
+			pstmt.setString(1, member.getPassword());
+>>>>>>> Stashed changes
 			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML은 executeUpdate()
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+<<<<<<< Updated upstream
+=======
+		} finally {
+			close(pstmt);
+>>>>>>> Stashed changes
 		}
 
 		return result;
 	}
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
 
 	public int updatePassword(Connection conn, Member member) {
 		int result = 0;
@@ -194,8 +230,13 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+<<<<<<< Updated upstream
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+=======
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+				member.setNickId(rset.getString("NICK_ID"));
+>>>>>>> Stashed changes
 				
 				list.add(member);
 			}
@@ -230,8 +271,13 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+<<<<<<< Updated upstream
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+=======
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+				member.setNickId(rset.getString("NICK_ID"));
+>>>>>>> Stashed changes
 				
 				list.add(member);
 			}
@@ -298,8 +344,13 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+<<<<<<< Updated upstream
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+=======
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+				member.setNickId(rset.getString("NICK_ID"));
+>>>>>>> Stashed changes
 				
 				list.add(member);
 			}
@@ -398,8 +449,13 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+<<<<<<< Updated upstream
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+=======
+				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+				member.setNickId(rset.getString("NICK_ID"));
+>>>>>>> Stashed changes
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

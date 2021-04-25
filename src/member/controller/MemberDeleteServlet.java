@@ -12,17 +12,18 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberLoginServlet
+ * Servlet implementation class MemberDeleteServlet
  */
-@WebServlet("/member/login")
-public class MemberLoginServlet extends HttpServlet {
+@WebServlet("/member/delete")
+public class MemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService service = new MemberService();
        
+	private MemberService memberService = new MemberService();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberLoginServlet() {
+    public MemberDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +32,7 @@ public class MemberLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp")
+		request.getRequestDispatcher("/WEB-INF/views/member/memberDelete.jsp")
  	   .forward(request, response);
 	}
 
@@ -40,20 +41,18 @@ public class MemberLoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Member loginMember = new Member();
 		
-		loginMember.setMemberId(request.getParameter("loginId"));
-		loginMember.setPassword(request.getParameter("loginPw"));
+		Member member = new Member();
 		
-		loginMember = service.selectOne(loginMember);
+		member.setPassword(request.getParameter("password"));
 		
-		System.out.println(loginMember.toString());
+		int result = memberService.insertMember(member);
 		
 		HttpSession session = request.getSession(true);
-		session.setAttribute("loginUser", loginMember);
+		session.setAttribute("deleteUser", member);
 		
-		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp")
-		.forward(request, response);
+		System.out.println(member.toString());
+		request.getRequestDispatcher("/WEB-INF/views/member/deleteResult.jsp").forward(request, response);
 		
 	}
 
