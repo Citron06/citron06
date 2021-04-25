@@ -87,7 +87,7 @@
 			},
 			
 			success: function(data){
-				console.log(data);
+				//console.log(data);
 				var $table = $("<table></table>");
 				
 				$(data).each(function(index,obj){
@@ -107,6 +107,7 @@
 					tr += "<td>" + receiverId + "</td>";
 					tr += "<td>" + title + "</td>";
 					tr += "<td>" + content + "</td>";
+					tr +='<td><input type="button" value="삭제" name="'+no+'"></td>';
 					tr +="</tr>";
 					$table.append(tr);
 				});
@@ -122,6 +123,33 @@
 			}
 		});
 	}
+			
+	//동적 생성 버튼 감지
+	$(document).on('click',':button', function(){
+		var $tr=$(this);
+		console.log($tr.attr('name'));
+	
+		$.ajax({
+			url: "<%= request.getContextPath()%>/notice/noticeDelete",
+			method: "get",
+			data: {
+				no : $tr.attr('name')
+			},
+			
+			success: function(){
+				$tr.parent().parent().remove();
+				
+			},
+			error: function(xhr, status, err){
+				console.log(xhr, status, err);
+			}
+		});		
+	});
+
+
+	
+
+
 
 	function logoutMember(){
 		alert("로그아웃합니다.");
