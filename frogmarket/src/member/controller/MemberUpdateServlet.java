@@ -77,10 +77,10 @@ public class MemberUpdateServlet extends HttpServlet {
 		//2. 받아온 memberId로 회원의 정보값 받아오기
 		Member member = memberService.selectMemberId(memberId);
 		List<Notice> noticeList = noticeService.selectNoticeList(memberId);
+//		int result = noticeService.deleteNotice(5);
+//		System.out.println("삭제결과 : "+result);
+				
 		request.setAttribute("noticeList", noticeList);
-//		for(Notice n : noticeList) {
-//			System.out.println(n.getReceiverId());
-//		}
 
 		//3. 회원 정보값을 memberUpdate.jsp에 넘기도록 하기
 		request.setAttribute("member", member);

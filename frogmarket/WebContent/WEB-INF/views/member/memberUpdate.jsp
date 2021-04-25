@@ -1,3 +1,4 @@
+<%@page import="notice.model.service.NoticeService"%>
 <%@page import="notice.model.vo.Notice"%>
 <%@page import="member.model.vo.Member"%>
 <%@page import="java.util.Arrays"%>
@@ -38,6 +39,7 @@
         </div>
         </form>
     </div>
+<form>
     <div>
     	알림 테스트
     	<table>
@@ -49,6 +51,7 @@
 	    		<th>receiver_id</th>
 	    		<th>title</th>
 	    		<th>content</th>
+	    		<th>삭제버튼</th>
 	    	</tr>
 	    	<%if(noticeList!=null){ %>
 		    	<%for(Notice n : noticeList){ %>
@@ -60,13 +63,15 @@
 		    		<td><%=n.getReceiverId() %></td>
 		    		<td><%=n.getTitle() %></td>
 		    		<td><%=n.getContent() %></td>
+		    		
 		    	</tr>
 		    	<%} %>
 	    	<% }%>
     	</table>
     </div>
-
+</form>
 	<script>
+	
 	$(document.accountFrm).submit(function(){
 		
 		var $password = $("#password");

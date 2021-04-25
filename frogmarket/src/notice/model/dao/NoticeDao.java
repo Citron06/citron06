@@ -81,4 +81,28 @@ public class NoticeDao {
 		return list;
 	}
 
+	public int deleteNotice(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = "delete from notice where no=?";
+		int result = 0;
+
+		try {
+			// 3. PreparedStatement 객체 생성(미완성쿼리)
+			pstmt = conn.prepareStatement(sql);
+			// 3-1) 미완성쿼리의 '?'에 값 대입
+			pstmt.setInt(1, no);
+			// 4. 실행 DML(executeUpdate) -> int , DQL(executeQuery) -> REsultSet
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+//			throw new BoardException("게시물 첨부파일 등록 오류",e);
+			e.printStackTrace();
+		} finally {
+			// 5. 자원반납(pstmt)
+			close(pstmt);
+		}
+
+		return result;
+	}
+
 }

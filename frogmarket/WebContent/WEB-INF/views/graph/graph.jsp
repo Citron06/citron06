@@ -29,8 +29,6 @@
 </section>
 <!-- section끝 -->
   <script>
-
-
     var chartLabels = [];
     var chartPrice=[];
     var chartDate = [];
@@ -106,7 +104,6 @@
     		    
     		  ]
     		};
-
     		//차트 설정
     		let config = {
     				  type: 'scatter',
@@ -193,7 +190,6 @@
     		      if (activePoints[0]) {
     		        var chartData = activePoints[0]['_chart'].config.data;
     		        var idx = activePoints[0]['_index'];
-
     		        var label = chartData.labels[idx];
     		        var value = chartData.datasets[0].data[idx];
     		        var boardNo = label.split(" ")[0];

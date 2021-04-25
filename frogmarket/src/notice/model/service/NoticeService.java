@@ -49,5 +49,23 @@ public class NoticeService {
 		}
 		return list;
 	}
+	
+	public int deleteNotice(int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = noticeDao.deleteNotice(conn,no);
+			commit(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback(conn);
+			result=0;
+			throw e;
+		} finally {
+			close(conn);			
+		}
+		return result;
+	}
 
 }
