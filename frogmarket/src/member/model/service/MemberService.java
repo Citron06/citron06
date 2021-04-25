@@ -1,12 +1,17 @@
 package member.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import market.model.vo.Product;
 import member.model.dao.MemberDao;
+import member.model.vo.Cart;
 import member.model.vo.Member;
 
 public class MemberService {
@@ -109,9 +114,9 @@ public class MemberService {
 		return member;
 	}
 
-	public int addHeart(String id) {
+	public int addHeart(Member member) {
 		Connection conn = getConnection();
-		int result = memberDao.addHeart(conn, id);
+		int result = memberDao.addHeart(conn, member);
 		if(result>0)
 			commit(conn);
 		else 
@@ -120,7 +125,75 @@ public class MemberService {
 		return result;
 	}
 
+
+	/**
+	 * 장바구니 등록
+	 * @param cart
+	 * @return
+	 */
+	public int insertCart(Cart cart) {
+		Connection conn = getConnection();
+		int result = memberDao.insertCart(conn, cart);
+		if(result>0)
+			commit(conn);
+		else 
+			rollback(conn);
+		close(conn);
+		return result;
+	}
 	
+	/**
+	 * 장바구니 리스트 선택
+	 * @param cart
+	 * @return
+	 */
+	public List<Cart> selectCartList(String memberId) {
+		Connection conn = getConnection();
+		List<Cart> list = memberDao.selectCartList(conn, memberId);
+		close(conn);
+		
+		return list;
+	}
+
+	/**
+	 * 장바구니 삭제
+	 * @param cart
+	 * @return
+	 */
+	public int deleteCart(Cart cart) {
+		Connection conn = getConnection();
+		int result = memberDao.deleteCart(conn, cart);
+		if(result>0)
+			commit(conn);
+		else 
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 장바구니 검색용 서비스
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<Product> selectList(List<Cart> cList, int start, int end) {
+		Connection conn = getConnection();
+		//--------Dao 요청----------
+		List<Product> list = memberDao.selectList(conn, cList, start, end);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int selectCartCount() {
+		Connection conn = getConnection();
+		int totalContent = memberDao.selectCartCount(conn);
+		close(conn);
+		
+		return totalContent;
+	}
 
 
 }

@@ -30,7 +30,7 @@
 			</div>
 			<div class="my-mini-container">
 				<div class="my-profile-good">
-					<div class="heart" onclick="addHeart();'">
+					<div class="heart" onclick="addHeart();" style="cursor: pointer;">
 						<img src="<%= request.getContextPath() %>/img/free-icon-hearts-138533.png" alt="">
 					</div>
 					<h3> : <%= loginMember.getGoodScore() %></h3>
@@ -59,7 +59,10 @@
 			<p>댓글 알림</p>
 			<p>상품등록</p>
 			<p>내 상품 목록</p>
-			<p>장바구니 목록</p>
+			<form id="showCartListFrm" method="post">
+				<p onclick="showCartList();" style="cursor: pointer;">장바구니</p>
+        		<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
+        	</form>
 			
 			<% if(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())) { %>
 				<h2>관리자</h2>
@@ -75,7 +78,9 @@
 	</div>
 </section>
 <!-- section끝 -->
-
+<form action="<%= request.getContextPath() %>/member/cartList" method="post" name="cartListFrm">
+	<input type="hidden" name="memberId" value="honggd"/>
+</form>
 <script>
 
 	function logoutMember(){
@@ -91,6 +96,11 @@
 			.submit();
 	}
 
+	function showCartList(){
+		$("#showCartListFrm").attr("action", "<%= request.getContextPath() %>/member/cartList")
+		.submit();
+	}
+	
 </script>
 
 <!-- 관리자 회원 목록 ajax -->
@@ -111,18 +121,19 @@ function getMemberByAdmin(){
 };
 
 function addHeart(){
-
+	var $id = "<%= loginMember.getMemberId() %>";
 	$.ajax({
 		url: "<%=request.getContextPath()%>/member/AddHeart",
-		data: {"memberId", <%= loginMember.getMemberId() %>},
+		data: {"memberId" : $id},
 		success : function(data) {
 			
 			var $root = $(data).find(":root");
 			var $hearts = $root.find("heart");
 			var gScore = $hearts.children("goodScore").text();
+			console.log(gScore);
 			var $goodScore = $(".my-profile-good").children("h3").html("");
 			
-			$goodScore.append(gScore);
+			$goodScore.append(" : "+gScore);
 			
 			},
 		error : function(xhr, status,err) {
@@ -132,4 +143,4 @@ function addHeart(){
 };
 </script>
 
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

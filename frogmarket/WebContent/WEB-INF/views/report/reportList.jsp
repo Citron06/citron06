@@ -74,7 +74,6 @@
 					
 						var nextPage = parseInt($(e).attr("data-page")) + 1;
 						var searchTarget = $("#searchTarget").val();
-						console.log(searchTarget);
 						
 						$.ajax({
 							url: "<%=request.getContextPath()%>/report/xmlReportList",

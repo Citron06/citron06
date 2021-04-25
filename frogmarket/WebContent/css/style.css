@@ -651,9 +651,15 @@ footer {
 	float: left;
 	width: 60px;
 	height: 60px;
-	margin: 20px 0 0 40px;
+	margin: 20px 0 0 0;
 	background-color: rgb(255, 208, 0);
 	border-radius: 80px;
+	overflow: hidden;
+}
+
+.seller-icon img {
+	width: 60px;
+	height: 60px;
 }
 
 .seller-profile {

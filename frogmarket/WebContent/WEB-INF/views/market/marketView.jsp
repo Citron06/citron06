@@ -1,3 +1,4 @@
+<%@page import="oracle.net.aso.l"%>
 <%@page import="member.model.service.MemberService"%>
 <%@page import="market.model.vo.ProductComment"%>
 <%@page import="market.model.vo.pAttach"%>
@@ -175,16 +176,18 @@ body {font-family: Verdana, sans-serif; margin:0}
             </div>
             <div class="seller-title">
                 <div class="seller-icon">
-
+					<% if(member.getIcon() == null || member.getIcon().isEmpty()){ %>
+					<img src="<%= request.getContextPath() %>/img/icon1.jpg" alt="">
+					<% } else { %>
+					<img src="<%= request.getContextPath() %>/img/<%= member.getIcon() %>" alt="">
+					<% } %>
                 </div>
                 <div class="seller-profile">
                     <div class="seller-profile-info">
                         <h3><%=member.getNickId() %></h3>
-                        <!-- <h3> 글쓴이 닉네임</h3> -->
                     </div>
                     <div class="seller-good-info">
                         <h3>좋아요 : <%=member.getGoodScore() %></h3>
-                        <!-- <h3>좋아요 : 숫자</h3> -->
                     </div>
                 </div>
             </div>
@@ -195,11 +198,11 @@ body {font-family: Verdana, sans-serif; margin:0}
                 <h3><%=product.getPrice() %>원</h3>
                 <span><%=product.getDescription() %></span>
             </div>
-            <!-- 수정권한 있는 사람만 보이게 -->
             <%if(editable){ %>
             <div class="market-up-del-container">
-                <input type="button" value="수정" onclick="updateProduct()">
+                <input type="button" style="width: 100px;" value="장바구니" onclick="addCart();">
                 <input type="button" value="삭제" onclick="deleteProduct()">
+                <input type="button" value="수정" onclick="updateProduct()">
             </div>
             <%} %>
             
@@ -244,16 +247,21 @@ body {font-family: Verdana, sans-serif; margin:0}
     </section>
     <!-- section끝 -->
     
-<%if(editable){ %>
-	<form 
-		action="<%=request.getContextPath()%>/market/marketDelete" 
-		method="post"
-		name="productDelFrm">
-		<input type="hidden" name="no" value="<%=product.getNo()%>"/>
-	</form>
-	<script>
+ <form action="<%=request.getContextPath() %>/member/addCart"  method="post" name="addCartFrm">
+    	<input type="hidden" name="boardNo" value="<%=product.getNo() %>"/>
+    	<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
+    </form>
+    
+<%
+	if (editable) {
+%>
+<form action="<%=request.getContextPath()%>/market/marketDelete"
+	method="post" name="productDelFrm">
+	<input type="hidden" name="no" value="<%=product.getNo()%>" />
+</form>
+<script>
 	function updateProduct(){
-		location.href = "<%= request.getContextPath( )%>/market/marketUpdate?no=<%= product.getNo() %>";
+		location.href = "<%=request.getContextPath()%>/market/marketUpdate?no=<%=product.getNo()%>";
 	}
 	
 	function deleteProduct(){
@@ -262,12 +270,15 @@ body {font-family: Verdana, sans-serif; margin:0}
 		}
 	}
 	</script>
-<%} %>
-<form action="<%=request.getContextPath() %>/market/marketCommentDelete" name="marketCommentDelFrm" method="post">
-	<input type="hidden" name="no"/>
-	<input type="hidden" name="boardNo" value="<%= product.getNo() %>"/>
+<%
+	}
+%>
+<form action="<%=request.getContextPath()%>/market/marketCommentDelete"
+	name="marketCommentDelFrm" method="post">
+	<input type="hidden" name="no" /> <input type="hidden" name="boardNo"
+		value="<%=product.getNo()%>" />
 </form>
-  <script>
+<script>
   $(".comment-delete").click(function(){
 	  if(confirm("해당 댓글을 삭제하시겠습니까?")){
 		  var $frm = $(document.marketCommentDelFrm);
@@ -281,10 +292,10 @@ body {font-family: Verdana, sans-serif; margin:0}
 //$(document.boardCommentFrm).submit(function(){
 	//이벤트 버블링을 위해 전체 문서로 변화
 	$(document).on('submit', '[name=marketCommentfrm]', function(e){
-	<%if(loginMember == null){ %>
+	<%if (loginMember == null) {%>
 		loginAlert();
 		return false;
-	<% }%>
+	<%}%>
 	//댓글 내용
 	var $content = $("[name=content]", e.target);
 	if(/^(.|\n)+$/.test($content.val() == false)){
@@ -298,9 +309,9 @@ function loginAlert(){
 	$("#memberId").focus();
 }
   </script>
-  
-               <!-- slide gallery를 위한 script -->
-             <script>
+
+<!-- slide gallery를 위한 script -->
+<script>
 		var slideIndex = 1;
 		showSlides(slideIndex);
 		
@@ -328,4 +339,16 @@ function loginAlert(){
 		  dots[slideIndex-1].className += " active";
 		}
 		</script>
+		
+
+<script>
+function addCart() {
+	if(confirm("장바구니에 담으시겠습니까?")){
+	var $frm = $(document.addCartFrm);
+	$frm.submit();
+	}
+};
+</script>
+
+
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

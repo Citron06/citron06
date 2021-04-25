@@ -32,7 +32,7 @@ public class XmlMemberList extends HttpServlet {
 		List<Member> list = memberService.selectList();
 		
 		request.setAttribute("adminlist", list);
-		request.getRequestDispatcher("/WEB-INF/views/member/xmlAdminMembers.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/xmlAdminMembers.jsp").forward(request, response);
 
 	}
 

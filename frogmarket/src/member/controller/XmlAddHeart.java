@@ -14,7 +14,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class XmlAddHeart
  */
-@WebServlet("/XmlAddHeart")
+@WebServlet("/member/AddHeart")
 public class XmlAddHeart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,11 +27,14 @@ public class XmlAddHeart extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("memberId");
-		
-		int result = memberService.addHeart(id);
+
 		Member member = memberService.selectMemberId(id);
 		
-		request.setAttribute("heartMember", member);
+		int result = memberService.addHeart(member);
+		
+		Member heartMember = memberService.selectMemberId(id);
+		
+		request.setAttribute("heartMember", heartMember);
 		request.getRequestDispatcher("/WEB-INF/views/member/hearts.jsp").forward(request, response);
 	}
 
