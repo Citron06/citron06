@@ -35,7 +35,7 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 			                <form action="<%= request.getContextPath()%>/member/deleteCart" method="post" name="deleteCartFrm" >
 								<input type="hidden" name=memberId value="<%=loginMember.getMemberId()%>"/>
 								<input type="hidden" name=boardNo value="<%=p.getNo() %>" />
-								<button type=submit>삭제</button>
+								<button type=submit style="width: 100px; border-radius: 80px; background-color:#fff; border:1px solid #d4d4d4;">삭제</button>
 							</form>
 			               <!--  <input type="button" value="삭제" onclick="deleteCart()">-->
 			                      
@@ -47,10 +47,7 @@ List<Product> list = (List<Product>)request.getAttribute("list");
  		</div>
 </div>
 </section>
- 	<form action="<%= request.getContextPath()%>/member/deleteCart" method="post"name="deleteCartFrm" >
-		<input type="hidden" name=memberId value="honggd"/>
-		<input type="hidden" name=boardNo value="" />
-	</form>
+ 
  <!-- section끝 -->
     <!-- 게시글 쓰기 이동 버튼 시작 -->
     <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/member/memberView';" 

@@ -53,10 +53,14 @@
 				<p onclick="updateMember();" style="cursor: pointer;">회원정보 수정</p>
         		<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
         	</form>
-			<p>회원 탈퇴</p>
+			<form id="memberDeleteFrm" method="post">
+				<p onclick="deleteMember();" style="cursor: pointer;">회원 탈퇴</p>
+        		<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
+        	</form>
+			
 			
 			<h2>상품</h2>
-			<p>댓글 알림</p>
+			<p onclick="noticeList();" style="cursor: pointer; color: red;">댓글 알림</p>
 			<p>상품등록</p>
 			<p>내 상품 목록</p>
 			<form id="showCartListFrm" method="post">
@@ -94,6 +98,14 @@
 		$("#memberViewUpdateFrm")
 			.attr("action","<%=request.getContextPath()%>/member/memberUpdate")
 			.submit();
+	}
+
+	function deleteMember(){
+		 if(confirm("정말로 탈퇴를 진행하시겠습니까?")){
+			 $("#memberDeleteFrm")
+				.attr("action","<%=request.getContextPath()%>/member/memberDelete")
+				.submit();
+		  }
 	}
 
 	function showCartList(){
@@ -141,6 +153,52 @@ function addHeart(){
 			}
 		});
 };
+
+	function noticeList(){
+		$.ajax({
+			url: "<%= request.getContextPath()%>/notice/noticeList",
+			method: "get",
+			data: {
+				memberId : "<%= loginMember.getMemberId() %>"
+			},
+			
+			success: function(data){
+				console.log(data);
+				var $table = $("<table></table>");
+				
+				$(data).each(function(index,obj){
+					var no = obj.no;
+					var boardNo = obj.boardNo;
+					var senderId = obj.senderId;
+					var senderNick = obj.senderNick;
+					var receiverId = obj.receiverId;
+					var title = obj.title;
+					var content = obj.content;
+					
+					var tr = "<tr>";
+					tr += "<td>" + no + "</td>";
+					tr += "<td>" + boardNo + "</td>";
+					tr += "<td>" + senderId + "</td>";
+					tr += "<td>" + senderNick + "</td>";
+					tr += "<td>" + receiverId + "</td>";
+					tr += "<td>" + title + "</td>";
+					tr += "<td>" + content + "</td>";
+					tr +="</tr>";
+					$table.append(tr);
+				});
+				
+				$table.css({"border" : "1px solid #444444"});
+				$table.find('td').css({"border" : "1px solid #444444"});
+				
+				$(".my-board").append($table);
+				
+			},
+			error: function(xhr, status, err){
+				console.log(xhr, status, err);
+			}
+		});
+	}
+
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
