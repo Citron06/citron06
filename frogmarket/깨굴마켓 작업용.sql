@@ -174,4 +174,42 @@ REFERENCES r_board(report_no)
 ON DELETE CASCADE;
 
 select * from notifications;
-select * from r_attach;
+
+SELECT * FROM ALL_CONSTRAINTS 
+WHERE TABLE_NAME = 'NOTIFICATIONS';
+create sequence seq_notice_no;
+
+CREATE TABLE notice (
+    no  number primary key,
+	board_no	number		NOT NULL,
+	sender_id	varchar2(15)		NOT NULL,
+	receiver_id	varchar2(15)		NOT NULL,
+	title	varchar2(100)		NOT NULL,
+	content	VARCHAR2(200)		NOT NULL,
+    
+    constraint fk_board_no foreign key (board_no) references p_board(board_no),
+    --constraint fk_sender_id foreign key (sender_id) references member(member_id),
+    constraint fk_receiver_id foreign key (receiver_id) references member(member_id)
+   
+);
+alter table notice drop constraint fk_sender_id;
+alter table notice rename column sender_nick to sender_id;
+alter table notice modify content varchar2(200);
+
+select * from reply;
+select * from member;
+select * from p_board;
+select * from notice;
+
+--insert into notice values(seq_notice_no, ?, ?, ?, ?, ?);
+insert into notice values(seq_notice_no.nextval, 54, 'oneman', 'oneman', '테스트12', '댓글테스트3');
+
+select no,board_no,sender_id, nick_id, receiver_id,title,content
+from (
+        select * from notice N left join member M on n.sender_id = M.member_id
+      ) N
+where receiver_id='oneman'
+order by no desc
+;
+select no,board_no,sender_id, nick_id, receiver_id,title,content from (select * from notice N left join member M on n.sender_id = M.member_id) N where receiver_id='oneman' order by no desc
+;

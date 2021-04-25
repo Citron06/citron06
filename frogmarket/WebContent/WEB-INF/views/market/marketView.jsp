@@ -288,9 +288,9 @@ body {font-family: Verdana, sans-serif; margin:0}
 	//댓글 내용
 	var $content = $("[name=content]", e.target);
 	if(/^(.|\n)+$/.test($content.val() == false)){
-		alert("댓글 내용을 작성하세요.");
+		/* alert("댓글 내용을 작성하세요.");
 		$content.focus();
-		return false;
+		return false; */
 	}
 });
 function loginAlert(){

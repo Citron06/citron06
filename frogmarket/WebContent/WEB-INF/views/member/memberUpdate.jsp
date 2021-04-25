@@ -1,3 +1,4 @@
+<%@page import="notice.model.vo.Notice"%>
 <%@page import="member.model.vo.Member"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
@@ -6,6 +7,7 @@
     pageEncoding="UTF-8"%>
 <%
 	Member member = (Member)request.getAttribute("member");
+	List<Notice> noticeList = (List<Notice>)request.getAttribute("noticeList");
 %>
 <!DOCTYPE html>
 <html>
@@ -35,6 +37,33 @@
             <input type="submit" value="submit">
         </div>
         </form>
+    </div>
+    <div>
+    	알림 테스트
+    	<table>
+	    	<tr>
+	    		<th>no</th>
+	    		<th>board_no</th>
+	    		<th>sender_id</th>
+	    		<th>nick_id</th>
+	    		<th>receiver_id</th>
+	    		<th>title</th>
+	    		<th>content</th>
+	    	</tr>
+	    	<%if(noticeList!=null){ %>
+		    	<%for(Notice n : noticeList){ %>
+		    	<tr>
+		    		<td><%=n.getNo() %></td>
+		    		<td><%=n.getBoardNo() %></td>
+		    		<td><%=n.getSenderId() %></td>
+		    		<td><%=n.getSenderNick() %></td>
+		    		<td><%=n.getReceiverId() %></td>
+		    		<td><%=n.getTitle() %></td>
+		    		<td><%=n.getContent() %></td>
+		    	</tr>
+		    	<%} %>
+	    	<% }%>
+    	</table>
     </div>
 
 	<script>

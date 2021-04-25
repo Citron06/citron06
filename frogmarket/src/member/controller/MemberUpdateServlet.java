@@ -2,6 +2,7 @@ package member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,13 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
 
 @WebServlet ("/member/memberUpdate")
 public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	MemberService memberService = new MemberService();
-	
+	NoticeService noticeService = new NoticeService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -73,6 +76,11 @@ public class MemberUpdateServlet extends HttpServlet {
 
 		//2. 받아온 memberId로 회원의 정보값 받아오기
 		Member member = memberService.selectMemberId(memberId);
+		List<Notice> noticeList = noticeService.selectNoticeList(memberId);
+		request.setAttribute("noticeList", noticeList);
+//		for(Notice n : noticeList) {
+//			System.out.println(n.getReceiverId());
+//		}
 
 		//3. 회원 정보값을 memberUpdate.jsp에 넘기도록 하기
 		request.setAttribute("member", member);
