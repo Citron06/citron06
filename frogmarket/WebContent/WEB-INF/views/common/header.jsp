@@ -36,8 +36,9 @@
 			<%if(request.getRequestURI().equals("/frog/WEB-INF/views/graph/graph.jsp")) {%>
 				<form action="<%=request.getContextPath()%>/graph/graphView" method="get">
 				<input type="text" placeholder="검색어를 입력" name="header-search" id="header-search" value="<%=gKeyword != null ? gKeyword : ""%>">
+				</form>
 			<%} else { %>
-				<form action="<%=request.getContextPath()%>/market/marketList" method="get">
+				<form action="<%=request.getContextPath()%>/market/marketFinder" method="get">
 				<input type="text" placeholder="검색어를 입력" name="header-search" id="header-search" value="<%=keyword != null ? keyword : ""%>">
 				<%} %>
 				</form>

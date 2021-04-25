@@ -109,6 +109,17 @@ public class MemberService {
 		return member;
 	}
 
+	public int addHeart(String id) {
+		Connection conn = getConnection();
+		int result = memberDao.addHeart(conn, id);
+		if(result>0)
+			commit(conn);
+		else 
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
 	
 
 

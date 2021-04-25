@@ -6,7 +6,7 @@
 	List<Report> rlist = (List<Report>) request.getAttribute("reportList");
 	String searchTarget = request.getParameter("searchTarget");
 	String location = request.getContextPath() + "/report/reportView?no=";
-	int showPage = 4;
+	int showPage = 10;
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
@@ -24,39 +24,42 @@
 	                	size="25" placeholder="아이디 검색"/>
 				</form>
 			</div>
-                <div class="black-container">
-			<%
-				if (rlist != null && !rlist.isEmpty()) {
+			<div class="black-container">
+				<%
+					if (rlist != null && !rlist.isEmpty()) {
 					for (int i = 0; i < rlist.size(); i++) {
 						Report report = rlist.get(i);
-			%>
-			<div class="black-board-box<%= (i + 1) %>">
-				<a href="<%= location + report.getReportNo() %>">
-				<div class="black-img">
-					<img src="<%= request.getContextPath() %>/img/no.png">
-				</div>
-				<div class="black-comment">
-					<h4>@<%=report.getMemberReportId()%>를 신고합니다.</h4>
-					<p>@<%=report.getMemberId()%></p>
-					<p><%=report.getRegDate()%></p>
-				</div>
+				%>
+				<a href="<%=location + report.getReportNo()%>">
+					<div class="black-board-box<%=(i + 1)%>">
+						<div class="black-img">
+							<img src="<%=request.getContextPath()%>/img/no.png">
+						</div>
+						<div class="black-comment">
+							<h4>
+								@<%=report.getMemberReportId()%>를 신고합니다.
+							</h4>
+							<p>
+								@<%=report.getMemberId()%></p>
+							<p><%=report.getRegDate()%></p>
+						</div>
+					</div>
 				</a>
-			</div>
-			<%
-				if((i + 1) == showPage){
-					break;
-				}
+				<%
+					if((i + 1) == showPage){
+						break;
+					}
 				}
 			} else {
 			%>
-			<div class="list-none">
-				<h1>등록된 게시글이 없습니다.</h1>
-			</div>
-			<%
+				<div class="list-none">
+					<h1>등록된 게시글이 없습니다.</h1>
+				</div>
+				<%
 				}
 			%>
-            </div>
-            <% if(rlist.size() > showPage){ %>
+			</div>
+			<% if(rlist.size() > showPage){ %>
 			<div class="more black-more" data-page="1"
 				data-total-pages="<%=(rlist.size() / showPage) + ((rlist.size() % showPage == 0) ? 0 : 1)%>"
 				onclick="moreResult(this, <%=showPage%>)">

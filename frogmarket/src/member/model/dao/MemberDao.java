@@ -78,8 +78,8 @@ public class MemberDao {
 			pstmt.setString(1, member.getMemberId());
 			pstmt.setString(2, member.getPassword());
 			pstmt.setString(3, member.getMemberRole());
-			pstmt.setString(4, member.getEmail());
-			pstmt.setString(5, member.getPhone());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getEmail());
 			pstmt.setDouble(6, member.getGoodScore());
 			pstmt.setString(7, member.getNickId());
 			pstmt.setString(8, member.getIcon());
@@ -376,6 +376,28 @@ public class MemberDao {
 		}
 		return member;
 
+	}
+
+	public int addHeart(Connection conn, String id) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query =  "update member set good_score = ? where member_id = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, member.getMemberId());
+			pstmt.setString(2, id);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 	
 

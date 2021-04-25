@@ -40,7 +40,8 @@ public class LoginFilter implements Filter {
 		
 		if(loginMember == null) {
 			session.setAttribute("msg", "로그인후 사용할 수 있습니다.");
-			httpRes.sendRedirect(httpReq.getContextPath());
+			String referer = httpReq.getHeader("Referer");
+			httpRes.sendRedirect(referer);
 			return;
 		}
 		// pass the request along the filter chain

@@ -37,8 +37,6 @@ public class xmlReportList extends HttpServlet {
 			list = reportService.searchMember(searchTarget);
 		}
 
-		System.out.println("list@servlet = " + list);
-
 		request.setAttribute("reportList", list);
 		request.getRequestDispatcher("/WEB-INF/views/report/reports.jsp").forward(request, response);
 	}
