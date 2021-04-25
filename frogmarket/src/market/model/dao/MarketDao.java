@@ -16,6 +16,7 @@ import java.util.Properties;
 import market.model.vo.Product;
 import market.model.vo.ProductComment;
 import market.model.vo.pAttach;
+import member.model.vo.Cart;
 
 public class MarketDao {
 	private Properties prop = new Properties();
@@ -519,4 +520,6 @@ public class MarketDao {
 
 		return result;
 	}
+
+	
 }

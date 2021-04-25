@@ -47,7 +47,6 @@ public class MarketFinderServlet extends HttpServlet {
 				request.getSession().setAttribute("searchKeyword", searchKeyword);
 				//2. 업무로직
 				
-			
 				List<Product> list = marketService.searchProductList(searchKeyword, start, end);
 				System.out.println("list@servlet = "+list);
 				

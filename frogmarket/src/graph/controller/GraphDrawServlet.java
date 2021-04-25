@@ -43,21 +43,21 @@ public class GraphDrawServlet extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			String keyword = (String) session.getAttribute("searchKeyword");
-			
-			//String graphKeyword = request.getParameter("header-search");
-			//System.out.println("그래프 키워드" + graphKeyword);
+
+			// String graphKeyword = request.getParameter("header-search");
+			// System.out.println("그래프 키워드" + graphKeyword);
 			System.out.println(keyword);
-		
-			// List <Graph> list = graphService.selectList(keyword);
-			List<Graph> list =graphService.searchProductList(keyword);
-			//if(keyword !=null || graphKeyword!=null) {
-				 
-			//}
+
+			List<Graph> list = null;
+			if (keyword != null) {
+				list = graphService.searchProductList(keyword);
+
+			}
+			// }
 //			 for(Graph g : list) {
 //			 System.out.println(g.getRegDate());
 //			 }
 
-			
 			response.setContentType("application/json; charset=utf-8");
 			Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();
 			String jsonStr = gson.toJson(list);

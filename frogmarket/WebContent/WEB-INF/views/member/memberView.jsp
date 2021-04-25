@@ -47,7 +47,10 @@
 			<h2>상품</h2>
 			<p>내 상품 목록</p>
 			<p>상품등록</p>
-			<p>장바구니 목록</p>
+			<form id="showCartListFrm" method="post">
+				<p onclick="showCartList();" style="cursor: pointer;">장바구니</p>
+        		<input type="hidden" name="memberId" value="honggd"/>
+        	</form>
 			<h2>관리자</h2>
 			<p>회원 목록</p>
 		</div>
@@ -119,12 +122,18 @@
 	</div>
 </section>
 <!-- section끝 -->
-
+<form action="<%= request.getContextPath() %>/member/cartList" method="post" name="cartListFrm">
+	<input type="hidden" name="memberId" value="honggd"/>
+</form>
 <script>
 	function updateMember(){
 		$("#memberViewUpdateFrm")
 			.attr("action","<%= request.getContextPath() %>/member/memberUpdate")
 			.submit();
+	}
+	function showCartList(){
+		$("#showCartListFrm").attr("action", "<%= request.getContextPath() %>/member/cartList")
+		.submit();
 	}
 </script>
 

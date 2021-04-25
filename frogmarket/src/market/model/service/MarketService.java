@@ -13,6 +13,7 @@ import market.model.vo.ProductComment;
 import market.model.dao.MarketDao;
 import market.model.vo.Product;
 import market.model.vo.pAttach;
+import member.model.vo.Cart;
 
 public class MarketService {
 	private MarketDao marketDao = new MarketDao();
@@ -210,4 +211,6 @@ public class MarketService {
 		return result;
 	}
 
+	
+	
 }

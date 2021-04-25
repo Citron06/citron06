@@ -61,10 +61,14 @@
                 <span><%=product.getArea() %></span>
                 <h3><%=product.getPrice() %>원</h3>
                 <span><%=product.getDescription() %></span>
+               
+             
             </div>
             <!-- 수정권한 있는 사람만 보이게 -->
             <%if(editable){ %>
             <div class="market-up-del-container">
+             <!-- 장바구니 -->
+                <input type="button" value="장바구니" onclick="addCart();">
                 <input type="button" value="수정" onclick="updateProduct()">
                 <input type="button" value="삭제" onclick="deleteProduct()">
             </div>
@@ -99,7 +103,10 @@
         </div>
     </section>
     <!-- section끝 -->
-    
+    <form action="<%=request.getContextPath() %>/member/addCart"  method="post" name="addCartFrm">
+    	<input type="hidden" name="boardNo" value="<%=product.getNo() %>"/>
+    	<input type="hidden" name="memberId" value="honggd"/>
+    </form>
 <%if(editable){ %>
 	<form 
 		action="<%=request.getContextPath()%>/market/marketDelete" 
@@ -119,5 +126,17 @@
 	}
 	</script>
 <%} %>
+
+
+<script>
+function addCart() {
+	if(confirm("장바구니에 담으시겠습니까?")){
+	var $frm = $(document.addCartFrm);
+	$frm.submit();
+	}
+};
+
+
+</script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
