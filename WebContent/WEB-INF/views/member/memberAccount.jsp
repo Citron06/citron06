@@ -14,6 +14,7 @@
     
         <form id="accountForm" class="account-form" action="<%= request.getContextPath() %>/member/account" method="post">
             <label for="">아이디</label><input type="text" name="memberId" id="member_id" value="" onKeypress="if(event.keyCode == 13) accountFunction()">
+<<<<<<< Updated upstream
             <label for="">별명</label><input type="text" name="nickId" id="nick_id" onKeypress="if(event.keyCode == 13) accountFunction()">
             <label for="">비밀번호</label><input type="password" name="password" id="password" onKeypress="if(event.keyCode == 13) accountFunction()">
             <label for="">비밀번호 확인</label><input type="password" name="password_check" id="password_check" onKeypress="if(event.keyCode == 13) accountFunction()">
@@ -23,6 +24,18 @@
         <div class="btns">
         	<input type="button" name="" id="accountSubmit" value="submit" onclick="accountFunction();">
             <input type="button" name="cancle" id="cancelButton" value="cancel" onclick="cancelFunction()">
+=======
+            <label for="">비밀번호</label><input type="password" name="password" id="password" onKeypress="if(event.keyCode == 13) accountFunction()">
+            <label for="">비밀번호 확인</label><input type="password" name="password_check" id="password_check" onKeypress="if(event.keyCode == 13) accountFunction()">
+            <label for="">별명</label><input type="text" name="nickId" id="nick_id" onKeypress="if(event.keyCode == 13) accountFunction()">
+            <label for="">이메일</label><input type="email" name="email" id="email" onKeypress="if(event.keyCode == 13) accountFunction()">
+            <label for="">전화번호</label><input type="tel" name="phone" id="phone" onKeypress="if(event.keyCode == 13) accountFunction()">
+        	<input type="hidden" name="icon" id="icon">
+        <hr>
+        <div class="btns">
+            <input type="button" name="cancle" id="cancelButton" value="cancel" onclick="cancelFunction()">
+        	<input type="button" name="" id="accountSubmit" value="submit" onclick="accountFunction();">
+>>>>>>> Stashed changes
         </div>
         </form>
     </div>
@@ -85,8 +98,21 @@
 		}
 		frm.submit();	
 	}
+<<<<<<< Updated upstream
 	function cancelFunction() {
         location.href="/frog/member/login";
     }
+=======
+	
+	function cancelFunction() {
+        location.href="/frog/member/login";
+    }
+	
+	window.onload = function() {
+		var result = "icon"+(Math.floor(Math.random() * 12) + 1)+".jpg";
+		$('#icon').val(result);
+	}
+	
+>>>>>>> Stashed changes
 </script>
 </html>

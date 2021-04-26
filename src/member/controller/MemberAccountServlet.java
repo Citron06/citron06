@@ -50,15 +50,31 @@ public class MemberAccountServlet extends HttpServlet {
 		member.setEmail(request.getParameter("email"));
 		member.setPhone(request.getParameter("phone"));
 		member.setNickId(request.getParameter("nickId"));
+<<<<<<< Updated upstream
+=======
+		member.setIcon(request.getParameter("icon"));
+>>>>>>> Stashed changes
 		member.setMemberRole(MEMBER_ROLE);
 		
 		int result = memberService.insertMember(member);
 		
+<<<<<<< Updated upstream
 		HttpSession session = request.getSession(true);
 		session.setAttribute("AccountUser", member);
 		
 		System.out.println(member.toString());
 		request.getRequestDispatcher("/WEB-INF/views/member/accountResult.jsp").forward(request, response);
+=======
+		String msg = "";
+		if(result>0)
+			msg = "성공적으로 회원가입되었습니다.";
+		else 
+			msg = "회원등록에 실패했습니다.";	
+		
+		request.getSession().setAttribute("msg", msg);
+		
+		response.sendRedirect(request.getContextPath());
+>>>>>>> Stashed changes
 	}
 
 }

@@ -26,11 +26,15 @@ public class MarketEnrollServlet extends HttpServlet {
 	private MarketService marketService = new MarketService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< Updated upstream
 		
 		//1. MultipartRequest객체 생성
 		// /WebContent/upload/board/업로드파일명.jpg
 		// getRealPath :  web root dir를 절대경로로 반환
 		
+=======
+
+>>>>>>> Stashed changes
 		String saveDirectory = getServletContext().getRealPath("/upload/market");
 		System.out.println("saveDirectory@servlet ="+saveDirectory);
 		
@@ -39,6 +43,7 @@ public class MarketEnrollServlet extends HttpServlet {
 		
 		//인코딩
 		String encoding = "utf-8";
+<<<<<<< Updated upstream
 		
 		//파일명 변경정책 객체
 		//중복파일인 경우, numbering처리
@@ -54,12 +59,22 @@ public class MarketEnrollServlet extends HttpServlet {
 						encoding, 
 						policy
 					);
+=======
+
+		FileRenamePolicy policy = new MvcFileRenamePolicy();
+		
+		MultipartRequest multipartRequest = 
+				new MultipartRequest(request,saveDirectory, maxPostSize, encoding, policy );
+>>>>>>> Stashed changes
 
 		try {
 			//2. db에 게시글/첨부파일 정보 저장
 			
 			//2-1. 사용자 입력값처리
+<<<<<<< Updated upstream
 			// title writer upFile content
+=======
+>>>>>>> Stashed changes
 			String id = multipartRequest.getParameter("writer");
 			String title = multipartRequest.getParameter("title");
 			String status = multipartRequest.getParameter("status");
@@ -67,6 +82,7 @@ public class MarketEnrollServlet extends HttpServlet {
 			String description = multipartRequest.getParameter("description");
 			String area = multipartRequest.getParameter("local");
 
+<<<<<<< Updated upstream
 			//업로드한 파일명
 			String originalFileName = multipartRequest.getOriginalFileName("upFile");
 			String renamedFileName =  multipartRequest.getFilesystemName("upFile");
@@ -80,12 +96,34 @@ public class MarketEnrollServlet extends HttpServlet {
 
 			Product product = new Product();
 
+=======
+			String[] originalFileArr=new String[5];
+			String[] renamedFileArr=new String[5];
+			pAttach[] attArr = new pAttach[5];
+			
+			int i=0;
+			while(multipartRequest.getOriginalFileName("upFile"+i)!=null) {
+				originalFileArr[i]=multipartRequest.getOriginalFileName("upFile"+i);
+				renamedFileArr[i] =  multipartRequest.getFilesystemName("upFile"+i);
+				
+				pAttach attach = new pAttach();
+				attach.setOriginalFileName(originalFileArr[i]);
+				attach.setRenamedFileName(renamedFileArr[i]);
+				attArr[i]=attach;
+		
+				System.out.println("upFile"+i+" : "+originalFileArr[i]);
+				i++;
+			}
+
+			Product product = new Product();
+>>>>>>> Stashed changes
 			product.setId(id);
 			product.setTitle(title);
 			product.setStatus(status);
 			product.setPrice(price);
 			product.setDescription(description);
 			product.setArea(area);
+<<<<<<< Updated upstream
 			
 			//첨부파일이 있는 경우
 			//multipartRequest.getFile("upFile"):File !=null 이것은 또다른 방법
@@ -98,6 +136,12 @@ public class MarketEnrollServlet extends HttpServlet {
 			
 			//2. 업무로직 : db에 insert		
 			int result = marketService.insertProduct(product);
+=======
+
+			
+			//2. 업무로직 : db에 insert		
+			int result = marketService.insertProduct(product,attArr);
+>>>>>>> Stashed changes
 			System.out.println("처리결과 = "+result);
 			
 			//가입 성공/실패여부 판단

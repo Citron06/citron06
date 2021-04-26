@@ -28,8 +28,19 @@ public class xmlReportList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+<<<<<<< Updated upstream
 		List<Report> list = reportService.selectList();
 		System.out.println("list@servlet = " + list);
+=======
+		String searchTarget = request.getParameter("searchTarget");
+		List<Report> list = null;
+
+		if (searchTarget == null || searchTarget.isEmpty()) {
+			list = reportService.selectList();
+		} else {
+			list = reportService.searchMember(searchTarget);
+		}
+>>>>>>> Stashed changes
 
 		request.setAttribute("reportList", list);
 		request.getRequestDispatcher("/WEB-INF/views/report/reports.jsp").forward(request, response);

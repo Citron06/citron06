@@ -13,7 +13,11 @@ import java.util.List;
 import java.util.Properties;
 
 import graph.model.vo.Graph;
+<<<<<<< Updated upstream
 
+=======
+import market.model.vo.Product;
+>>>>>>> Stashed changes
 
 import static common.JDBCTemplate.*;
 
@@ -39,14 +43,29 @@ public class GraphDao {
 		List<Graph> list = null;
 		
 		String sql = prop.getProperty("graphSelectList");
+<<<<<<< Updated upstream
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+=======
+	
+>>>>>>> Stashed changes
 		
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
 			
+<<<<<<< Updated upstream
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Graph>();
+=======
+			pstmt.setString(1, "%" + keyword+"%");
+			
+			rset = pstmt.executeQuery();
+					
+			
+			list = new ArrayList<Graph>();
+			
+		
+>>>>>>> Stashed changes
 			while(rset.next()) {
 								
 				Graph graph = new Graph();
@@ -76,5 +95,69 @@ public class GraphDao {
 				
 		return list;
 	}
+<<<<<<< Updated upstream
+=======
+	
+	/**
+	 * 문자열 자르기 메소드
+	 */
+	public String setQuery(String sql, String[] keywordArr) {
+		String sharp = "";
+		for(String str : keywordArr) {
+			if(sharp!="")
+				sharp+="and ";
+			sharp+="title like '%" + str + "%'";
+		}
+		sql = sql.replace("#", sharp);
+		return sql;
+	}
+	
+	
+	/**
+	 * 검색 리스트 출력 
+	 */
+	public List<Graph> searchProductList(Connection conn, String[] keywordArr) {
+		PreparedStatement pstmt = null;
+
+		//String sql = prop.getProperty("searchProductList");
+		String sql = "select * from (select row_number() over(order by board_no desc) rnum, B.* from p_board B where # ) B";
+
+		sql = setQuery(sql, keywordArr);
+		System.out.println("searchProductList : "+sql);
+		
+		ResultSet rset=null;
+		List<Graph> list = new ArrayList<>();
+		Graph graph = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+		
+			
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				graph = new Graph();
+				graph.setBoardNo(rset.getInt("board_no"));
+				//graph.set(rset.getString("seller_id"));
+				graph.setTitle(rset.getString("title"));
+				graph.setStatus(rset.getString("status"));
+				graph.setPrice(rset.getInt("sell_price"));
+				graph.setDesc(rset.getString("description"));
+				graph.setRegDate(rset.getDate("reg_date"));
+				graph.setArea(rset.getString("area_info"));
+				
+				list.add(graph);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//5. 자원반납(생성역순 rset - pstmt)
+		close(rset);
+		close(pstmt);
+		
+		return list;
+	}
+>>>>>>> Stashed changes
 
 }

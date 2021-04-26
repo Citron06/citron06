@@ -28,6 +28,7 @@ public class ReportListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+<<<<<<< Updated upstream
 		// 0. 인코딩처리는 EncodingFilter가 선처리
 		// 1. 사용자 입력값
 //		final int numPerPage = 5;
@@ -55,6 +56,13 @@ public class ReportListServlet extends HttpServlet {
 		// 3. 응답 html처리 jsp에 위임.
 		request.setAttribute("reportList", list);
 //		request.setAttribute("pageBar", pageBar);
+=======
+
+		List<Report> list = reportService.selectList();
+		System.out.println("list@servlet = " + list);
+
+		request.setAttribute("reportList", list);
+>>>>>>> Stashed changes
 		request.getRequestDispatcher("/WEB-INF/views/report/reportList.jsp").forward(request, response);
 
 	}

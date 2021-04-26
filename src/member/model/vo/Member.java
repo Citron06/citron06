@@ -2,9 +2,12 @@ package member.model.vo;
 
 import java.sql.Date;
 
+<<<<<<< Updated upstream
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
+=======
+>>>>>>> Stashed changes
 /**
  * 
  * VO클래스
@@ -21,6 +24,13 @@ public class Member {
 	private Date enrollDate;
 	private String nickId;
 	private double goodScore;
+<<<<<<< Updated upstream
+=======
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+	private String icon;
+========
+>>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
+>>>>>>> Stashed changes
 	
 	public Member() {
 		super();
@@ -28,7 +38,15 @@ public class Member {
 	}
 
 	public Member(String memberId, String password, String memberRole, String email, String phone, Date enrollDate,
+<<<<<<< Updated upstream
 			String nickId, double goodScore) {
+=======
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+			String nickId, double goodScore, String icon) {
+========
+			String nickId, double goodScore) {
+>>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
+>>>>>>> Stashed changes
 		super();
 		this.memberId = memberId;
 		this.password = password;
@@ -38,6 +56,13 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.nickId = nickId;
 		this.goodScore = goodScore;
+<<<<<<< Updated upstream
+=======
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+		this.icon = icon;
+========
+>>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
+>>>>>>> Stashed changes
 	}
 
 	public String getMemberId() {
@@ -99,15 +124,48 @@ public class Member {
 	public double getGoodScore() {
 		return goodScore;
 	}
+<<<<<<< Updated upstream
+=======
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+>>>>>>> Stashed changes
 
 	public void setGoodScore(double goodScore) {
 		this.goodScore = goodScore;
 	}
 
+<<<<<<< Updated upstream
+=======
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+========
+	
+	public void setGoodScore(double goodScore) {
+		this.goodScore = goodScore;
+	}
+	
+>>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
+>>>>>>> Stashed changes
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", password=" + password + ", memberRole=" + memberRole + ", email="
 				+ email + ", phone=" + phone + ", enrollDate=" + enrollDate + ", nickId=" + nickId + ", goodScore="
+<<<<<<< Updated upstream
 				+ goodScore + "]";
 	}
+=======
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+				+ goodScore + ", icon=" + icon + "]";
+	}
+
+========
+				+ goodScore + "]";
+	}
+>>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
+>>>>>>> Stashed changes
 }

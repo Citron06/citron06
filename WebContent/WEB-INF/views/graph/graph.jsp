@@ -1,17 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<<<<<<< Updated upstream
+=======
+	<% String graphKeyword = (String)request.getAttribute("graphKeyword"); %>
+>>>>>>> Stashed changes
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<<<<<<< Updated upstream
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/chrt.css" />
+=======
+<!--  <link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/chrt.css" />-->
+>>>>>>> Stashed changes
 <!-- section시작 -->
 <section>
 	<div class="section-body black-section">
 		<div class="board black-board">
+<<<<<<< Updated upstream
 			<div>
      			<canvas id="myChart" style="display:inline-block; width:600px; height:600px"></canvas>
    			</div>
@@ -22,6 +32,26 @@
 <!-- section끝 -->
   <script>
  
+=======
+		<%if(keyword == null && gKeyword == null){ %>
+			<div class="board" style="margin: 0 auto; margin-top: 80px;">
+				<h1 style="margin: 130px 0;">검색어를 입력해주세요 :)</h1>
+			</div>
+		<%}else { %>
+     		<canvas id="myChart" style="display:inline-block; width:800px; height:600px"></canvas>
+     	<%} %>
+		</div>
+	</div>
+	<div>
+	<form name="graphForm" id="graphForm" action="<%=request.getContextPath() %>/graph/drawGraph" method="get"></form>
+		<input type="hidden" name="graphKeyword"/>
+	</div>
+</section>
+<!-- section끝 -->
+  <script>
+
+
+>>>>>>> Stashed changes
     var chartLabels = [];
     var chartPrice=[];
     var chartDate = [];
@@ -37,7 +67,14 @@
 		
     	success:function(dat){
     		
+<<<<<<< Updated upstream
     		//json 값 분리하여 저장	
+=======
+    		if(dat!=null){
+    		//json 값 분리하여 저장	
+    		
+    		
+>>>>>>> Stashed changes
     		$.each(dat, function(key, value){
     			//게시물의 번호와 제목 같이 전달
     			chartLabels.push(value.boardNo + " : " +  value.title);
@@ -47,7 +84,11 @@
     			chartPrice.push(value.price);
     			chartDate.push(value.regDate);
     			
+<<<<<<< Updated upstream
     			
+=======
+    			console.log(".each에서 확인 "+"<%=graphKeyword%> ");
+>>>>>>> Stashed changes
     			//데이터확인용
     			//console.log("레그 데이트 : " + value.regDate);
     		     //console.log(value);
@@ -87,8 +128,14 @@
     		    //라벨은 표시 안됨
     		      label: [chartLabels[0]],
     		      data: chartData,
+<<<<<<< Updated upstream
     		      borderColor: 'rgb(255, 99, 132)',
     		      backgroundColor: 'rgb(255, 99, 132)',
+=======
+    		      borderColor: 'rgb(153, 217, 140)',
+    		      backgroundColor: 'rgb(153, 217, 140)',
+    		      pointRadius: 5,
+>>>>>>> Stashed changes
     		    }
     		    
     		  ]
@@ -109,6 +156,10 @@
     					tooltips: {
             				  displayColors:false,
             				  mode: 'index',
+<<<<<<< Updated upstream
+=======
+            				  bodySpacing : 10,
+>>>>>>> Stashed changes
             				  callbacks: {
             				        title: function(tooltipItem, object) {
             				          return object.labels[tooltipItem[0].index];
@@ -132,16 +183,29 @@
     				    	  
     				           display: true,
     				           text: '시세',
+<<<<<<< Updated upstream
     				           fontSize : 16
     				    },
     				    scales: {
     				          xAxes: [{
     				        	     				        	
+=======
+    				           fontSize : 20,
+    				           fontStyle : 'bold',
+    				           fontColor : "#000",
+    				    },
+    				    scales: {
+    				          xAxes: [{		        	
+>>>>>>> Stashed changes
     				            scaleLabel: {
     				              display: true,
     				              labelString: "날짜"
     				            },
     				            ticks: {
+<<<<<<< Updated upstream
+=======
+    				            
+>>>>>>> Stashed changes
       				              callback: function(value, index, values) {
       				                 const m = moment(value).format('M월 DD일');
       				            	 return m;
@@ -151,7 +215,11 @@
     				          }],
     				          yAxes: [{
       				            scaleLabel: {
+<<<<<<< Updated upstream
       				              display: true,
+=======
+      				              display: false,
+>>>>>>> Stashed changes
       				              labelString: "가격"
       				            },
       				         	ticks: {
@@ -181,6 +249,7 @@
     		        var label = chartData.labels[idx];
     		        var value = chartData.datasets[0].data[idx];
     		        var boardNo = label.split(" ")[0];
+<<<<<<< Updated upstream
 					
     		        var url = "http://google.com/search?q=노트북";
     		        console.log(url);
@@ -189,6 +258,18 @@
     		      }
     		    };
     		
+=======
+					var url = location.origin + "<%=request.getContextPath()%>" + "/market/marketView?no=" + boardNo;
+	
+    		        console.log(url);
+    		       // alert(url);
+    		       location.href=url;
+    		      }
+    		    };
+    		} else {
+    			
+    		}
+>>>>>>> Stashed changes
     		
     	},
     	error:function(xhr, status, err){
@@ -197,7 +278,11 @@
     	});
     });
     
+<<<<<<< Updated upstream
  
 </script>
+=======
+  </script>
+>>>>>>> Stashed changes
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -10,9 +10,16 @@
 			method="post" enctype="multipart/form-data">
                 <div class="add_product-top">
                     <h1>상품등록</h1>
+<<<<<<< Updated upstream
                     <input type="hidden" name="writer" value="oneman"/>
                     
                     <select name="status">
+=======
+                    <!-- writer의 value는 loginMember의 getId를 해야 함. -->
+                    <input type="hidden" name="writer" value="<%= loginMember.getMemberId() %>"/>
+                    
+                    <select name="status" style="display:none">
+>>>>>>> Stashed changes
                         <option value="new" selected="selected">판매중</option>
                         <option value="reserved">예약중</option>
                         <option value="soldout">판메 완료</option>
@@ -32,6 +39,7 @@
                     <input placeholder="게시글 제목을 정해주세요" type="text" name="title" id="title" required>
                 </div>
 
+<<<<<<< Updated upstream
 				<label class="input-file-button" for="input-file">업로드</label>
 				<input type="file" name="upFile" id="input-file" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>
 					
@@ -45,6 +53,12 @@
                     </div>
                     <div class="add-product-img">
                     </div> -->
+=======
+                <div class="add-product-photo">
+                    <label class="input-file-button" for="input-file0"><span class="add-product-img0">클릭하면 사진추가 [+]</span></label>
+					<input type="file" name="upFile0" id="input-file0" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>
+					
+>>>>>>> Stashed changes
                 </div>
                 <div class="add-product-price">
                     <input type="number" name="price" placeholder="￦ 가격 기제" required>
@@ -58,6 +72,7 @@
     </section>
     <!-- section끝 -->
 <script>
+<<<<<<< Updated upstream
 function setThumbnail(event){
 	for(var image of event.target.files){
 		var reader = new FileReader();
@@ -75,5 +90,73 @@ function setThumbnail(event){
 	}
 }
 
+=======
+//제출시 유효성 검사
+$(document.marketEnrollFrm).submit(function(){
+	if(!(confirm("정말 등록하시겠습니까?")))
+		return false;
+	
+	$local = $('[name=local]');
+	if($local.val()==""){
+		alert("지역을 입력하십시오.");
+		return false;
+	}
+
+	$title = $('[name=title]');
+	if($title.val()==""){
+		alert("제목을 입력하십시오.");
+		return false;
+	}
+	
+	$description = $('[name=description]');
+	if($description.val()==""){
+		alert("내용을 입력하십시오.");
+		return false;
+	}
+	
+	var $img = $('input[type="file"]');
+	$img.each(function(index,elem){
+		$(elem).attr('disabled', false);
+	});
+});
+function setThumbnail(e){
+	
+	var total = $('div.add-product-photo img').length;
+	var num = (e.target.name).substring(6);
+	console.log("total : "+total);
+	console.log("thisNum : "+num);
+
+	var reader = new FileReader(); 
+	reader.onload = function(event) { 
+		var img = document.createElement("img"); 
+		img.setAttribute("src", event.target.result); 
+		img.setAttribute("width","82px");
+		img.setAttribute("height","82px");
+		
+		var newImg = document.querySelector("span.add-product-img"+num);
+		//새박스를 만드는 경우
+		if(newImg.firstChild.tagName!='IMG' && total<4)
+			createNewBox();		
+		
+		newImg.innerText="";	//이전 내용물 삭제
+		newImg.appendChild(img);	//세 썸네일 추가
+	};
+	reader.readAsDataURL(e.target.files[0]);	
+}
+
+function createNewBox(){
+	var num = $('div.add-product-photo img').length+1;
+	
+	var $label = $('<label class="input-file-button" for="input-file'+num+'"></label>');
+	var $span = $('<span class="add-product-img'+num+'">클릭하면 사진추가 [+]</span>');
+	var $input = $('<input type="file" name="upFile'+num+'" id="input-file'+num+'" style="display:none;" accept="image/*" onchange="setThumbnail(event)"/>');
+	$label.append($span);
+	
+	$('div.add-product-photo').append($label);
+	$('div.add-product-photo').append($input);
+}
+
+
+>>>>>>> Stashed changes
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
