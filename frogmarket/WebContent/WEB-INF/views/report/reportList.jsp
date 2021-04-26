@@ -53,7 +53,7 @@
 			} else {
 			%>
 				<div class="list-none">
-					<h1>등록된 게시글이 없습니다.</h1>
+					<h1 style="margin: 180px 0;">등록된 게시글이 없습니다.</h1>
 				</div>
 				<%
 				}
@@ -63,7 +63,7 @@
 			<div class="more black-more" data-page="1"
 				data-total-pages="<%=(rlist.size() / showPage) + ((rlist.size() % showPage == 0) ? 0 : 1)%>"
 				onclick="moreResult(this, <%=showPage%>)">
-				<p style="margin: 15px;">더보기</p>
+				<p>더보기</p>
 			</div>
 			<% } %>
 		</div>

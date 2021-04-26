@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.MvcUtils;
 import market.model.service.MarketService;
 import market.model.vo.Product;
-import market.model.vo.ProductComment;
+import market.model.vo.ProductCommentExt;
 import market.model.vo.pAttach;
 import member.model.service.MemberService;
 import member.model.vo.Member;
@@ -27,14 +27,13 @@ public class MarketViewServlet extends HttpServlet {
 	private MemberService memberService = new MemberService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 사용자 입력값 : no
+		
 		int no = 0;
 		try {
 			no = Integer.parseInt(request.getParameter("no"));
-			//2. 업무로직 : board객체 조회 (첨부파일 attach조회)
+			
 			Product product = marketService.selectProduct(no);
 			if(product == null) {
-//				throw new BoardException("해당 게시글이 존재하지 않습니다.");
 				System.out.println("게시글이 존재하지 않음. 임시경고.");
 			}
 			String id = product.getId();
@@ -53,22 +52,18 @@ public class MarketViewServlet extends HttpServlet {
 			
 			
 			//이 게시글의 댓글 가져오기
-			List<ProductComment> commentList = marketService.selectCommentList(no);
-			System.out.println("commentList@servlet = " + commentList);
+//			List<ProductComment> commentList = marketService.selectCommentList(no);
+			List<ProductCommentExt> commentList = marketService.selectCommentExtList(no);
 
 			//3. jsp forwarding
-			request.setAttribute("commentList", commentList);
 			request.setAttribute("product", product);
 			request.setAttribute("member", member);
 			request.setAttribute("attachList", attachList);
-//			request.setAttribute("commentList", commentList);
+			request.setAttribute("commentList", commentList);
 			request.getRequestDispatcher("/WEB-INF/views/market/marketView.jsp")
 					.forward(request, response);
 		} catch (Exception e) {	
-			//로깅
 			e.printStackTrace();
-			//관리자이메일 알림
-			//다시 예외를 던져서 WAS가 정한 예외페이지에서 응답메시지를 작성
 			throw e;
 		} 		
 		

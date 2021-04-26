@@ -30,7 +30,7 @@
 			</div>
 			<div class="my-mini-container">
 				<div class="my-profile-good">
-					<div class="heart" onclick="addHeart();" style="cursor: pointer;">
+					<div class="heart">
 						<img src="<%= request.getContextPath() %>/img/free-icon-hearts-138533.png" alt="">
 					</div>
 					<h3> : <%= loginMember.getGoodScore() %></h3>
@@ -61,8 +61,10 @@
 			
 			<h2>상품</h2>
 			<p onclick="noticeList();" style="cursor: pointer; color: red;">댓글 알림</p>
-			<p>상품등록</p>
-			<p>내 상품 목록</p>
+			<form id="insertProductFrm" method="get">
+				<p onclick="insertProduct();" style="cursor: pointer;">상품등록</p>
+        	</form>
+			<p onclick="getProduct();" style="cursor: pointer;">내 상품 목록</p>
 			<form id="showCartListFrm" method="post">
 				<p onclick="showCartList();" style="cursor: pointer;">장바구니</p>
         		<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
@@ -83,7 +85,7 @@
 </section>
 <!-- section끝 -->
 <form action="<%= request.getContextPath() %>/member/cartList" method="post" name="cartListFrm">
-	<input type="hidden" name="memberId" value="honggd"/>
+	<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
 </form>
 <script>
 
@@ -113,6 +115,12 @@
 		.submit();
 	}
 	
+
+	function insertProduct(){
+		$("#insertProductFrm").attr("action", "<%= request.getContextPath() %>/market/marketForm")
+		.submit();
+	}
+	
 </script>
 
 <!-- 관리자 회원 목록 ajax -->
@@ -124,6 +132,7 @@ function getMemberByAdmin(){
 		dataType: "text",
 		success : function(data) {
 			console.log(data);
+			$(".my-board").html('');
 			$(".my-board").append(data);
 			},
 		error : function(xhr, status,err) {
@@ -132,21 +141,16 @@ function getMemberByAdmin(){
 		});
 };
 
-function addHeart(){
-	var $id = "<%= loginMember.getMemberId() %>";
+function getProduct(){
+
 	$.ajax({
-		url: "<%=request.getContextPath()%>/member/AddHeart",
-		data: {"memberId" : $id},
+		url: "<%=request.getContextPath()%>/market/XmlProductList",
+		data: { "memberId" : "<%= loginMember.getMemberId() %>"},
+		dataType: "text",
 		success : function(data) {
-			
-			var $root = $(data).find(":root");
-			var $hearts = $root.find("heart");
-			var gScore = $hearts.children("goodScore").text();
-			console.log(gScore);
-			var $goodScore = $(".my-profile-good").children("h3").html("");
-			
-			$goodScore.append(" : "+gScore);
-			
+			console.log(data);
+			$(".my-board").html('');
+			$(".my-board").append(data);
 			},
 		error : function(xhr, status,err) {
 			console.log(xhr, status,err);
@@ -189,7 +193,8 @@ function addHeart(){
 				
 				$table.css({"border" : "1px solid #444444"});
 				$table.find('td').css({"border" : "1px solid #444444"});
-				
+
+				$(".my-board").html('');
 				$(".my-board").append($table);
 				
 			},

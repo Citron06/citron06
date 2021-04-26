@@ -30,7 +30,7 @@ public class MemberDeleteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(result>0) {
 			session.setAttribute("msg", "회원정보를 삭제했습니다.");
-			response.sendRedirect(request.getContextPath() + "/member/memberView");
+			response.sendRedirect(request.getContextPath() + "/member/memberLogout");
 		}
 		else {
 			session.setAttribute("msg", "회원정보삭제에 실패했습니다.");

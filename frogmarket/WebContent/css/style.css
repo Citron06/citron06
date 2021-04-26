@@ -39,6 +39,14 @@ a {
 	color: #000;
 }
 
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
 .header-container {
 	width: 1024px;
 	height: 80px;
@@ -236,19 +244,18 @@ h1 {
 
 [class*='board-box'] {
 	width: 270px;
-	height: 220px;
+	height: 230px;
 	margin: 20px 10px 0;
 	display: inline-block;
-	background-color: rgb(233, 233, 233);
+	background-color: #fff;
 	border-radius: 8px;
-	border: 1px solid #e9e9e9;
 	overflow: hidden;
 }
 
 .thumbnail {
 	width: 270px;
 	height: 160px;
-	background-color: rgb(175, 175, 175);
+	background-color: #efeae1;
 }
 
 .product-title {
@@ -256,15 +263,28 @@ h1 {
 	margin: 5px 10px;
 }
 
-.product-title p {
-	margin: 0;
-	font-size: 15px;
-	color: rgb(119, 119, 119);
+.product-title span {
+    display: block;
+    font-weight: 600;
+    color: #212529;
+    font-size: 16px;
+	text-align: left;
+    line-height: 18px;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.product-title h3 {
+.product-title p {
 	margin: 0;
-	font-size: 20px;
+	padding: 0;
+	text-align: left;
+    font-weight: 600;
+    color: #ff8a3d;
+    font-size: 15px;
+    line-height: 18px;
+    margin-top: 6px;
 }
 
 .more {
@@ -272,7 +292,8 @@ h1 {
 	height: 50px;
 	margin: 0 auto;
 	margin: 30px 10px 10px;
-	background-color: rgb(214, 214, 214);
+	padding: 10px 0;
+	background-color: rgb(238 238 238);
 	border-radius: 8px;
 	border: 1px solid #e9ecef;
 }
@@ -544,7 +565,7 @@ footer {
 [class*='black-board-box'] {
 	width: 410px;
 	height: 140px;
-	background-color: rgb(235, 235, 235);
+	background-color: rgb(240 230 230);
 }
 
 [class*='black-board-box'] div {
@@ -605,6 +626,7 @@ footer {
 .market-img-container {
 	width: 1024px;
 	height: 560px;
+	margin-bottom: 30px
 }
 
 .photo-left-btn {
@@ -664,7 +686,7 @@ footer {
 
 .seller-profile {
 	float: left;
-	width: 720px;
+	width: 820px;
 	padding: 20px 10px;
 }
 
@@ -677,10 +699,10 @@ footer {
 }
 
 .market-up-del-container {
-	width: 840px;
+	width: 940px;
 	height: 40px;
 	margin: 0 auto;
-	padding: 0 30px;
+	padding: 0 10px;
 	border-bottom: 1px solid #e9ecef;
 }
 
@@ -696,7 +718,7 @@ footer {
 }
 
 .commet-container {
-	width: 820px;
+	width: 1000px;
 	height: auto;
 	padding: 0 40px 40px;
 	margin: 0 auto;
@@ -707,7 +729,7 @@ footer {
 }
 
 .comment-reader {
-	width: 900px;
+	width: 1000px;
 	height: auto;
 	margin: 0 auto;
 	margin-bottom: 10px;
@@ -747,10 +769,16 @@ footer {
 	margin: 15px;
 	background-color: saddlebrown;
 	border-radius: 80px;
+	overflow: hidden;
+}
+
+.comment-reader-icon img {
+	width: 50px;
+	height: 50px;
 }
 
 .comment-writer {
-	width: 820px;
+	width: 1000px;
 	height: 150px;
 	margin: 0 auto;
 	margin-bottom: 40px;
@@ -765,7 +793,7 @@ footer {
 }
 
 .comment_inbox_text {
-	width: 760px;
+	width: 860px;
 	height: 30px;
 	margin: 20px 0 10px 20px;
 	border: 0;

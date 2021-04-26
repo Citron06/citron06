@@ -19,6 +19,7 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 					} else{ 
 						for(Product p : list){
 				%>
+				
 							<div class="board-box1" style="cursor:pointer;"
 							onclick="location.href='<%= request.getContextPath()%>/market/marketView?no=<%=p.getNo() %>';">
 			                    <div class="thumbnail">
@@ -31,23 +32,25 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 			                        <p><%=p.getTitle() %>, 글번호<%=p.getNo() %></p><input type="hidden" id="boardNo" value="<%=p.getNo() %>"/>
 			                        <h3><%=p.getPrice() %>￦</h3>
 			                    </div>
-			                </div>
-			                <form action="<%= request.getContextPath()%>/member/deleteCart" method="post" name="deleteCartFrm" >
-								<input type="hidden" name=memberId value="<%=loginMember.getMemberId()%>"/>
-								<input type="hidden" name=boardNo value="<%=p.getNo() %>" />
-								<button type=submit style="width: 100px; border-radius: 80px; background-color:#fff; border:1px solid #d4d4d4;">삭제</button>
-							</form>
-			               <!--  <input type="button" value="삭제" onclick="deleteCart()">-->
-			                      
+			                </div>		
+			                <div>              
+			         		 <button value="<%= p.getNo() %>" style="width: 100px; border-radius: 80px; background-color:#fff; border:1px solid #d4d4d4;" class="btn-delete">삭제</button>
+			             	</div>	 
 				<%
 						}
+						%>
+						<div class="more"><%=request.getAttribute("pageBar") %></div>
+						<%
 					}
 				%>
-				 <div class="more"><%=request.getAttribute("pageBar") %></div>
+				 
  		</div>
 </div>
 </section>
- 
+ <form action="<%= request.getContextPath()%>/member/deleteCart" method="post" name="deleteCartFrm" >
+		<input type="hidden" name=id value="<%=loginMember.getMemberId() %>"/>
+		<input type="hidden" name=no value="" />
+	</form>
  <!-- section끝 -->
     <!-- 게시글 쓰기 이동 버튼 시작 -->
     <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/member/memberView';" 
@@ -55,6 +58,13 @@ List<Product> list = (List<Product>)request.getAttribute("list");
     <!-- 게시글 쓰기 이동 버튼 끝 -->
     
 <script>
+$(".btn-delete").click(function(){
+		var $frm = $(document.deleteCartFrm);
+		var boardNo = $(this).val();
+		$frm.find("[name=no]").val(boardNo);
+		$frm.submit();
+	
+})
    
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

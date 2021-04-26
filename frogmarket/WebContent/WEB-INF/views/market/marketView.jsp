@@ -1,6 +1,6 @@
 <%@page import="oracle.net.aso.l"%>
 <%@page import="member.model.service.MemberService"%>
-<%@page import="market.model.vo.ProductComment"%>
+<%@page import="market.model.vo.ProductCommentExt"%>
 <%@page import="market.model.vo.pAttach"%>
 <%@page import="java.util.List"%>
 <%@page import="member.model.vo.Member"%>
@@ -15,7 +15,7 @@
 	Product product = (Product)request.getAttribute("product");
 	Member member = (Member)request.getAttribute("member");
 	List<pAttach> attachList = (List<pAttach>)request.getAttribute("attachList");
-	List<ProductComment> commentList = (List<ProductComment>)request.getAttribute("commentList");
+	List<ProductCommentExt> commentList = (List<ProductCommentExt>)request.getAttribute("commentList");
 
 	 boolean editable = 
 				loginMember != null &&
@@ -50,7 +50,7 @@
 						
 		                <div style="text-align:center">
 						<% for(pAttach attach : attachList){ %>
-							<span class="dot" onclick="currentSlide(<%=slidePageNo++%>)"></span> 
+							<span class="dot" style="margin: 20px 0;" onclick="currentSlide(<%=slidePageNo++%>)"></span> 
 						<% } %>	
 						</div>
                		<% } %>
@@ -83,20 +83,20 @@
                 <h3><%=product.getPrice() %>원</h3>
                 <span><%=product.getDescription() %></span>
             </div>
-		<div class="market-up-del-container">
 			<%
 				if (loginMember != null) {
 			%>
-			<input type="button" style="width: 100px; border-radius: 80px;" value="장바구니" onclick="addCart();">
+			<div class="market-up-del-container">
+				<input type="button" style="width: 100px; border-radius: 80px;" value="장바구니" onclick="addCart();">
 			<%
 				if (editable) {
 			%>
-			<input type="button" value="삭제" onclick="deleteProduct()">
-			<input type="button" value="수정" onclick="updateProduct()">
+				<input type="button" value="삭제" onclick="deleteProduct()">
+				<input type="button" value="수정" onclick="updateProduct()">
+				<%
+					}
+				%>
 		</div>
-		<%
-			}
-		%>
 		<%
 			}
 		%>
@@ -104,14 +104,19 @@
                 <h3 style="margin: 10px 35px;">댓글란</h3>
                 <%if(commentList!=null && !commentList.isEmpty()) {%>
                 
-               	 <%for(ProductComment pc : commentList) {
+               	 <%for(ProductCommentExt pc : commentList) {
                		boolean removable = loginMember != null && (loginMember.getMemberId().equals(pc.getWriter())
         					|| "A".equals(loginMember.getMemberRole()));
                	 %>
-               	                	 
                 <div class="reader-inbox">
-                    <div class="comment-reader-icon"></div>
-                    <h4><%=pc.getWriter() %></h4>
+                    <div class="comment-reader-icon">
+                    	<% if(member.getIcon() == null || member.getIcon().isEmpty()){ %>
+							<img src="<%= request.getContextPath() %>/img/icon1.jpg">
+						<% } else { %>
+							<img src="<%= request.getContextPath() %>/img/<%= pc.getIcon() %>">
+						<% } %>
+                    </div>
+                    <h4><%=pc.getNickId() %></h4>
                     <p><%=pc.getContent() %></p>
                     <p><%=pc.getRegDate() %></p>
                       <%if(removable) {%>

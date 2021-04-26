@@ -5,14 +5,13 @@ import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
-import java.io.Console;
 import java.sql.Connection;
 import java.util.List;
 
-import market.model.vo.Product;
-import market.model.vo.ProductComment;
 import market.model.dao.MarketDao;
 import market.model.vo.Product;
+import market.model.vo.ProductComment;
+import market.model.vo.ProductCommentExt;
 import market.model.vo.pAttach;
 
 public class MarketService {
@@ -235,6 +234,27 @@ public class MarketService {
 		}
 
 		return result;
+	}
+
+	public List<ProductCommentExt> selectCommentExtList(int no) {
+
+		Connection conn = getConnection();
+		
+		List<ProductCommentExt> list = marketDao.selectCommentExtList(conn, no);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public List<Product> selectMemberList(String id) {
+		Connection conn = getConnection();
+		
+		List<Product> list = marketDao.selectMemberList(conn, id);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

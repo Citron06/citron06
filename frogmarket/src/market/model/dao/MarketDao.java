@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import market.model.vo.Product;
 import market.model.vo.ProductComment;
+import market.model.vo.ProductCommentExt;
 import market.model.vo.pAttach;
 
 public class MarketDao {
@@ -569,4 +570,97 @@ public class MarketDao {
 		
 		return result;
 	}
+
+	public List<ProductCommentExt> selectCommentExtList(Connection conn, int no) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentListExt");
+		//String sql = "select * from reply R join member M using(member_id) where board_no = ?";
+		List<ProductCommentExt> commentList = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, no);
+
+			rset = pstmt.executeQuery();
+
+			commentList = new ArrayList<>();
+
+			while (rset.next()) {
+				ProductCommentExt pc = new ProductCommentExt();
+
+				pc.setNo(rset.getInt("no"));
+				pc.setBoardNo(rset.getInt("board_no"));
+				pc.setWriter(rset.getString("member_id"));
+				pc.setContent(rset.getString("content"));
+				pc.setRegDate(rset.getDate("reg_date"));
+				pc.setPassword(rset.getString("password"));
+				pc.setMemberRole(rset.getString("member_role"));
+				pc.setPhone(rset.getString("phone"));
+				pc.setEmail(rset.getString("email"));
+				pc.setEnrollDate(rset.getDate("enroll_date"));
+				pc.setGoodScore(rset.getInt("good_score"));
+				pc.setNickId(rset.getString("nick_id"));
+				pc.setIcon(rset.getString("icon"));
+
+				commentList.add(pc);
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return commentList;
+	}
+
+	public List<Product> selectMemberList(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMemberList");
+		ResultSet rset = null;
+		List<Product> list = new ArrayList<Product>();
+		Product product = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				product = new Product();
+				product.setNo(rset.getInt("board_no"));
+				product.setTitle(rset.getString("title"));
+				product.setStatus(rset.getString("status"));
+				product.setPrice(rset.getInt("sell_price"));
+				product.setArea(rset.getString("area_info"));
+				product.setId(rset.getString("seller_id"));
+				product.setDescription(rset.getString("description"));
+				product.setRegDate(rset.getDate("reg_date"));
+
+				// 첨부파일이 있는 경우
+				if (rset.getString("filename") != null) {
+					pAttach attach = new pAttach();
+					attach.setRenamedFileName(rset.getString("filename"));
+					product.setAttach(attach);
+				}
+
+				list.add(product);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+	
+	
 }

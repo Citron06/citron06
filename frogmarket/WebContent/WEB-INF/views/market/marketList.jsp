@@ -15,8 +15,8 @@
                     <h3>중고거래</h3>
                 </div>
                 
-                <%if(list==null || list.isEmpty()){ %>
-					<p>조회된 게시글이 없습니다.</p>
+                <%if(list == null || list.isEmpty()){ %>
+					<p style="margin: 180px 0;">조회된 게시글이 없습니다.</p>
 				<%
 					} else{ 
 						for(Product p : list){
@@ -26,12 +26,13 @@
 			                    <div class="thumbnail">
 			                    <%if(p.getAttach()!=null){ %>
 			                    	<img src="<%=request.getContextPath() %>/upload/market/<%=p.getAttach().getRenamedFileName() %>"
+			                    	alt="<%=p.getTitle()%>"
 		                			width="270px"  height="160px">
 			                    <% } %>
 			                    </div>
 			                    <div class="product-title">
-			                        <p><%=p.getTitle() %>, 글번호:<%=p.getNo() %></p>
-			                        <h3><%=p.getPrice() %>￦</h3>
+			                    	<span><%=p.getTitle()%></span>
+			                        <p><%=p.getPrice() %>￦</p>
 			                    </div>
 			                </div>
 				<%
