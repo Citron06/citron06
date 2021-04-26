@@ -8,9 +8,7 @@
 %>
 
 <div class="board"  style="width: 775px;">
-	<div class="section-title">
-		<h3>중고거래</h3>
-	</div>
+	<div class="section-title"><h3>중고거래</h3></div>
 	<div class="board-container" style="width: 600px; margin: 0 auto; margin-top: 80px; margin-bottom: 80px;">
 		<%
 			if (list == null || list.isEmpty()) {

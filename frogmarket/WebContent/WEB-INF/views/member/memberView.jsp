@@ -168,7 +168,7 @@ function getProduct(){
 			
 			success: function(data){
 				console.log(data);
-				var $table = $("<table></table>");
+				var $table = $("<table style='margin: 0 auto; margin-top: 30px; margin-bottom: 30px;'></table>");
 				
 				$(data).each(function(index,obj){
 					var no = obj.no;
@@ -187,6 +187,7 @@ function getProduct(){
 					tr += "<td>" + receiverId + "</td>";
 					tr += "<td>" + title + "</td>";
 					tr += "<td>" + content + "</td>";
+					tr +='<td><input type="button" value="삭제" name="'+no+'"></td>';
 					tr +="</tr>";
 					$table.append(tr);
 				});
@@ -195,7 +196,8 @@ function getProduct(){
 				$table.find('td').css({"border" : "1px solid #444444"});
 
 				$(".my-board").html('');
-				$(".my-board").append($table);
+				$(".my-board").append("<div class='section-title'><h3>댓글 알림</h3></div>")
+							.append($table);
 				
 			},
 			error: function(xhr, status, err){
@@ -203,6 +205,28 @@ function getProduct(){
 			}
 		});
 	}
+	
+	//동적 생성 버튼 감지
+	$(document).on('click',':button', function(){
+		var $tr=$(this);
+		console.log($tr.attr('name'));
+	
+		$.ajax({
+			url: "<%= request.getContextPath()%>/notice/noticeDelete",
+			method: "get",
+			data: {
+				no : $tr.attr('name')
+			},
+			
+			success: function(){
+				$tr.parent().parent().remove();
+				
+			},
+			error: function(xhr, status, err){
+				console.log(xhr, status, err);
+			}
+		});		
+	});
 
 </script>
 

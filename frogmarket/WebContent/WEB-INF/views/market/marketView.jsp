@@ -35,7 +35,6 @@
                 		<h1>첨부된 사진이 없습니다.</h1>
                 	<% }else{ 
                 		int slidePageNo=1;
-                		
                 	%>
 						<% for(pAttach attach : attachList){ %>
 		                <div class="mySlides fade">
@@ -57,7 +56,6 @@
 				</div>
                 <br>
        	        
-						
             </div>
             <div class="seller-title">
             <form id="targetMemberFrm" method="get" style="margin: 0; padding: 0;">
@@ -75,6 +73,17 @@
                         <h3><%=member.getNickId() %></h3>
                     </div>
                     <div class="seller-good-info">
+                    	<%if(("new").equals(product.getStatus())){ %>
+						<h3 style="color: #ff8a3d;">판매중</h3>
+						<%}else if(("reserved").equals(product.getStatus())){ %>
+						<h3 style="color: red;">예약중</h3>
+						<% }else{ %>
+						<h3 style="color: #b0b0b0;">판매완료</h3>
+						<% } %>
+					</div><div class="seller-good-info" style="margin-right: 20px;">
+                    	<h3 style="color: #b78f8f;"><%= product.getArea() %></h3>
+					</div>
+					<div class="seller-good-info" style="margin-right: 20px;">
                         <h3>좋아요 : <%=member.getGoodScore() %></h3>
                     </div>
                 </div>
