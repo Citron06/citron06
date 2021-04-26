@@ -60,13 +60,16 @@
 						
             </div>
             <div class="seller-title">
-                <div class="seller-icon">
+            <form id="targetMemberFrm" method="get" style="margin: 0; padding: 0;">
+                <div class="seller-icon" onclick="targetPage();" style="cursor: pointer;">
 					<% if(member.getIcon() == null || member.getIcon().isEmpty()){ %>
 					<img src="<%= request.getContextPath() %>/img/icon1.jpg" alt="">
 					<% } else { %>
 					<img src="<%= request.getContextPath() %>/img/<%= member.getIcon() %>" alt="">
 					<% } %>
+					<input type="hidden" name="memberId" value="<%= member.getMemberId() %>"/>
                 </div>
+                </form>
                 <div class="seller-profile">
                     <div class="seller-profile-info">
                         <h3><%=member.getNickId() %></h3>
@@ -109,13 +112,16 @@
         					|| "A".equals(loginMember.getMemberRole()));
                	 %>
                 <div class="reader-inbox">
-                    <div class="comment-reader-icon">
+            		<form id="targetMemberFrm" method="get" style="margin: 0; padding: 0;">
+                    <div class="comment-reader-icon" onclick="targetPage();" style="cursor: pointer;">
                     	<% if(member.getIcon() == null || member.getIcon().isEmpty()){ %>
 							<img src="<%= request.getContextPath() %>/img/icon1.jpg">
 						<% } else { %>
 							<img src="<%= request.getContextPath() %>/img/<%= pc.getIcon() %>">
 						<% } %>
+					<input type="hidden" name="memberId" value="<%= member.getMemberId() %>"/>
                     </div>
+                    </form>
                     <h4><%=pc.getNickId() %></h4>
                     <p><%=pc.getContent() %></p>
                     <p><%=pc.getRegDate() %></p>
@@ -180,6 +186,14 @@
 		value="<%=product.getNo()%>" />
 </form>
 <script>
+
+function targetPage() {
+	$("#targetMemberFrm")
+	.attr("action","<%=request.getContextPath()%>/member/memberTarget")
+	.submit();
+}
+
+
   $(".comment-delete").click(function(){
 	  if(confirm("해당 댓글을 삭제하시겠습니까?")){
 		  var $frm = $(document.marketCommentDelFrm);

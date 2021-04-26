@@ -32,6 +32,13 @@
 			                    </div>
 			                    <div class="product-title">
 			                    	<span><%=p.getTitle()%></span>
+			                    		<%if(("new").equals(p.getStatus())){ %>
+			                    			<p>판매중</p>
+			                    		<%}else if(("reserved").equals(p.getStatus())){ %>
+			                    			<p style="color: red;">예약중</p>
+			                    		<% }else{ %>
+			                    			<p style="color: #b0b0b0;">판매완료</p>
+			                    		<% } %>
 			                        <p><%=p.getPrice() %>￦</p>
 			                    </div>
 			                </div>

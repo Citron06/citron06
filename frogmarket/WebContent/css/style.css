@@ -244,7 +244,7 @@ h1 {
 
 [class*='board-box'] {
 	width: 270px;
-	height: 230px;
+	height: 250px;
 	margin: 20px 10px 0;
 	display: inline-block;
 	background-color: #fff;
@@ -493,7 +493,7 @@ h1 {
 .my-board {
 	float: right;
 	width: 780px;
-	height: 1240px;
+	height: auto;
 	border-radius: 0;
 	margin: 0;
 }

@@ -83,7 +83,7 @@
 <script>
 
 function addHeart(){
-	var $id = "<%= loginMember.getMemberId() %>";
+	var $id = "<%= member.getMemberId() %>";
 	$.ajax({
 		url: "<%=request.getContextPath()%>/member/AddHeart",
 		data: {"memberId" : $id},

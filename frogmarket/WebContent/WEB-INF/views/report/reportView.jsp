@@ -57,13 +57,16 @@
        	        
             </div>
             <div class="reporter-title">
-                <div class="reporter-icon">
-					<% if(member.getIcon() == null || member.getIcon().isEmpty()){ %>
-					<img src="<%= request.getContextPath() %>/img/icon1.jpg" alt="">
-					<% } else { %>
-					<img src="<%= request.getContextPath() %>/img/<%= member.getIcon() %>" alt="">
-					<% } %>
-                </div>
+            	<form id="targetMemberFrm" method="get" style="margin: 0; padding: 0;">
+	                <div class="reporter-icon" onclick="targetPage();" style="cursor: pointer;">
+						<% if(member.getIcon() == null || member.getIcon().isEmpty()){ %>
+						<img src="<%= request.getContextPath() %>/img/icon1.jpg" alt="">
+						<% } else { %>
+						<img src="<%= request.getContextPath() %>/img/<%= member.getIcon() %>" alt="">
+						<% } %>
+						<input type="hidden" name="memberId" value="<%= member.getMemberId() %>"/>
+	                </div>
+                </form>
                 <div class="reporter-profile">
                     <div class="reporter-profile-info">
                         <h3><%= member.getNickId() %></h3>
@@ -93,6 +96,7 @@
 		name="reportDelFrm">
 		<input type="hidden" name="no" value="<%= report.getReportNo() %>"/>
 	</form>
+	
 	<script>
 	function deleteReport(){
 		if(confirm("게시글을 정말 삭제하시겠습니까?")) {
@@ -102,6 +106,14 @@
 	</script>
 <%} %>
 <script>
+
+function targetPage() {
+	$("#targetMemberFrm")
+	.attr("action","<%=request.getContextPath()%>/member/memberTarget")
+	.submit();
+}
+
+
 		var slideIndex = 1;
 		showSlides(slideIndex);
 		
