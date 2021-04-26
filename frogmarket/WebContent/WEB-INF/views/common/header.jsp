@@ -45,7 +45,7 @@
 			</div>
 			<div class="head menu">
 				<div class="head market">
-				<%if(keyword!=null){ %>
+				<%if(keyword != null){ %>
 					<a href="<%= request.getContextPath() %>/market/marketFinder?header-search=<%=keyword %>"><h1>마켓 게시판</h1></a>
 				<%} else { %>
 					<a href="<%= request.getContextPath() %>/market/marketList"><h1>마켓 게시판</h1></a>

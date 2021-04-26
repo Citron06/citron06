@@ -47,7 +47,7 @@ public class MemberDao {
 
 			if (rset.next()) {
 				member = new Member();
-				
+
 				member.setMemberId(rset.getString("MEMBER_ID"));
 				member.setPassword(rset.getString("PASSWORD"));
 				member.setMemberRole(rset.getString("MEMBER_ROLE"));
@@ -129,7 +129,7 @@ public class MemberDao {
 		String query = prop.getProperty("deleteMember");
 
 		try {
-			
+
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, membmerId);
@@ -168,7 +168,7 @@ public class MemberDao {
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setIcon(rset.getString("icon"));
-				
+
 				list.add(member);
 			}
 		} catch (Exception e) {
@@ -179,7 +179,7 @@ public class MemberDao {
 		}
 		return list;
 	}
-	
+
 	public List<Member> selectList(Connection conn, int start, int end) {
 		List<Member> list = null;
 		PreparedStatement pstmt = null;
@@ -205,7 +205,7 @@ public class MemberDao {
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setIcon(rset.getString("icon"));
-				
+
 				list.add(member);
 			}
 		} catch (Exception e) {
@@ -221,7 +221,7 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updateMemberRole");
-		
+
 		try {
 
 			pstmt = conn.prepareStatement(query);
@@ -269,7 +269,7 @@ public class MemberDao {
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setIcon(rset.getString("icon"));
-				
+
 				list.add(member);
 			}
 		} catch (Exception e) {
@@ -335,12 +335,18 @@ public class MemberDao {
 	}
 
 	public String setQuery(String query, String searchType, String searchKeyword) {
-		switch(searchType) {
-		case "memberId" 	: query = query.replace("#", " member_id like '%" + searchKeyword + "%'"); break;
-		case "memberName" 	: query = query.replace("#", " member_name like '%" + searchKeyword + "%'"); break;
-		case "gender" 		: query = query.replace("#", " gender = '" + searchKeyword + "'"); break;
+		switch (searchType) {
+		case "memberId":
+			query = query.replace("#", " member_id like '%" + searchKeyword + "%'");
+			break;
+		case "memberName":
+			query = query.replace("#", " member_name like '%" + searchKeyword + "%'");
+			break;
+		case "gender":
+			query = query.replace("#", " gender = '" + searchKeyword + "'");
+			break;
 		}
-		
+
 		return query;
 	}
 
@@ -383,7 +389,7 @@ public class MemberDao {
 	public int addHeart(Connection conn, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query =  "update member set good_score = ? where member_id = ?";
+		String query = "update member set good_score = ? where member_id = ?";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -401,7 +407,6 @@ public class MemberDao {
 
 		return result;
 	}
-	
 
 	/**
 	 * 
@@ -432,50 +437,48 @@ public class MemberDao {
 		return result;
 	}
 
-	
 	/**
 	 * 장바구니 db에서 가져오기
 	 */
 	public List<Cart> selectCartList(Connection conn, String memberId) {
-		
+
 		PreparedStatement pstmt = null;
 		String sql = "select * from cart where member_id = ?";
 		List<Cart> list = null;
 		ResultSet rset = null;
-		
+
 		try {
-			
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, memberId);
-			
+
 			rset = pstmt.executeQuery();
-			
+
 			list = new ArrayList<Cart>();
-			
-			while(rset.next()) {
-				
+
+			while (rset.next()) {
+
 				Cart cart = new Cart();
 				cart.setBasketNo(rset.getInt("basket_no"));
 				cart.setMemberId(rset.getString("member_id"));
 				cart.setBoardNo(rset.getInt("board_no"));
 				cart.setRegDate(rset.getDate("reg_date"));
-				
+
 				list.add(cart);
 			}
-			
+
 		} catch (SQLException e) {
-		
+
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
+
 		return list;
 	}
-	
+
 	/**
 	 * 장바구니 삭제
 	 */
@@ -503,7 +506,7 @@ public class MemberDao {
 
 		return result;
 	}
-	
+
 	/**
 	 * 장바구니용 상품 선택
 	 * 
@@ -554,16 +557,20 @@ public class MemberDao {
 		return list;
 	}
 
-	public int selectCartCount(Connection conn) {
-		
-	
+	public int selectCartCount(Connection conn, String memberId) {
+
 		PreparedStatement pstmt = null;
 //		String sql = prop.getProperty("selectProductCount");
-		String sql = "select count(*) cnt from cart";
+		String sql = "select count(*) cnt from cart where member_id = ?";
 		int count = 0;
+
 		ResultSet rset = null;
 		try {
+			System.out.println(memberId);
 			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, memberId);
+
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				count = rset.getInt("cnt");

@@ -187,9 +187,9 @@ public class MemberService {
 		return list;
 	}
 
-	public int selectCartCount() {
+	public int selectCartCount(String memberId) {
 		Connection conn = getConnection();
-		int totalContent = memberDao.selectCartCount(conn);
+		int totalContent = memberDao.selectCartCount(conn, memberId);
 		close(conn);
 		
 		return totalContent;

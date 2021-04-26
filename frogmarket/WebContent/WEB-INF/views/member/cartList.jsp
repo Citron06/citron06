@@ -19,7 +19,7 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 					} else{ 
 						for(Product p : list){
 				%>
-				
+				<div style="display:inline-block;">
 							<div class="board-box1" style="cursor:pointer;"
 							onclick="location.href='<%= request.getContextPath()%>/market/marketView?no=<%=p.getNo() %>';">
 			                    <div class="thumbnail">
@@ -35,7 +35,8 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 			                </div>		
 			                <div>              
 			         		 <button value="<%= p.getNo() %>" style="width: 100px; border-radius: 80px; background-color:#fff; border:1px solid #d4d4d4;" class="btn-delete">삭제</button>
-			             	</div>	 
+			             	</div>	
+			             	</div> 
 				<%
 						}
 						%>

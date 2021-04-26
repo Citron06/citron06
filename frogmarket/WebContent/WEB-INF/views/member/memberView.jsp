@@ -158,54 +158,53 @@ function getProduct(){
 		});
 };
 
-	function noticeList(){
-		$.ajax({
-			url: "<%= request.getContextPath()%>/notice/noticeList",
-			method: "get",
-			data: {
-				memberId : "<%= loginMember.getMemberId() %>"
-			},
+function noticeList(){
+	$.ajax({
+		url: "<%= request.getContextPath()%>/notice/noticeList",
+		method: "get",
+		data: {
+			memberId : "<%= loginMember.getMemberId() %>"
+		},
+		
+		success: function(data){
+			//console.log(data);
+			var $table = $("<table></table>");
+			var url = '<%=request.getContextPath() %>/market/marketView?no=';
 			
-			success: function(data){
-				console.log(data);
-				var $table = $("<table style='margin: 0 auto; margin-top: 30px; margin-bottom: 30px;'></table>");
-				
-				$(data).each(function(index,obj){
-					var no = obj.no;
-					var boardNo = obj.boardNo;
-					var senderId = obj.senderId;
-					var senderNick = obj.senderNick;
-					var receiverId = obj.receiverId;
-					var title = obj.title;
-					var content = obj.content;
-					
-					var tr = "<tr>";
-					tr += "<td>" + no + "</td>";
-					tr += "<td>" + boardNo + "</td>";
-					tr += "<td>" + senderId + "</td>";
-					tr += "<td>" + senderNick + "</td>";
-					tr += "<td>" + receiverId + "</td>";
-					tr += "<td>" + title + "</td>";
-					tr += "<td>" + content + "</td>";
-					tr +='<td><input type="button" value="삭제" name="'+no+'"></td>';
-					tr +="</tr>";
-					$table.append(tr);
-				});
-				
-				$table.css({"border" : "1px solid #444444"});
-				$table.find('td').css({"border" : "1px solid #444444"});
+			$(data).each(function(index,obj){
+				var no = obj.no;
+				var boardNo = obj.boardNo;
+				var senderId = obj.senderId;
+				var senderNick = obj.senderNick;
+				var receiverId = obj.receiverId;
+				var title = obj.title;
+				var content = obj.content;
+				var tr = "<tr>";
+				tr += "<td>" + no + "</td>";
+				tr += "<td>" + boardNo + "</td>";
+				tr += "<td>" + senderId + "</td>";
+				tr += "<td>" + senderNick + "</td>";
+				tr += "<td>" + receiverId + "</td>";
+				tr += '<td><a href="'+ url + boardNo + '" style="color: #8ebf42">' + title + '</a></td>';
+				tr += "<td>" + content + "</td>";
+				tr +='<td><input type="button" value="삭제" name="'+no+'"></td>';
+				tr +="</tr>";
+				$table.append(tr);
+			});
+			
+			$table.css({"border" : "1px solid #444444"});
+			$table.find('td').css({"border" : "1px solid #444444"});
 
-				$(".my-board").html('');
-				$(".my-board").append("<div class='section-title'><h3>댓글 알림</h3></div>")
-							.append($table);
-				
-			},
-			error: function(xhr, status, err){
-				console.log(xhr, status, err);
-			}
-		});
-	}
-	
+			$(".my-board").empty();
+			$(".my-board").append($table);
+			
+		},
+		error: function(xhr, status, err){
+			console.log(xhr, status, err);
+		}
+	});
+}
+		
 	//동적 생성 버튼 감지
 	$(document).on('click',':button', function(){
 		var $tr=$(this);

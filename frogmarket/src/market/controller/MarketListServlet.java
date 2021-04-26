@@ -56,6 +56,7 @@ public class MarketListServlet extends HttpServlet {
 				);
 		
 		//3. 응답 html처리
+		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/market/marketList.jsp")
