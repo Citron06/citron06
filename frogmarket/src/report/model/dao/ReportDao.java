@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import member.model.vo.Member;
 import report.model.exception.ReportException;
 import report.model.vo.RAttach;
 import report.model.vo.Report;
@@ -222,6 +221,57 @@ public class ReportDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public List<RAttach> selectAttachList(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		List<RAttach> list = new ArrayList<>();
+		String sql = prop.getProperty("selectAttachList");
+		ResultSet rset = null;
+		RAttach attach = null;
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				attach = new RAttach();
+
+				attach.setNo(rset.getInt("no"));
+				attach.setReportNo(rset.getInt("report_no"));
+				attach.setOriginalFileName(rset.getString("original_filename"));
+				attach.setRenamedFileName(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+
+				list.add(attach);
+			}
+
+		} catch (Exception e) {
+			throw new ReportException("첨부파일 조회 오류",e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	public int deleteReport(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteReport");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new ReportException("게시물 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

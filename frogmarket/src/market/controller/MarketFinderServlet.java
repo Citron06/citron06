@@ -39,11 +39,11 @@ public class MarketFinderServlet extends HttpServlet {
 				int end = cPage * numPerPage;
 				int start = (cPage-1)*numPerPage + 1;
 				//1. 사용자 입력값 처리
-				//String searchKeyword = request.getParameter("searchKeyword");
-				//System.out.println("searchKeyword@servlet = "+searchKeyword);
+				String searchKeyword = request.getParameter("header-search");
+				System.out.println("searchKeyword@servlet = "+searchKeyword);
 						
 				//헤더의 검색값가져오기
-				String searchKeyword = request.getParameter("header-search");
+//				String searchKeyword = request.getParameter("header-search");
 				request.getSession().setAttribute("searchKeyword", searchKeyword);
 				//2. 업무로직
 				

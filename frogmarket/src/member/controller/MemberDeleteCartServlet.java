@@ -17,34 +17,43 @@ import member.model.vo.Cart;
 public class MemberDeleteCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberService = new MemberService();
- 
+
 	public MemberDeleteCartServlet() {
-		super();
+		
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+			String id = request.getParameter("id");
+			int no = Integer.parseInt(request.getParameter("no"));
 
-		String memberId = request.getParameter("memberId");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		System.out.println(boardNo);
-		System.out.println(memberId);
-		
-		Cart cart = new Cart();
-		
-		cart.setMemberId(memberId);
-		cart.setBoardNo(boardNo);
-		
-		int result = memberService.deleteCart(cart);
-		String msg = result >0? "장바구니 삭제 성공" : "장바구니 삭제 실패!";
-		
-		//피드백
-		request.getRequestDispatcher("/WEB-INF/views/member/cartList.jsp").forward(request, response);
+			System.out.println(id);
+			System.out.println(no);
+
+			Cart cart = new Cart();
+
+			cart.setMemberId(id);
+			cart.setBoardNo(no);
+
+			int result = memberService.deleteCart(cart);
+			String msg = result > 0 ? "장바구니 삭제 성공" : "장바구니 삭제 실패!";
+
+			// 피드백
+
+			//response.sendRedirect("http://localhost:9090/frog/member/cartList");
+			response.sendRedirect(request.getContextPath()+ "/member/cartList");
 		
 	}
-	
-	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+	}
+
+
 }

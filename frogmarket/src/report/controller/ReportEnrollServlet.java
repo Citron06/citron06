@@ -49,25 +49,39 @@ public class ReportEnrollServlet extends HttpServlet {
 			String target = multipartRequest.getParameter("target");
 			String comment = multipartRequest.getParameter("comment");
 
-			// 업로드한 파일명
-			String originalFileName = multipartRequest.getOriginalFileName("upFile");
-			String renamedFileName = multipartRequest.getFilesystemName("upFile");
-
 			Report report = new Report();
 
 			report.setMemberId(id);
 			report.setMemberReportId(target);
 			report.setContent(comment);
 
-			if (originalFileName != null) {
+			String[] originalFileArr = new String[5];
+			String[] renamedFileArr = new String[5];
+
+			int i = 0;
+
+			while (multipartRequest.getOriginalFileName("upFile" + i) != null) {
+				originalFileArr[i] = multipartRequest.getOriginalFileName("upFile" + i);
+				renamedFileArr[i] = multipartRequest.getFilesystemName("upFile" + i);
+
+				System.out.println("upFile" + i + " : " + originalFileArr[i]);
+				i++;
+			}
+
+			RAttach[] attArr = new RAttach[5];
+
+			i = 0;
+
+			while (originalFileArr[i] != null) {
 				RAttach attach = new RAttach();
-				attach.setOriginalFileName(originalFileName);
-				attach.setRenamedFileName(renamedFileName);
-				report.setAttach(attach);
+				attach.setOriginalFileName(originalFileArr[i]);
+				attach.setRenamedFileName(renamedFileArr[i]);
+				attArr[i] = attach;
+				i++;
 			}
 
 			// 2. 업무로직 : db에 insert
-			int result = reportService.insertReport(report);
+			int result = reportService.insertReport(report, attArr);
 
 			HttpSession session = request.getSession();
 

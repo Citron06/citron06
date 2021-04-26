@@ -45,7 +45,7 @@ public class MemberAddCartServlet extends HttpServlet {
 		String msg = result >0? "장바구니 등록 성공" : "장바구니 등록 실패!";
 		
 		//피드백
-		
+		request.setAttribute("msg", msg);
 		response.sendRedirect(request.getContextPath()+"/market/marketView?no="+boardNo);
 	}
 

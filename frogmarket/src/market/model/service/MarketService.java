@@ -5,6 +5,7 @@ import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
+import java.io.Console;
 import java.sql.Connection;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import market.model.vo.ProductComment;
 import market.model.dao.MarketDao;
 import market.model.vo.Product;
 import market.model.vo.pAttach;
-import member.model.vo.Cart;
 
 public class MarketService {
 	private MarketDao marketDao = new MarketDao();
@@ -28,18 +28,16 @@ public class MarketService {
 			//생성된 product_no를 가져오기
 			int productNo =  marketDao.selectLastProductNo(conn);
 			product.setNo(productNo);
+			System.out.println("productNo : "+productNo);
 			
-//			if(product.getAttach()!=null) {
-//				//참조할 marketNo 세팅
-//				product.getAttach().setProductNo(productNo);
-//				result = marketDao.insertAttachment(conn,product.getAttach());
-//			}
 			int i=0;
-			while(attArr[i]!=null) {
+			while(i<5 && attArr[i]!=null) {
 				attArr[i].setProductNo(productNo);
 				result = marketDao.insertAttachment(conn,attArr[i]);
 				i++;
 			}
+
+			
 			commit(conn);
 
 		} catch (Exception e) {
@@ -122,22 +120,31 @@ public class MarketService {
 		close(conn);
 		return totalContent;
 	}
-
-	public int updateProduct(Product product, pAttach[] attArr) {
+	//3가지기능 : product수정, file제거, file추가
+	public int updateProduct(Product product, int[] prevAttachNo, pAttach[] attArr) {
 		Connection conn = getConnection();
 		int result = 0;
 		
 		try {
 			result = marketDao.updateProduct(conn,product);
 
-//			int i=0;
-//			while(attArr[i]!=null) {
-//				attArr[i].setProductNo(productNo);
-//				result = marketDao.insertAttachment(conn,attArr[i]);
-//				i++;
-//			}
+			if(prevAttachNo!=null) {
+				for(int i=0;i<prevAttachNo.length;i++) {
+					result = marketDao.deleteAttachment(conn,prevAttachNo[i]);	//delete previous files
+				}
+			}
+			
+			int i=0;
+			while(attArr[i]!=null) {
+				attArr[i].setProductNo(product.getNo());
+				result = marketDao.insertAttachment(conn,attArr[i]);	//insert new files
+				i++;
+			}
+			
+			
+			
+			
 			commit(conn);
-
 		} catch (Exception e) {
 //			e.printStackTrace();
 			rollback(conn);
@@ -211,6 +218,23 @@ public class MarketService {
 		return result;
 	}
 
-	
-	
+	public int deleteProduct(int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = marketDao.deleteProduct(conn,no);
+			if(result==0)
+				throw new IllegalArgumentException("해당 게시글이 존재하지 않습니다. : "+no);
+			commit(conn);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			rollback(conn);
+			throw e; //controller가 예외처리를 결정할 수 있도록 연결.
+		} finally {
+			close(conn);
+		}
+
+		return result;
+	}
+
 }

@@ -2,9 +2,6 @@ package member.model.vo;
 
 import java.sql.Date;
 
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-
 /**
  * 
  * VO클래스
@@ -21,6 +18,7 @@ public class Member {
 	private Date enrollDate;
 	private String nickId;
 	private double goodScore;
+	private String icon;
 	
 	public Member() {
 		super();
@@ -28,7 +26,7 @@ public class Member {
 	}
 
 	public Member(String memberId, String password, String memberRole, String email, String phone, Date enrollDate,
-			String nickId, double goodScore) {
+			String nickId, double goodScore, String icon) {
 		super();
 		this.memberId = memberId;
 		this.password = password;
@@ -38,6 +36,7 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.nickId = nickId;
 		this.goodScore = goodScore;
+		this.icon = icon;
 	}
 
 	public String getMemberId() {
@@ -104,10 +103,19 @@ public class Member {
 		this.goodScore = goodScore;
 	}
 
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", password=" + password + ", memberRole=" + memberRole + ", email="
 				+ email + ", phone=" + phone + ", enrollDate=" + enrollDate + ", nickId=" + nickId + ", goodScore="
-				+ goodScore + "]";
+				+ goodScore + ", icon=" + icon + "]";
 	}
+
 }

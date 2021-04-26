@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import common.MvcUtils;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -18,51 +19,53 @@ import member.model.vo.Member;
 public class MemberLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService service = new MemberService();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberLoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp")
- 	   .forward(request, response);
+	public MemberLoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		String memberId = request.getParameter("loginId");
+		String password = request.getParameter("loginPw");
+//		String password = MvcUtils.getSha512(request.getParameter("loginPw"));
 		
 		Member loginMember = new Member();
+		loginMember.setMemberId(memberId);
+		loginMember.setPassword(password);
 		
-		loginMember.setMemberId(request.getParameter("loginId"));
-		loginMember.setPassword(request.getParameter("loginPw"));
-		
-		loginMember = service.selectOne(loginMember);
-		
-		//System.out.println(loginMember.toString());
-		
+		Member member = service.selectOne(loginMember);
+
 		HttpSession session = request.getSession(true);
-		session.setAttribute("loginUser", loginMember);
-		if (loginMember != null) 
-		{	System.out.println(loginMember.toString());
-			request.getRequestDispatcher("/index.jsp")
-			.forward(request, response);
-		}
-		else
-		{
-			request.getRequestDispatcher("/WEB-INF/views/member/memberLoginError.jsp")
-			.forward(request, response);
-		}
 		
+		session.setAttribute("loginMember", member);
+		
+		if(member != null && password.equals(member.getPassword())) {
+			response.sendRedirect(request.getContextPath());
+		} else {
+			request.getSession().setAttribute("msg", "로그인에 실패하셨습니다.");
+			response.sendRedirect(request.getContextPath());
+		}
+
 	}
 
 }

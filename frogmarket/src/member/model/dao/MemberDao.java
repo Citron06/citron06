@@ -37,17 +37,17 @@ public class MemberDao {
 		String query = prop.getProperty("selectOne");
 
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
-			// 미완성 쿼리문 값대입
+
 			pstmt.setString(1, loginMember.getMemberId());
 			pstmt.setString(2, loginMember.getPassword());
 
-			// 쿼리문실행
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
 				member = new Member();
+				
 				member.setMemberId(rset.getString("MEMBER_ID"));
 				member.setPassword(rset.getString("PASSWORD"));
 				member.setMemberRole(rset.getString("MEMBER_ROLE"));
@@ -56,6 +56,7 @@ public class MemberDao {
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+				member.setIcon(rset.getString("icon"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,8 +64,8 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		return member;
 
+		return member;
 	}
 
 	public int insertMember(Connection conn, Member member) {
@@ -73,19 +74,18 @@ public class MemberDao {
 		String query = prop.getProperty("insertMember");
 
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
-			// 쿼리문미완성
+
 			pstmt.setString(1, member.getMemberId());
 			pstmt.setString(2, member.getPassword());
 			pstmt.setString(3, member.getMemberRole());
-			pstmt.setString(4, member.getEmail());
-			pstmt.setString(5, member.getPhone());
-			pstmt.setString(6, member.getNickId());
-			pstmt.setDouble(7, member.getGoodScore());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getEmail());
+			pstmt.setDouble(6, member.getGoodScore());
+			pstmt.setString(7, member.getNickId());
+			pstmt.setString(8, member.getIcon());
 
-			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-			// DML은 executeUpdate()
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -103,18 +103,15 @@ public class MemberDao {
 		String query = prop.getProperty("updateMember");
 
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+
 			pstmt.setString(1, member.getMemberId());
 			pstmt.setString(2, member.getPassword());
-			pstmt.setString(3, member.getMemberRole());
-			pstmt.setString(4, member.getEmail());
-			pstmt.setString(5, member.getPhone());
-			pstmt.setString(6, member.getNickId());
-			pstmt.setDouble(7, member.getGoodScore());
-			pstmt.setString(8, member.getMemberId());
+			pstmt.setString(3, member.getEmail());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getNickId());
+			pstmt.setString(6, member.getMemberId());
 
-			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-			// DML은 executeUpdate()
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -132,43 +129,15 @@ public class MemberDao {
 		String query = prop.getProperty("deleteMember");
 
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+			
 			pstmt = conn.prepareStatement(query);
-			// 쿼리문미완성
+
 			pstmt.setString(1, membmerId);
 
-			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-			// DML은 executeUpdate()
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-
-		return result;
-	}
-
-	public int updatePassword(Connection conn, Member member) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String query = prop.getProperty("updatePassword");
-		// updatePassword = update member set password = ? where member_id = ?
-
-		try {
-			// 미완성쿼리문을 가지고 객체생성.
-			pstmt = conn.prepareStatement(query);
-			// 쿼리문미완성
-			pstmt.setString(1, member.getPassword());
-			pstmt.setString(2, member.getMemberId());
-
-			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-			// DML은 executeUpdate()
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
 		}
 
 		return result;
@@ -180,11 +149,11 @@ public class MemberDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectList");
-		// select * from member order by enroll_date desc
+
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
-			// 쿼리문실행
+
 			rset = pstmt.executeQuery();
 
 			list = new ArrayList<>();
@@ -196,9 +165,10 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
-
+				member.setNickId(rset.getString("NICK_ID"));
+				member.setIcon(rset.getString("icon"));
+				
 				list.add(member);
 			}
 		} catch (Exception e) {
@@ -209,18 +179,18 @@ public class MemberDao {
 		}
 		return list;
 	}
-
+	
 	public List<Member> selectList(Connection conn, int start, int end) {
 		List<Member> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectPagedList");
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
-			// 쿼리문실행
+
 			rset = pstmt.executeQuery();
 
 			list = new ArrayList<>();
@@ -232,9 +202,10 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
-
+				member.setNickId(rset.getString("NICK_ID"));
+				member.setIcon(rset.getString("icon"));
+				
 				list.add(member);
 			}
 		} catch (Exception e) {
@@ -250,16 +221,14 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updateMemberRole");
-
+		
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
-			// 쿼리문미완성
+
 			pstmt.setString(1, member.getMemberRole());
 			pstmt.setString(2, member.getMemberId());
 
-			// 쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-			// DML은 executeUpdate()
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -277,19 +246,15 @@ public class MemberDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("searchPagedMember");
-		// select * from member where member_id like %a%
-		// select * from member where member_name like %동%
-		// select * from member where gender = 'M'
-		// select * from ( select row_number() over(order by enroll_date desc) rnum, M.*
-		// from member M where #) M where rnum between ? and ?
+
 		query = setQuery(query, param.get("searchType"), param.get("searchKeyword"));
-		System.out.println("query@dao = " + query);
+
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, param.get("start"));
 			pstmt.setString(2, param.get("end"));
-			// 쿼리문실행
+
 			rset = pstmt.executeQuery();
 
 			list = new ArrayList<>();
@@ -301,9 +266,10 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
-
+				member.setNickId(rset.getString("NICK_ID"));
+				member.setIcon(rset.getString("icon"));
+				
 				list.add(member);
 			}
 		} catch (Exception e) {
@@ -323,9 +289,9 @@ public class MemberDao {
 		String query = prop.getProperty("selectMemberCount");
 
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
-			// 쿼리문실행
+
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -346,14 +312,14 @@ public class MemberDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("searchMemberCount");
-		// select count(*) cnt from member M where #
+
 		query = setQuery(query, param.get("searchType"), param.get("searchKeyword"));
 		System.out.println("query@dao = " + query);
 
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
-			// 쿼리문실행
+
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -369,18 +335,12 @@ public class MemberDao {
 	}
 
 	public String setQuery(String query, String searchType, String searchKeyword) {
-		switch (searchType) {
-		case "memberId":
-			query = query.replace("#", " member_id like '%" + searchKeyword + "%'");
-			break;
-		case "memberName":
-			query = query.replace("#", " member_name like '%" + searchKeyword + "%'");
-			break;
-		case "gender":
-			query = query.replace("#", " gender = '" + searchKeyword + "'");
-			break;
+		switch(searchType) {
+		case "memberId" 	: query = query.replace("#", " member_id like '%" + searchKeyword + "%'"); break;
+		case "memberName" 	: query = query.replace("#", " member_name like '%" + searchKeyword + "%'"); break;
+		case "gender" 		: query = query.replace("#", " gender = '" + searchKeyword + "'"); break;
 		}
-
+		
 		return query;
 	}
 
@@ -388,15 +348,14 @@ public class MemberDao {
 		Member member = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-//		String query = prop.getProperty("selectMemberId");
+
 		String query = "select * from member where member_id=?";
 		try {
-			// 미완성쿼리문을 가지고 객체생성.
+
 			pstmt = conn.prepareStatement(query);
-			// 미완성 쿼리문 값대입
+
 			pstmt.setString(1, id);
 
-			// 쿼리문실행
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -407,8 +366,9 @@ public class MemberDao {
 				member.setEmail(rset.getString("EMAIL"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				member.setNickId(rset.getString("NICK_ID"));
 				member.setGoodScore(rset.getDouble("GOOD_SCORE"));
+				member.setNickId(rset.getString("NICK_ID"));
+				member.setIcon(rset.getString("icon"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -419,6 +379,29 @@ public class MemberDao {
 		return member;
 
 	}
+
+	public int addHeart(Connection conn, Member member) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query =  "update member set good_score = ? where member_id = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setDouble(1, member.getGoodScore() + 1);
+			pstmt.setString(2, member.getMemberId());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
 
 	/**
 	 * 

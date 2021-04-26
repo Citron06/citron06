@@ -14,18 +14,20 @@
 <body>
 	<h1 class="mini-title">LOGIN</h1>
 	<div class="login-container">
-		<div class="profile-icon"></div>
+		<div class="profile-icon">
+			<img src="<%= request.getContextPath() %>/img/user.png" alt="">
+		</div>
 		<form id="loginForm" class="login-form" action="<%= request.getContextPath() %>/member/login" method="post">
 			<div class="login-icon login-id">
-				<input name="loginId" type="text" id="LoginId" onKeypress="if(event.keyCode == 13) loginFunction()">
+				<input name="loginId" type="text" id="LoginId" placeholder="아이디" onKeypress="if(event.keyCode == 13) loginFunction()">
 			</div>
 			<div class="login-icon login-pwd">
-				<input name="loginPw" type="text" id="LoginPw"onkeypress="if(event.keyCode == 13) loginFunction()">
+				<input name="loginPw" type="text" id="LoginPw" placeholder="비밀번호" onkeypress="if(event.keyCode == 13) loginFunction()">
 			</div>
 		<hr>
 		<div class="btns">
-			<input type="button" name="" id="loginButton" value="submit" onclick="loginFunction()">
 			<input type="button" name="cancle" id="cancelButton" value="cancel" onclick="cancelFunction()"> 
+			<input type="button" name="" id="loginButton" value="submit" onclick="loginFunction()">
 		</div>
 		</form>
 	</div>

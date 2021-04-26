@@ -11,9 +11,9 @@
                 <div class="add_product-top">
                     <h1>상품등록</h1>
                     <!-- writer의 value는 loginMember의 getId를 해야 함. -->
-                    <input type="hidden" name="writer" value="oneman"/>
+                    <input type="hidden" name="writer" value="<%= loginMember.getMemberId() %>"/>
                     
-                    <select name="status">
+                    <select name="status" style="display:none">
                         <option value="new" selected="selected">판매중</option>
                         <option value="reserved">예약중</option>
                         <option value="soldout">판메 완료</option>
@@ -78,32 +78,29 @@ $(document.marketEnrollFrm).submit(function(){
 		$(elem).attr('disabled', false);
 	});
 });
-
-function setThumbnail(event){
-
-	var num = $('div.add-product-photo img').length;
-	console.log("childnum : "+num);
+function setThumbnail(e){
 	
-	if(num>=5){
-		alert("사진은 5개까지 첨부할 수 있습니다.")
-	}
-	else {
-		var reader = new FileReader(); 
-		reader.onload = function(event) { 
-			var img = document.createElement("img"); 
-			img.setAttribute("src", event.target.result); 
-			img.setAttribute("width","82px");
-			img.setAttribute("height","82px");
-			document.querySelector("span.add-product-img"+num).innerText="";
-			document.querySelector("span.add-product-img"+num).appendChild(img);
+	var total = $('div.add-product-photo img').length;
+	var num = (e.target.name).substring(6);
+	console.log("total : "+total);
+	console.log("thisNum : "+num);
 
-			$("#input-file"+num).attr('disabled', true);
-		};
-		reader.readAsDataURL(event.target.files[0]);
-
-		createNewBox();
-	}
-	
+	var reader = new FileReader(); 
+	reader.onload = function(event) { 
+		var img = document.createElement("img"); 
+		img.setAttribute("src", event.target.result); 
+		img.setAttribute("width","82px");
+		img.setAttribute("height","82px");
+		
+		var newImg = document.querySelector("span.add-product-img"+num);
+		//새박스를 만드는 경우
+		if(newImg.firstChild.tagName!='IMG' && total<4)
+			createNewBox();		
+		
+		newImg.innerText="";	//이전 내용물 삭제
+		newImg.appendChild(img);	//세 썸네일 추가
+	};
+	reader.readAsDataURL(e.target.files[0]);	
 }
 
 function createNewBox(){
@@ -117,8 +114,6 @@ function createNewBox(){
 	$('div.add-product-photo').append($label);
 	$('div.add-product-photo').append($input);
 }
-
-
 
 
 </script>

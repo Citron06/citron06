@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import common.MvcUtils;
 import market.model.service.MarketService;
@@ -57,11 +56,6 @@ public class MarketListServlet extends HttpServlet {
 				);
 		
 		//3. 응답 html처리
-		
-		String searchKeyword = request.getParameter("header-search");
-//		HttpSession session = request.getSession();
-//		session.setAttribute("searchKeyword", searchKeyword);
-		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/market/marketList.jsp")

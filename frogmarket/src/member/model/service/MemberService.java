@@ -1,6 +1,9 @@
 package member.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -50,17 +53,6 @@ public class MemberService {
     public int deleteMember(String memberId) {
 		Connection conn = getConnection();
 		int result = memberDao.deleteMember(conn, memberId);
-		if(result>0)
-			commit(conn);
-		else 
-			rollback(conn);
-		close(conn);
-		return result;
-	}
-
-	public int updatePassword(Member member) {
-		Connection conn = getConnection();
-		int result = memberDao.updatePassword(conn, member);
 		if(result>0)
 			commit(conn);
 		else 
@@ -121,6 +113,18 @@ public class MemberService {
 		close(conn);
 		return member;
 	}
+
+	public int addHeart(Member member) {
+		Connection conn = getConnection();
+		int result = memberDao.addHeart(conn, member);
+		if(result>0)
+			commit(conn);
+		else 
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
 
 	/**
 	 * 장바구니 등록

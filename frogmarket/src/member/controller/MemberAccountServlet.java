@@ -50,15 +50,20 @@ public class MemberAccountServlet extends HttpServlet {
 		member.setEmail(request.getParameter("email"));
 		member.setPhone(request.getParameter("phone"));
 		member.setNickId(request.getParameter("nickId"));
+		member.setIcon(request.getParameter("icon"));
 		member.setMemberRole(MEMBER_ROLE);
 		
 		int result = memberService.insertMember(member);
 		
-		HttpSession session = request.getSession(true);
-		session.setAttribute("AccountUser", member);
+		String msg = "";
+		if(result>0)
+			msg = "성공적으로 회원가입되었습니다.";
+		else 
+			msg = "회원등록에 실패했습니다.";	
 		
-		System.out.println(member.toString());
-		request.getRequestDispatcher("/WEB-INF/views/member/accountResult.jsp").forward(request, response);
+		request.getSession().setAttribute("msg", msg);
+		
+		response.sendRedirect(request.getContextPath());
 	}
 
 }

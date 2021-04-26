@@ -48,23 +48,24 @@ public class GraphDrawServlet extends HttpServlet {
 			// System.out.println("그래프 키워드" + graphKeyword);
 			System.out.println(keyword);
 
-			List<Graph> list = null;
-			if (keyword != null) {
-				list = graphService.searchProductList(keyword);
+			// List <Graph> list = graphService.selectList(keyword);
+			List<Graph> list = graphService.searchProductList(keyword);
+			// if(keyword !=null || graphKeyword!=null) {
 
-			}
 			// }
 //			 for(Graph g : list) {
 //			 System.out.println(g.getRegDate());
 //			 }
 
-			response.setContentType("application/json; charset=utf-8");
-			Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();
-			String jsonStr = gson.toJson(list);
+			
+				response.setContentType("application/json; charset=utf-8");
+				Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();
+				String jsonStr = gson.toJson(list);
 
-			System.out.println(jsonStr);
-			PrintWriter out = response.getWriter();
-			out.print(jsonStr);
+				System.out.println(jsonStr);
+				PrintWriter out = response.getWriter();
+				out.print(jsonStr);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
