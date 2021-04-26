@@ -292,10 +292,24 @@ h1 {
 	height: 50px;
 	margin: 0 auto;
 	margin: 30px 10px 10px;
-	padding: 10px 0;
+	padding: 12px 0;
 	background-color: rgb(238 238 238);
 	border-radius: 8px;
 	border: 1px solid #e9ecef;
+}
+
+.more a {
+	color: #fff;
+    padding: 5px;
+    background-color: #aeaeae;
+    border-radius: 5px;
+}
+
+.more span {
+	color: #8e8e8e;
+    padding: 5px;
+    background-color: #ffffff;
+    border-radius: 5px;
 }
 
 /* ++++++++++++++++++++++++LOGIN+++++++++++++++++++++++= */
