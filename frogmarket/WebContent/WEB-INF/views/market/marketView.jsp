@@ -123,12 +123,12 @@
                 <div class="reader-inbox">
             		<form id="targetMemberFrm" method="get" style="margin: 0; padding: 0;">
                     <div class="comment-reader-icon" onclick="targetPage();" style="cursor: pointer;">
-                    	<% if(member.getIcon() == null || member.getIcon().isEmpty()){ %>
+                    	<% if(pc.getIcon() == null || pc.getIcon().isEmpty()){ %>
 							<img src="<%= request.getContextPath() %>/img/icon1.jpg">
 						<% } else { %>
 							<img src="<%= request.getContextPath() %>/img/<%= pc.getIcon() %>">
 						<% } %>
-					<input type="hidden" name="memberId" value="<%= member.getMemberId() %>"/>
+					<input type="hidden" name="memberId" value="<%= pc.getMemberId() %>"/>
                     </div>
                     </form>
                     <h4><%=pc.getNickId() %></h4>

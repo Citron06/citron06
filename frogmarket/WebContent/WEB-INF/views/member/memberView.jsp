@@ -36,7 +36,7 @@
 					<h3> : <%= loginMember.getGoodScore() %></h3>
 				</div>
 				<div class="my-profile-market-count">
-					<h3>게시글 수 : </h3>
+					<h3>아이디 : @<%= loginMember.getMemberId() %></h3>
 				</div>
 			</div>
 		</div>
