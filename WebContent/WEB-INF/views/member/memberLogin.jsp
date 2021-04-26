@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< Updated upstream
 <title>Frog Market</title>
+=======
+<title>로그인</title>
+>>>>>>> Stashed changes
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/css/style.css" />
 	

@@ -20,8 +20,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Frog Market</title>
 <<<<<<< Updated upstream
+<title>Frog Market</title>
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+=======
+<title>Main Page</title>
+>>>>>>> Stashed changes
+>>>>>>> 1e4bd583052f1a5332a3ee54a4db057f52317737
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
@@ -86,11 +93,22 @@
 					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>/member/login';">
 					<!-- <input type="button" value="My Page" onclick="location.href='<%= request.getContextPath() %>';"> -->
 =======
+<<<<<<< HEAD
 					<% if(loginMember == null) { %>
+=======
+<<<<<<<< Updated upstream:WebContent/WEB-INF/views/common/header.jsp
+					<% if(session.getAttribute("loginUser") == null) { %>
+>>>>>>> 1e4bd583052f1a5332a3ee54a4db057f52317737
 					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>/member/login';">
 					<% } else { %>
 					<input type="button" value="My Page" onclick="location.href='<%= request.getContextPath() %>/member/memberView';">
 					<% } %>
+<<<<<<< HEAD
+=======
+========
+					<input type="button" value="Login" onclick="location.href='<%= request.getContextPath() %>/member/login';">
+>>>>>>>> Stashed changes:frogmarket/WebContent/WEB-INF/views/common/header.jsp
+>>>>>>> 1e4bd583052f1a5332a3ee54a4db057f52317737
 >>>>>>> Stashed changes
 				</div>
 			</div>

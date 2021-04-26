@@ -125,30 +125,54 @@ public class Member {
 		return goodScore;
 	}
 <<<<<<< Updated upstream
+<<<<<<< HEAD
 =======
 <<<<<<<< Updated upstream:src/member/model/vo/Member.java
 >>>>>>> Stashed changes
+=======
 
 	public void setGoodScore(double goodScore) {
 		this.goodScore = goodScore;
 	}
 
+=======
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+>>>>>>> 1e4bd583052f1a5332a3ee54a4db057f52317737
+
+========
+	
+>>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
+	public void setGoodScore(double goodScore) {
+		this.goodScore = goodScore;
+	}
+	
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+	public String getIcon() {
+		return icon;
+	}
+
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 	public String getIcon() {
 		return icon;
 	}
 
+=======
+>>>>>>> 1e4bd583052f1a5332a3ee54a4db057f52317737
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
 
 ========
+<<<<<<< HEAD
 	
 	public void setGoodScore(double goodScore) {
 		this.goodScore = goodScore;
 	}
 	
+=======
+>>>>>>> 1e4bd583052f1a5332a3ee54a4db057f52317737
 >>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
 >>>>>>> Stashed changes
 	@Override
@@ -157,14 +181,22 @@ public class Member {
 				+ email + ", phone=" + phone + ", enrollDate=" + enrollDate + ", nickId=" + nickId + ", goodScore="
 <<<<<<< Updated upstream
 				+ goodScore + "]";
+<<<<<<< HEAD
 	}
 =======
 <<<<<<<< Updated upstream:src/member/model/vo/Member.java
 				+ goodScore + ", icon=" + icon + "]";
 	}
 
+=======
+=======
+<<<<<<<< Updated upstream:src/member/model/vo/Member.java
+				+ goodScore + ", icon=" + icon + "]";
+>>>>>>> 1e4bd583052f1a5332a3ee54a4db057f52317737
 ========
 				+ goodScore + "]";
+>>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
+>>>>>>> Stashed changes
 	}
 >>>>>>>> Stashed changes:frogmarket/src/member/model/vo/Member.java
 >>>>>>> Stashed changes

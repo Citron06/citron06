@@ -25,10 +25,17 @@
 <<<<<<< Updated upstream
     <div class="acount-container">
         <form class="acount-form" action="">
+<<<<<<< Updated upstream
             <label for="">아이디</label><input type="text" name="" id="">
             <label for="">비밀번호</label><input type="password" name="" id="">
             <label for="">비밀번호 확인</label><input type="password" name="" id="">
             <label for="">별명</label><input type="text" name="" id="">
+=======
+            <label for="">이름</label><input type="text" name="" id="">
+            <label for="">별명</label><input type="text" name="" id="">
+            <label for="">비밀번호</label><input type="password" name="" id="">
+            <label for="">비밀번호 확인</label><input type="password" name="" id="">
+>>>>>>> Stashed changes
             <label for="">이메일</label><input type="email" name="" id="">
             <label for="">전화번호</label><input type="tel" name="" id="">
         <hr>

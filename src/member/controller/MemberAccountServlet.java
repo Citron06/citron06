@@ -57,6 +57,10 @@ public class MemberAccountServlet extends HttpServlet {
 		member.setMemberRole(MEMBER_ROLE);
 		
 		int result = memberService.insertMember(member);
+<<<<<<< Updated upstream
+=======
+		System.out.println("member@servlet = " + member);
+>>>>>>> Stashed changes
 		
 <<<<<<< Updated upstream
 		HttpSession session = request.getSession(true);

@@ -3,7 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< Updated upstream
 <title>Frog Market</title>
+=======
+<title>회원가입</title>
+>>>>>>> Stashed changes
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>

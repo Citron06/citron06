@@ -27,7 +27,9 @@
                 <div class="my-profile-menu">
                     <h2>회원 정보</h2>
                     <p>회원정보 수정</p>
-                    <p>회원 탈퇴</p>
+                    <div class="go-account">
+						<a href="<%= request.getContextPath() %>/member/delete">회원탈퇴</a>
+					</div>
                     <h2>상품</h2>
                     <p>내 상품 목록</p>
                     <p>상품등록</p>

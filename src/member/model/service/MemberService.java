@@ -58,9 +58,15 @@ public class MemberService {
 		return result;
 	}
     
+<<<<<<< Updated upstream
     public int deleteMember(String memberId) {
 		Connection conn = getConnection();
 		int result = memberDao.deleteMember(conn, memberId);
+=======
+    public int deleteMember(Member member) {
+		Connection conn = getConnection();
+		int result = memberDao.deleteMember(conn, member);
+>>>>>>> Stashed changes
 		if(result>0)
 			commit(conn);
 		else 

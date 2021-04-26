@@ -1,7 +1,6 @@
-﻿package member.controller;
+package member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,32 +9,51 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberDeleteServlet
  */
-@WebServlet("/member/memberDelete")
+@WebServlet("/member/delete")
 public class MemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MemberService service = new MemberService();
+       
 	private MemberService memberService = new MemberService();
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MemberDeleteServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/member/memberDelete.jsp")
+ 	   .forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
-		String memberId = request.getParameter("memberId");
+		Member member = new Member();
 		
-		int result = memberService.deleteMember(memberId);
+		member.setPassword(request.getParameter("password"));
 		
-		HttpSession session = request.getSession();
-		if(result>0) {
-			session.setAttribute("msg", "회원정보를 삭제했습니다.");
-			response.sendRedirect(request.getContextPath() + "/member/memberLogout");
-		}
-		else {
-			session.setAttribute("msg", "회원정보삭제에 실패했습니다.");
-			response.sendRedirect(request.getContextPath());			
-		}
+		int result = memberService.insertMember(member);
+		
+		HttpSession session = request.getSession(true);
+		session.setAttribute("deleteUser", member);
+		
+		System.out.println(member.toString());
+		request.getRequestDispatcher("/WEB-INF/views/member/deleteResult.jsp").forward(request, response);
+		
 	}
 
 }
