@@ -14,8 +14,8 @@
 	<div class="section-body black-section">
 		<div class="board black-board">
 		<%if(keyword == null && gKeyword == null){ %>
-			<div class="board">
-				<h1>조회된 결과가 없습니다</h1>
+			<div class="board" style="margin: 0 auto; margin-top: 80px;">
+				<h1 style="margin: 130px 0;">검색어를 입력해주세요 :)</h1>
 			</div>
 		<%}else { %>
      		<canvas id="myChart" style="display:inline-block; width:800px; height:600px"></canvas>
@@ -29,6 +29,8 @@
 </section>
 <!-- section끝 -->
   <script>
+
+
     var chartLabels = [];
     var chartPrice=[];
     var chartDate = [];
@@ -104,6 +106,7 @@
     		    
     		  ]
     		};
+
     		//차트 설정
     		let config = {
     				  type: 'scatter',
@@ -190,6 +193,7 @@
     		      if (activePoints[0]) {
     		        var chartData = activePoints[0]['_chart'].config.data;
     		        var idx = activePoints[0]['_index'];
+
     		        var label = chartData.labels[idx];
     		        var value = chartData.datasets[0].data[idx];
     		        var boardNo = label.split(" ")[0];

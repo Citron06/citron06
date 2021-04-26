@@ -213,3 +213,24 @@ order by no desc
 ;
 select no,board_no,sender_id, nick_id, receiver_id,title,content from (select * from notice N left join member M on n.sender_id = M.member_id) N where receiver_id='oneman' order by no desc
 ;
+select * from reply;
+
+SELECT *
+FROM USER_SEQUENCES;
+
+SELECT * FROM    ALL_CONSTRAINTS
+WHERE    TABLE_NAME = 'MEMBER';
+
+alter TABLE R_BOARD disable CONSTRAINTS pk_R_BOARD cascade;
+alter TABLE NOTICE enable CONSTRAINTS pk_R_BOARD;
+
+select * from member;
+
+insert into member values ('admin8', '1234', 'A', '01012341234', 'abc@gmail.com', sysdate, '10', '관리자8', null);
+select * from r_board;
+
+insert into member values ('admin8', '1234', 'A', '01012341234', 'abc@gmail.com', sysdate, '10', '관리자8', null);
+insert into member values ('newuser', '1234', 'U', '01012341234', 'aaa@gmail.com', sysdate, '1', '새유저1', null);
+
+select * from all_objects where object_type = 'TABLE';
+select * from member;

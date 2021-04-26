@@ -44,7 +44,7 @@ public class MarketFinderServlet extends HttpServlet {
 						
 				//헤더의 검색값가져오기
 //				String searchKeyword = request.getParameter("header-search");
-//				request.getSession().setAttribute("searchKeyword", searchKeyword);
+				request.getSession().setAttribute("searchKeyword", searchKeyword);
 				//2. 업무로직
 				
 				List<Product> list = marketService.searchProductList(searchKeyword, start, end);

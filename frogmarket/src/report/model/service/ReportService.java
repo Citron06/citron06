@@ -8,7 +8,6 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-import member.model.vo.Member;
 import report.model.dao.ReportDao;
 import report.model.vo.RAttach;
 import report.model.vo.Report;
@@ -79,6 +78,30 @@ public class ReportService {
 		List<Report> list = reportDao.searchReport(conn, searchTarget);
 		close(conn);
 		return list;
+	}
+
+	public List<RAttach> selectAttachList(int no) {
+		Connection conn = getConnection();
+		List<RAttach> list = reportDao.selectAttachList(conn, no);
+		close(conn);
+		return list;
+	}
+
+	public int deleteReport(int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = reportDao.deleteReport(conn, no);
+			if(result == 0)
+				throw new IllegalArgumentException("해당 게시글이 존재하지 않습니다. : " + no );
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 
 }

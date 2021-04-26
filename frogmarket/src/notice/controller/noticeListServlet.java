@@ -20,7 +20,7 @@ import notice.model.vo.Notice;
  * Servlet implementation class noticeListServlet
  */
 @WebServlet("/notice/noticeList")
-public class NoticeListServlet extends HttpServlet {
+public class noticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private NoticeService noticeService = new NoticeService();
 	/**
