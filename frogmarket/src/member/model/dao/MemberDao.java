@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import market.model.vo.Product;
+import market.model.vo.pAttach;
 import member.model.vo.Cart;
 import member.model.vo.Member;
 
@@ -354,8 +355,8 @@ public class MemberDao {
 		Member member = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
-		String query = "select * from member where member_id=?";
+		String query =  prop.getProperty("selectMemberId");
+		//String query = "select * from member where member_id=?";
 		try {
 
 			pstmt = conn.prepareStatement(query);
@@ -389,8 +390,9 @@ public class MemberDao {
 	public int addHeart(Connection conn, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "update member set good_score = ? where member_id = ?";
-
+		//String query = "update member set good_score = ? where member_id = ?";
+		String query = prop.getProperty("addHeart");
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 
@@ -415,7 +417,8 @@ public class MemberDao {
 	public int insertCart(Connection conn, Cart cart) {
 
 		PreparedStatement pstmt = null;
-		String sql = "insert into cart values(seq_cart_no.nextval, ?, ?, default)";
+		//String sql = "insert into cart values(seq_cart_no.nextval, ?, ?, default)";
+		String sql = prop.getProperty("insertCart");
 		int result = 0;
 
 		try {
@@ -443,7 +446,8 @@ public class MemberDao {
 	public List<Cart> selectCartList(Connection conn, String memberId) {
 
 		PreparedStatement pstmt = null;
-		String sql = "select * from cart where member_id = ?";
+		//String sql = "select * from cart where member_id = ?";
+		String sql = prop.getProperty("selectCartList");
 		List<Cart> list = null;
 		ResultSet rset = null;
 
@@ -485,8 +489,8 @@ public class MemberDao {
 	public int deleteCart(Connection conn, Cart cart) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "delete from cart where member_id = ? and board_no = ?";
-
+		//String sql = "delete from cart where member_id = ? and board_no = ?";
+		String sql = prop.getProperty("deleteCart");
 		try {
 			// 미완성쿼리문을 가지고 객체생성.
 			pstmt = conn.prepareStatement(sql);
@@ -518,9 +522,8 @@ public class MemberDao {
 	 */
 	public List<Product> selectList(Connection conn, List<Cart> cList, int start, int end) {
 		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("selectList");
-//		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.no attach_no, a.original_filename, a.renamed_filename from p_board b left join p_attach a on b.board_no = a.board_no) B where rnum between ? and ?";
-		String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no) B where board_no = ?";
+		String sql = prop.getProperty("selectPCartList");
+		//String sql = "select * from(select row_number() over(order by b.board_no desc) rnum,  b.*, a.filename from p_board b left join (select B.board_no, min(no), min(a.renamed_filename) filename from p_board B left join p_attach A on B.board_no = A.board_no group by B.board_no) a on b.board_no = a.board_no) B where board_no = ?";
 
 		ResultSet rset = null;
 		List<Product> list = new ArrayList<Product>();
@@ -544,6 +547,12 @@ public class MemberDao {
 					product.setPrice(rset.getInt("sell_price"));
 					product.setArea(rset.getString("area_info"));
 
+					// 첨부파일이 있는 경우
+					if (rset.getString("filename") != null) {
+						pAttach attach = new pAttach();
+						attach.setRenamedFileName(rset.getString("filename"));
+						product.setAttach(attach);
+					}
 					list.add(product);
 				}
 			}
@@ -560,8 +569,8 @@ public class MemberDao {
 	public int selectCartCount(Connection conn, String memberId) {
 
 		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("selectProductCount");
-		String sql = "select count(*) cnt from cart where member_id = ?";
+		String sql = prop.getProperty("selectCartCount");
+		//String sql = "select count(*) cnt from cart where member_id = ?";
 		int count = 0;
 
 		ResultSet rset = null;

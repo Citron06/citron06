@@ -104,8 +104,8 @@ public class GraphDao {
 	public List<Graph> searchProductList(Connection conn, String[] keywordArr) {
 		PreparedStatement pstmt = null;
 
-		//String sql = prop.getProperty("searchProductList");
-		String sql = "select * from (select row_number() over(order by board_no desc) rnum, B.* from p_board B where # ) B";
+		String sql = prop.getProperty("searchProductList");
+		//String sql = "select * from (select row_number() over(order by board_no desc) rnum, B.* from p_board B where # ) B";
 
 		sql = setQuery(sql, keywordArr);
 		System.out.println("searchProductList : "+sql);

@@ -54,7 +54,7 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 	</form>
  <!-- section끝 -->
     <!-- 게시글 쓰기 이동 버튼 시작 -->
-    <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/member/memberView';" 
+    <div class="post-btn" onclick="location.href='<%= request.getContextPath()%>/market/marketForm';" 
                 		style="cursor:pointer;"><img src="<%= request.getContextPath() %>/img/add.png"></div>
     <!-- 게시글 쓰기 이동 버튼 끝 -->
     
