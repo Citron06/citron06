@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,24 +22,27 @@ public class MemberUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String memberId = request.getParameter("memberId");
-		String password = request.getParameter("newPassword");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
-		String nickId = request.getParameter("nickId");
-		
-		Member member = new Member();
-		member.setMemberId(memberId);
-		member.setPassword(password);
-		member.setEmail(email);
-		member.setPhone(phone);
-		member.setNickId(nickId);
-		System.out.println("member@servlet = " + member);
+		//String memberId = request.getParameter("memberId");
+        String password = request.getParameter("newPassword");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String nickId = request.getParameter("nickId");
+        //System.out.println(memberId);
 
+
+        HttpSession session = request.getSession();
+        Member loginmember = (Member) session.getAttribute("loginMember");
+        Member member = new Member();
+
+        member.setMemberId(loginmember.getMemberId());
+        member.setPassword(password);
+        member.setEmail(email);
+        member.setPhone(phone);
+        member.setNickId(nickId);
+        System.out.println("member@servlet = " + member);
 		int result = memberService.updateMember(member);
 		System.out.println(result);
 
-		HttpSession session = request.getSession();
 		String msg = "";
 
 		if(result > 0){
