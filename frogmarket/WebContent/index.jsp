@@ -6,22 +6,22 @@
     <section>
        <div class="section no1">
             <div class="first-introduce">
-                <h1 class="index-banner1">깨와 꿀이 떨어진다<br> <span>깨꿀마켓</span></h1>
+            <img src="<%= request.getContextPath() %>/img/main1.jpg" alt="">
             </div>
         </div>
         <div class="section no2">
             <div class="second-introduce">
-                <h1 class="index-banner2">중고 상품들의<br>가격을 한눈에 보자!<br> <span>한눈 그래프</span></h1>
+            <img src="<%= request.getContextPath() %>/img/main2.jpg" alt="">
             </div>
         </div>
         <div class="section no3">
             <div class="third-introduce">
-                <h1 class="index-banner3">편리하게 사용하자<br> <span>마켓 게시판</span></h1>
+            <img src="<%= request.getContextPath() %>/img/main3.jpg" alt="">
             </div>
         </div>
         <div class="section no4">
             <div class="forth-introduce">
-                <h1 class="index-banner4">거래가 너무 만족스러워<br> <span>좋아요 띵동!</span></h1>
+            <img src="<%= request.getContextPath() %>/img/main4.jpg" alt="">
             </div>
         </div>
     </section>

@@ -13,7 +13,9 @@
 <!-- section시작 -->
 <section>
 	<div class="section-body black-section">
-		<div class="black-banner"></div>
+		<div class="black-banner">
+        	<img src="<%= request.getContextPath() %>/img/report_b.jpg" alt="">
+		</div>
 		<div class="board black-board">
 			<div class="section-title black-title">
 				<h3>신고 게시판</h3>
